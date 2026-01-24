@@ -63,3 +63,5 @@ class Shortcuts:
             **KWArgs or {},
             **Shortcuts.GetPageEssentials()
         ))
+
+        return Response
