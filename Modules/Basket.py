@@ -34,3 +34,16 @@ class Basket(Class):
                 continue
             
             self.Public["Items"].pop(FoundIndex)
+
+    def GetDict(self):
+        # CORE
+        JSONBasket = {
+            "Items" : []
+        }
+
+        # Functions
+        # INIT
+        for Product in self.Public["Items"]:
+            JSONBasket["Items"].append(Product.GetDict())
+
+        return JSONBasket

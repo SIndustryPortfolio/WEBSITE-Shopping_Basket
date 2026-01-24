@@ -7,7 +7,7 @@
 # MODULES
 # INT
 from .Utilities import Utilities
-from .Basket import Basket
+from .BasketHandler import BasketHandler
 
 # EXT
 from flask import session, request, render_template, make_response, redirect
@@ -55,13 +55,13 @@ class Shortcuts:
     def GetPageEssentials():
         # Functions
         # INIT
-        if not session.get("Basket", None):
-            session["Basket"] = Basket()
+        if session.get("BasketId", None) == None:
+            session["BasketId"] = BasketHandler.New(Shortcuts.GetClientIP())
 
         return {
             "CoreInfo": CurrentApp.config["CoreInfo"] or {},
             "HostURL" : request.host_url or Shortcuts.GetHostURL(),
-            "Basket": session.get("Basket").items()
+            "Basket": BasketHandler.GetBasket(session.get("BasketId"))
         }
         
 
@@ -83,16 +83,12 @@ class Shortcuts:
     def RenderPage(TemplatePath, PageName, **KWArgs):
         # Functions
         # INIT
-        
-        print("1")
         Packaged = {
             **Shortcuts.GetPageEssentials(),
             **(KWArgs or {}),
             "PageName": PageName,
         }
        
-        print("2")
         Response = make_response(render_template(TemplatePath, **Packaged))
-        print("3")
 
         return Response

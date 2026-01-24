@@ -21,6 +21,7 @@ ModuleRegistry = [
     # SERVICES
     "Modules.Shortcuts",
     "Modules.Database",
+    "Modules.BasketHandler",
 
     # CONTROLLERS
     "Controllers.HomeController"

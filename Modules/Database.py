@@ -49,3 +49,16 @@ class Database:
         # Functions
         # INIT
         return Client[CurrentApp.config["CoreInfo"]["ClusterName"]]
+    
+    @staticmethod
+    def GetAndUpdateCounter(CollectionName): # FOR NUMBER BASED IDs ON RECORDS
+        counterCollection = Database.getDatabase()["Counter"]
+
+        document = counterCollection.find_one_and_update( 
+            {"collection": CollectionName},
+            {"$inc": {"count": 1}},
+            upsert = True,
+            return_document = True
+        )
+
+        return document["count"]

@@ -29,7 +29,7 @@ class Class:
         return self.Public.get(Key, None)
     
     # Return subscriptable (Treat object like dict)
-    def items(self):
+    def GetDict(self):
         # Functions
         # INIT
         return self.Public

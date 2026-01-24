@@ -6,10 +6,10 @@
 
     <br>
 
-    <div class="contaienr text-center">
-        <div style="text-align: center;" class="container-sm">
+    <div class="container text-center">
+        <div class="container">
             <div class="row">
-                <div class="col" style="width: 33%;">
+                <div class="col" style="width: 40%;">
                     <h2>Your basket</h2>
                 
                     <table class="table table-striped">
@@ -17,7 +17,7 @@
                             <th>Product Name</th>
                         </tr>
 
-                        {% for Product in Basket["Items"] %}
+                        {% for Product in Basket.Items %}
                             <tr>
                                 <form action="/remove" method="POST">
                                     <a href="#" type="submit">
@@ -28,26 +28,52 @@
                         {% endfor %}
                     </table>
                 </div>
-                <div class="col" style="width: 33%;">
+                <div class="col" style="width: 20%;">
                     
                 </div>
-                <div class="col" style="width: 33%;">
+                <div class="col" style="width: 40%;">
                     <h2>Catalogue</h2>
                     <table class="table table-striped">
                         <tr>
-                            {% for AttributName in Products[0].items().keys() %}
-                                <th>{{AttributName}}</th>
-                            {% endfor %}
+                            <!--#{% for AttributName in Products[0].GetDict().keys() %}
+                                #<th>{{AttributName}}</th>
+                            #{% endfor %}-->
+
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Offer</th>
+                            <th>Quantity</th>
                         </tr>
 
                         {% for Product in Products %}
                             <tr>
-                                {% for Value in Product.items().values() %}
+                                {% for Value in Product.GetDict().values() %}
                                     <td>{{Value}}</td>
                                 {% endfor %}
+
+                                <td>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button class="btn btn-danger">-</button>
+                                        </div>
+                                        <div class="col">
+                                            <p>0</p>
+                                        </div>
+                                        <div class="col">
+                                            <button class="btn btn-success">+</button>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
+
                         {% endfor %}
                     </table>
+
+                    <br>
+
+                    <form class="text-center" action="/UpdateBasket">
+                        <input type="submit" class="btn btn-secondary" value="Update"/>
+                    </form>
                 </div>
             </div>
         </div>
