@@ -1,8 +1,14 @@
+### READ
+#
+# - General usage short hands
+#
+###
+
 # Module
-# INIT
+# INT
 import json
 import importlib
-import asyncio
+import time
 
 # CORE
 
@@ -19,7 +25,7 @@ class Utilities:
         return data
     
     @staticmethod
-    async def TryFor(Attempts, Function, *Args):
+    def TryFor(Attempts, Function, *Args):
         # CORE
         Success = False
         Response = None
@@ -28,14 +34,14 @@ class Utilities:
         # INIT
         for x in range(0, Attempts):
             try:
-                Response = await Function(*Args)
+                Response = Function(*Args)
                 Success = True
             except Exception as Error:
                 Success = False
                 Response = str(Error)
             
             if not Success:
-                await asyncio.sleep(1)
+                time.sleep(1)
             else:
                 break
 
@@ -49,6 +55,7 @@ class Utilities:
             Required = importlib.import_module(ModulePath)
 
             if hasattr(Required, "Initialise"):
-                Success, Error = Utilities.TryFor(1, Required.Initialise, *Args)
-            
+                #Success, Error = Utilities.TryFor(1, Required.Initialise, *Args)
+                Required.Initialise(*Args)
+
             RequiredModules[ModulePath] = Required

@@ -2,6 +2,7 @@
 # INTERNAL
 from Modules.Utilities import Utilities
 from Modules.Shortcuts import Shortcuts
+from Modules.CatalogueHandler import CatalogueHandler
 
 # EXTERNAL
 from flask import Blueprint, session, redirect, url_for
@@ -29,5 +30,6 @@ def PageHandler():
     # INIT
     return Shortcuts.RenderPage(
         "Home.html",
-        "Home"
+        "Home",
+        Products = CatalogueHandler.GetProducts()
     )

@@ -1,6 +1,12 @@
+### READ
+#
+# - Site specific short hands
+#
+###
+
 # MODULES
 # INT
-from Utilities import Utilities
+from .Utilities import Utilities
 
 # EXT
 from flask import session, request, render_template, make_response
@@ -17,7 +23,8 @@ def Initialise(App):
     # Functions
     # INIT
     CurrentApp = App
-    
+
+##
 
 class Shortcuts:
     @staticmethod

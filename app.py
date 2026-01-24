@@ -10,20 +10,20 @@ from flask import Flask
 # CORE
 App = Flask(__name__)
 Host = "0.0.0.0"
-Port = os.environ.get("Port", 5000)
+Port = os.environ.get("PORT", 5000)
 Debug = True
 
-App.config["DBUsername"] = "mdb_sa_id_6974e092fc710c6947e9b866"
-App.config["DBKey"] = "mdb_sa_sk_8TIPaAlQLIA3qk6NMi3BsEWt0Xgxy9TeGCcTPDC2"
+App.config["DBUsername"] = "admin"
+App.config["DBPassword"] = "admin"
 
-ModuleRegistry = {
+ModuleRegistry = [
     # SERVICES
     "Modules.Shortcuts",
     "Modules.Database",
 
     # CONTROLLERS
     "Controllers.HomeController"
-}
+]
 
 RequiredModules = {} # Imported Registry
 
@@ -37,12 +37,11 @@ def Initialise():
     with App.app_context():
         Utilities.LoadModules(ModuleRegistry, RequiredModules, App)
 
-        for ModulePath in RequiredModules.items():
-            Required = RequiredModules[ModulePath]
-
+        for Required in RequiredModules.values():
             if hasattr(Required, "BluePrint"):
                 App.register_blueprint(Required.BluePrint)
 
+        print("RUNNING APP")
         App.run(host=Host, port=Port, debug=Debug)
 
 # CLEANUP vv

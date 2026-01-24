@@ -1,6 +1,12 @@
+### READ
+#
+# - NoSQL DB / MongoDB
+#
+###
+
 # MODULES
 # INT
-from Utilities import Utilities
+from .Utilities import Utilities
 
 # EXT
 from pymongo import MongoClient
@@ -11,19 +17,27 @@ Client = None
 
 # Functions
 # MECHANICS
+def Connect():
+    # CORE
+    global Client
+
+    # Functions
+    # INIT
+    Client = MongoClient(f"mongodb+srv://{CurrentApp.config["DBUsername"]}:{CurrentApp.config["DBPassword"]}@public.x6tqh43.mongodb.net/?appName=Public")
+
 def Initialise(App):
     # CORE
-    global CurrentApp, Client
+    global CurrentApp
 
     # Functions
     # INIT
     CurrentApp = App
 
-    Client = MongoClient(f"mongodb+srv://{App.config["DBUsername"]}:{App.config["DBKey"]}@public.x6tqh43.mongodb.net/?appName=Public")
+    Utilities.TryFor(3, Connect)
 
 ##
 
 class Database:
     @staticmethod
     def GetDatabase():
-        return Client[CurrentApp.config["CoreInfo"]]
+        return Client[CurrentApp.config["CoreInfo"]["ClusterName"]]

@@ -2,5 +2,38 @@
 {% include "Handlers/Topbar.html" %}
 
 <body>
-    <h1>{{CoreInfo["Display Name"]}}</h1>    
+    <h1 style="text-align: center;">{{CoreInfo["Display Name"]}}</h1>
+
+    <br>
+
+    <div class="contaienr text-center">
+        <div style="text-align: center;" class="container-sm">
+            <div class="row">
+                <div class="col" style="width: 33%;">
+
+                </div>
+                <div class="col" style="width: 33%;">
+
+                </div>
+                <div class="col" style="width: 33%;">
+                    <h2>Catalogue</h2>
+                    <table class="table table-striped">
+                        <tr>
+                            {% for AttributName in Products[0].items().keys() %}
+                                <th>{{AttributName}}</th>
+                            {% endfor %}
+                        </tr>
+
+                        {% for Product in Products %}
+                            <tr>
+                                {% for Value in Product.items().values() %}
+                                    <td>{{Value}}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
