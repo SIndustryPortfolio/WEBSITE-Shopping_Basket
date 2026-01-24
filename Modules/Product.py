@@ -6,6 +6,7 @@
 
 # Modules
 # INT
+from .Class import Class
 
 # EXT
 
@@ -13,27 +14,13 @@
 # MECHANICS
 
 ##
-class Product:
+class Product(Class):
     def __init__(self, Options):
         # CORE
-        Public = {} # SUBSCRIPTABLE / [] Accessible
-        Private = {} # HIDDEN
+        super().__init__()
 
         # Functions
         # INIT
-        Public["Name"] = Options.get("Name", None)
-        Public["Price"] = Options.get("Price", 0)
-        Public["Offer"] = Options.get("Options", {})
-
-        self.Public = Public
-        self.Private = Private
-
-    def __getitem__(self, Key):
-        # Functions
-        # INIT
-        return self.Public[Key]
-    
-    def items(self):
-        # Functions
-        # INIT
-        return self.Public
+        self.Public["Name"] = Options.get("Name", None)
+        self.Public["Price"] = Options.get("Price", 0)
+        self.Public["Offer"] = Options.get("Options", {})

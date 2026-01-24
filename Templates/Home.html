@@ -10,10 +10,26 @@
         <div style="text-align: center;" class="container-sm">
             <div class="row">
                 <div class="col" style="width: 33%;">
+                    <h2>Your basket</h2>
+                
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Product Name</th>
+                        </tr>
 
+                        {% for Product in Basket %}
+                            <tr>
+                                <form action="/remove" method="POST">
+                                    <a href="#" type="submit">
+                                        <td>{{Product["Name"]}}</td>
+                                    </form>
+                                </form>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </div>
                 <div class="col" style="width: 33%;">
-
+                    
                 </div>
                 <div class="col" style="width: 33%;">
                     <h2>Catalogue</h2>

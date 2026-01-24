@@ -23,7 +23,16 @@ def Initialise(App):
     CurrentApp = App
 
 
+# ROUTE CALLBACKS
+
 # DIRECT
+@Blueprint.route("Add")
+def AddToBasket():
+    # Functions
+    # INIT
+    pass
+    
+
 @BluePrint.route("/")
 def PageHandler():
     # Functions

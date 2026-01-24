@@ -40,4 +40,6 @@ def Initialise(App):
 class Database:
     @staticmethod
     def GetDatabase():
+        # Functions
+        # INIT
         return Client[CurrentApp.config["CoreInfo"]["ClusterName"]]

@@ -7,9 +7,10 @@
 # MODULES
 # INT
 from .Utilities import Utilities
+from .Basket import Basket
 
 # EXT
-from flask import session, request, render_template, make_response
+from flask import session, request, render_template, make_response, redirect
 
 # CORE
 CurrentApp = None
@@ -28,6 +29,19 @@ def Initialise(App):
 
 class Shortcuts:
     @staticmethod
+    def RouteFired(RouteCallback, *Args):
+        # CORE
+        UserBasket = session.get("Basket", None)
+        
+        # Functions
+        # INIT
+        if UserBasket == None:
+            return redirect("/")
+        
+        return Utilities.TryFor(1, RouteCallback, *Args)
+        
+    
+    @staticmethod
     def GetHostURL():
         # Functions
         # INIT
@@ -43,7 +57,8 @@ class Shortcuts:
         # INIT
         return {
             "CoreInfo": CurrentApp.config["CoreInfo"] or {},
-            "HostURL" : request.host_url or Shortcuts.GetHostURL()
+            "HostURL" : request.host_url or Shortcuts.GetHostURL(),
+            "Basket": session.get("Basket", None) or Basket()
         }
 
     @staticmethod

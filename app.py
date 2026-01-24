@@ -52,6 +52,7 @@ def End():
 
 # INIT
 if __name__ == "__main__":
-    Utilities.TryFor(1, Initialise)
+    #Utilities.TryFor(1, Initialise)
+    Initialise()
     End()
 
