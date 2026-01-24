@@ -2,6 +2,7 @@
 # INIT
 import json
 import importlib
+import asyncio
 
 # CORE
 
@@ -18,20 +19,25 @@ class Utilities:
         return data
     
     @staticmethod
-    def TryFor(Attempts, Function, *Args):
+    async def TryFor(Attempts, Function, *Args):
         # CORE
         Success = False
         Response = None
 
         # Functions
         # INIT
-        for x in range(0, Attempts - 1):
+        for x in range(0, Attempts):
             try:
-                Response = Function(*Args)
+                await Response = Function(*Args)
                 Success = True
             except Exception as Error:
                 Success = False
                 Response = str(Error)
+            
+            if not Success:
+                await asyncio.sleep(1)
+            else:
+                break
 
         return Success, Response
 

@@ -1,7 +1,6 @@
 # Modules
 # INIT
 import os
-import importlib
 
 from Modules.Utilities import Utilities
 
@@ -10,20 +9,31 @@ from flask import Flask
 
 # CORE
 App = Flask(__name__)
+Host = "0.0.0.0"
+Port = os.environ.get("Port")
+Debug = True
+
+App.config["DBUsername"] = "mdb_sa_id_6974e092fc710c6947e9b866"
+App.config["DBKey"] = "mdb_sa_sk_8TIPaAlQLIA3qk6NMi3BsEWt0Xgxy9TeGCcTPDC2"
 
 ModuleRegistry = {
     # SERVICES
+    "Modules.Shortcuts",
+    "Modules.Database",
 
     # CONTROLLERS
+    "Controllers.HomeController"
 }
 
-RequiredModules = {} # Bulk 
+RequiredModules = {} # Imported Registry
 
 # Functions
 # MECHANICS
 def Initialise():
     # Functions
     # INIT
+    App.config["CoreInfo"] = Utilities.LoadJson("static/JSON/Core.json")
+
     with App.app_context():
         Utilities.LoadModules(ModuleRegistry, RequiredModules, App)
 
@@ -32,6 +42,8 @@ def Initialise():
 
             if hasattr(Required, "BluePrint"):
                 App.register_blueprint(Required.BluePrint)
+
+        App.run(host=Host, port=Port, debug=Debug)
 
 # CLEANUP vv
 def End():

@@ -1,0 +1,29 @@
+# MODULES
+# INTERNAL
+from Modules.Utilities import Utilities
+
+# EXTERNAL
+from flask import Blueprint, session, redirect, url_for
+
+# CORE
+BluePrint = Blueprint("Home", __name__)
+
+CurrentApp = None
+
+# Functions
+# MECHANICS
+def Initialise(App):
+    # CORE
+    global CurrentApp
+    
+    # Functions
+    # INIT
+    CurrentApp = App
+
+
+# DIRECT
+@BluePrint.route("/home")
+def PageHandler():
+    # Functions
+    # INIT
+    pass
