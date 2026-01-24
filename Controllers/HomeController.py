@@ -24,21 +24,36 @@ def Initialise(App):
 
 
 # ROUTE CALLBACKS
-
-# DIRECT
-@Blueprint.route("Add")
-def AddToBasket():
+def RootRouteCallback():
     # Functions
     # INIT
-    pass
-    
-
-@BluePrint.route("/")
-def PageHandler():
-    # Functions
-    # INIT
-    return Shortcuts.RenderPage(
+    print("Rendering page")
+    Response = Shortcuts.RenderPage(
         "Home.html",
         "Home",
         Products = CatalogueHandler.GetProducts()
     )
+
+    print("Responded")
+
+    return Response
+
+def AddRouteCallback():
+    # Functions
+    # INIT
+    pass
+
+# DIRECT
+@BluePrint.route("/Add", methods=["POST"])
+def HandleAddRoute():
+    # Functions
+    # INIT
+    return Shortcuts.RouteFired(AddRouteCallback)
+    
+
+@BluePrint.route("/", methods=["GET"])
+def HandleRootRoute():
+    # Functions
+    # INIT
+    print("ROUTE FIRED")
+    return RootRouteCallback()

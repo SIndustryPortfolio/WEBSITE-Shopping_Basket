@@ -13,7 +13,7 @@ from .Class import Class
 class Basket(Class):
     def __init__(self):
         # CORE
-        super(Class).__init__()
+        super().__init__()
 
         # Functions
         # INIT

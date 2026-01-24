@@ -13,6 +13,7 @@ Host = "0.0.0.0"
 Port = os.environ.get("PORT", 5000)
 Debug = True
 
+App.config["SECRET_KEY"] = "MySecretKey"
 App.config["DBUsername"] = "admin"
 App.config["DBPassword"] = "admin"
 
@@ -41,14 +42,15 @@ def Initialise():
             if hasattr(Required, "BluePrint"):
                 App.register_blueprint(Required.BluePrint)
 
-        print("RUNNING APP")
         App.run(host=Host, port=Port, debug=Debug)
 
 # CLEANUP vv
 def End():
     # Functions
     # INIT
-    pass
+    for Required in RequiredModules.values():
+        if hasattr(Required, "End"):
+            Utilities.TryFor(1, Required.End)
 
 # INIT
 if __name__ == "__main__":

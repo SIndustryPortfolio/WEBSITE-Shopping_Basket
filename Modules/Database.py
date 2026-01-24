@@ -35,6 +35,12 @@ def Initialise(App):
 
     Utilities.TryFor(3, Connect)
 
+def End():
+    # Functions
+    # INIT
+    if Client != None:
+        Client.close()
+
 ##
 
 class Database:

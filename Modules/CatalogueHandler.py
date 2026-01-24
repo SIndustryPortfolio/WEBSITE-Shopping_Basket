@@ -24,10 +24,7 @@ class CatalogueHandler():
     def GetCatalogueCollection():
         # Functions
         # INIT
-        print("Getting DB")
         Response = Database.GetDatabase()["Catalogue"]
-
-        print(Response)
 
         return Response
 

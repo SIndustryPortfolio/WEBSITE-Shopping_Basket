@@ -55,11 +55,15 @@ class Shortcuts:
     def GetPageEssentials():
         # Functions
         # INIT
+        if not session.get("Basket", None):
+            session["Basket"] = Basket()
+
         return {
             "CoreInfo": CurrentApp.config["CoreInfo"] or {},
             "HostURL" : request.host_url or Shortcuts.GetHostURL(),
-            "Basket": session.get("Basket", None) or Basket()
+            "Basket": session.get("Basket").items()
         }
+        
 
     @staticmethod
     def GetClientIP():
@@ -79,11 +83,16 @@ class Shortcuts:
     def RenderPage(TemplatePath, PageName, **KWArgs):
         # Functions
         # INIT
-        Response = make_response(render_template(
-            TemplatePath,
-            PageName = PageName,
-            **KWArgs or {},
-            **Shortcuts.GetPageEssentials()
-        ))
+        
+        print("1")
+        Packaged = {
+            **Shortcuts.GetPageEssentials(),
+            **(KWArgs or {}),
+            "PageName": PageName,
+        }
+       
+        print("2")
+        Response = make_response(render_template(TemplatePath, **Packaged))
+        print("3")
 
         return Response

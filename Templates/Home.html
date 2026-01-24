@@ -17,7 +17,7 @@
                             <th>Product Name</th>
                         </tr>
 
-                        {% for Product in Basket %}
+                        {% for Product in Basket["Items"] %}
                             <tr>
                                 <form action="/remove" method="POST">
                                     <a href="#" type="submit">

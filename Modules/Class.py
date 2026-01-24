@@ -26,7 +26,7 @@ class Class:
     def __getitem__(self, Key):
         # Functions
         # INIT
-        return self.Public[Key]
+        return self.Public.get(Key, None)
     
     # Return subscriptable (Treat object like dict)
     def items(self):
