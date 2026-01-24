@@ -1,6 +1,7 @@
 # MODULES
 # INTERNAL
 from Modules.Utilities import Utilities
+from Modules.Shortcuts import Shortcuts
 
 # EXTERNAL
 from flask import Blueprint, session, redirect, url_for
@@ -22,8 +23,11 @@ def Initialise(App):
 
 
 # DIRECT
-@BluePrint.route("/home")
+@BluePrint.route("/")
 def PageHandler():
     # Functions
     # INIT
-    pass
+    return Shortcuts.RenderPage(
+        "Home.html",
+        "Home"
+    )

@@ -28,7 +28,7 @@ class Utilities:
         # INIT
         for x in range(0, Attempts):
             try:
-                await Response = Function(*Args)
+                Response = await Function(*Args)
                 Success = True
             except Exception as Error:
                 Success = False

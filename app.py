@@ -10,7 +10,7 @@ from flask import Flask
 # CORE
 App = Flask(__name__)
 Host = "0.0.0.0"
-Port = os.environ.get("Port")
+Port = os.environ.get("Port", 5000)
 Debug = True
 
 App.config["DBUsername"] = "mdb_sa_id_6974e092fc710c6947e9b866"
