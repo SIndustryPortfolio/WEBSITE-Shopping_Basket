@@ -26,7 +26,7 @@ class Utilities:
     def GetTick():
         # Functions
         # INIT
-        return datetime.now(timezone.utc).timestamp()
+        return round(datetime.now(timezone.utc).timestamp(), 3)
 
     # Format 10,000 -> 10K
     @staticmethod

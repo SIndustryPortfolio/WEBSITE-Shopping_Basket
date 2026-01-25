@@ -24,7 +24,7 @@ CurrentApp = None
 def DestroyCache(Key):
     # Functions
     # INIT
-    Baskets[Key] = None
+    Baskets.pop(Key, None)
 
 def Heartbeat(RenderMeta):
     # CORE
@@ -32,13 +32,12 @@ def Heartbeat(RenderMeta):
 
     # Functions
     # INIT
-    for Key, Cache in Baskets.items():
+    for Key, Cache in list(Baskets.items()): # Cloned dict
         LastInteractionTime = Cache["Time"]
         TimeSpan = TimeNow - LastInteractionTime
     
-        print(TimeSpan)
-
         if TimeSpan > Utilities.MinutesToSeconds(30):
+            print("Destroying!!")
             DestroyCache(Key)
 
 
@@ -60,27 +59,43 @@ class BasketHandler():
     @staticmethod
     def New(Key):
         # CORE
+        global Baskets
+
         Key = BasketHandler.FormatKey(Key)
         TimeNow = Utilities.GetTick()
 
         # Functions
-        # INIT        
+        # INIT
+
         Baskets[Key] = {
             "Object" : Basket(),
             "Time" : TimeNow
         }
 
         return Key # Return KEY (IP)
-    
+
+    @staticmethod
+    def GetBaskets():
+        # CORE
+        global Baskets
+
+        # Functions
+        # INIT
+        return Baskets
+
     @staticmethod
     def GetBasket(Key):
         # CORE
         global Baskets
 
+        TimeNow = Utilities.GetTick()
         Key = BasketHandler.FormatKey(Key)
         
         # Functions
         # INIT
-        return Baskets.get(Key, {}).get("Object", None)
+        BasketMeta = Baskets.get(Key, {})
+        BasketMeta["Time"] = TimeNow
+
+        return BasketMeta.get("Object", None)
 
         

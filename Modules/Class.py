@@ -29,8 +29,21 @@ class Class:
         return self.Public.get(Key, None)
     
     # Return subscriptable (Treat object like dict)
-    def GetDict(self):
+    def GetDict(self, JSON=False):
+        # CORE
+        ToReturn = {}
+        
         # Functions
         # INIT
-        return self.Public
+        if not JSON:
+            return self.Public
+        
+        for Key, Value in self.Public.items():
+            if isinstance(Value, Class):
+                ToReturn[Key] = Value.GetDict()
+            else:
+                ToReturn[Key] = Value
+
+        return ToReturn
+
         

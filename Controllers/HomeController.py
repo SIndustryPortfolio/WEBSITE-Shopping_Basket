@@ -5,7 +5,7 @@ from Modules.Shortcuts import Shortcuts
 from Modules.CatalogueHandler import CatalogueHandler
 
 # EXTERNAL
-from flask import Blueprint, session, redirect, url_for
+from flask import Blueprint, session, redirect, url_for, request
 
 # CORE
 BluePrint = Blueprint("Home", __name__)
@@ -39,9 +39,14 @@ def RootRouteCallback():
     return Response
 
 def UpdateBasketRouteCallback():
+    # CORE
+    Data = request.get_json()
+    
     # Functions
     # INIT
-    pass
+    print(Data)
+
+    return RootRouteCallback()
 
 # DIRECT
 @BluePrint.route("/UpdateBasket", methods=["POST"])

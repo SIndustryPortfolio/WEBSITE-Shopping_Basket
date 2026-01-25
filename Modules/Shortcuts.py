@@ -55,13 +55,16 @@ class Shortcuts:
     def GetPageEssentials():
         # Functions
         # INIT
-        if session.get("BasketId", None) == None:
-            session["BasketId"] = BasketHandler.New(Shortcuts.GetClientIP())
+        BasketId = session.get("BasketId", None)
+
+        if BasketId == None or BasketHandler.GetBasket(BasketId) == None:
+            BasketId = BasketHandler.New(Shortcuts.GetClientIP())
+            session["BasketId"] = BasketId
 
         return {
             "CoreInfo": CurrentApp.config["CoreInfo"] or {},
             "HostURL" : request.host_url or Shortcuts.GetHostURL(),
-            "Basket": BasketHandler.GetBasket(session.get("BasketId")),
+            "Basket": BasketHandler.GetBasket(BasketId),
             "Utilities": Utilities
         }
         

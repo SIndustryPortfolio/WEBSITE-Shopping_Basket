@@ -2,6 +2,7 @@
 # INIT
 import os
 import threading
+import time
 
 from Modules.Utilities import Utilities
 
@@ -87,6 +88,8 @@ def Heartbeat():
             }
 
             Cycle(RenderMeta)
+
+            time.sleep(0.005)
 
             HeartbeatBusy = False
 

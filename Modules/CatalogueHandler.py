@@ -30,7 +30,7 @@ class CatalogueHandler():
 
     # Get & Parse Products into Objects
     @staticmethod
-    def GetProducts():
+    def GetProducts(JSON=False):
         # CORE
         Products = []
 
@@ -42,6 +42,9 @@ class CatalogueHandler():
 
         if Success:
             for Record in (Result  or []):
-                Products.append(Product(Record))
+                if JSON:
+                    Products.append(Product(Record).GetDict(JSON=JSON))
+                else:
+                    Products.append(Product(Record))
 
         return Products

@@ -1,22 +1,25 @@
 var PageModule = {}
 
 // Modules
-import UtilitiesModule from (window.Config["StaticPath"] + "/Utilities.js");
+import UtilitiesModule from "./Modules/Utilities.js"; //window.Config["StaticPath"] + "/Utilities.js";
 
 // CORE
+let QuantitiesCache = {};
 
 // Functions
 // MECHANICS
-function Initialise() 
+function HandleQuantities() 
 {
     // CORE
-    const QuantitiesInfo = CoreInfo["Basket"]["Quantities"];
+     const QuantitiesInfo = window.Config["CoreInfo"]["Basket"]["Quantities"];
 
     // Functions
     // INIT
-    window.Config["Products"].array.forEach(Product => {
+
+    window.Config["Products"].forEach(Product => {
         // CORE
-        let Quantity = 0
+        QuantitiesCache[Product["Name"]] = 0
+
 
         // Elements
         // DIVS        
@@ -24,11 +27,11 @@ function Initialise()
         let QuantityBackingColumns = QuantityBacking.children;
 
         // BUTTONS
-        let SubtractButton = QuantityBackingColumns[0].firstChild;
-        let AddButton = QuantityBackingColumns[2].firstChild;
+        let SubtractButton = QuantityBackingColumns[0].firstElementChild;
+        let AddButton = QuantityBackingColumns[2].firstElementChild;
 
         // TEXTS
-        let QuantityValueText = QuantityBackingColumns[1].firstChild;
+        let QuantityValueText = QuantityBackingColumns[1].firstElementChild;
         
         // Functions
         // MECHANICS
@@ -36,33 +39,77 @@ function Initialise()
         {
             // Functions
             // INIT
-            QuantityValueText.innerHTML = Quantity;
+            QuantityValueText.innerHTML = QuantitiesCache[Product["Name"]];
         }
 
         function Add() 
         {
+            // CORE
+            let CurrentQuantity = QuantitiesCache[Product["Name"]];
+
             // Functions
             // INIT
-            Quantity = UtilitiesModule.Clamp(Quantity + 1, QuantitiesInfo["Min"], QuantitiesInfo["Max"]);
+            QuantitiesCache[Product["Name"]] = UtilitiesModule.Clamp(CurrentQuantity + 1, QuantitiesInfo["Min"], QuantitiesInfo["Max"]);
 
             return Update();
         }
 
         function Subtract() 
         {
+            // CORE
+            let CurrentQuantity = QuantitiesCache[Product["Name"]];
+
             // Functions
             // INIT
-            Quantity = UtilitiesModule.Clamp(Quantity - 1, QuantitiesInfo["Min"], QuantitiesInfo["Max"]);
+            QuantitiesCache[Product["Name"]] = UtilitiesModule.Clamp(CurrentQuantity - 1, QuantitiesInfo["Min"], QuantitiesInfo["Max"]);
 
             return Update();
         }
         
         // INIT
-        AddButton.OnClick = Add;
-        SubtractButton.OnClick = Subtract;
+        AddButton.onclick = Add;
+        SubtractButton.onclick = Subtract;
 
         Update();
     });
+}
+
+function HandleForm() 
+{
+    // CORE
+    let Form = document.getElementById("UpdateBasketForm");
+
+    // Functions
+    // INIT
+    Form.addEventListener("submit", (event) => 
+    {
+        // Functions
+        // INIT
+        event.preventDefault();
+
+        QuantitiesCache.forEach(ProductName => {
+            const Quantity = QuantitiesCache[ProductName];
+
+            let ProductHiddenInput = document.createElement("input");
+            ProductHiddenInput.type = "hidden";
+            ProductHiddenInput.name = ProductName;
+            ProductHiddenInput.value = Quantity;
+
+            Form.appendChild(ProductHiddenInput);
+        });
+
+        return Form.submit();
+    });
+}
+
+function Initialise() 
+{
+    // CORE
+
+    // Functions
+    // INIT
+    HandleQuantities();
+    HandleForm();
 }
 
 function End() 

@@ -2,7 +2,15 @@
 {% include "Handlers/Topbar.html" %}
 
 <!-- CORE -->
-window.Config["Products"] = {{Products}};
+<script>
+    window.Config["Products"] = [];
+
+    {% for Product in Products %}
+        window.Config["Products"].push({{Product.GetDict(JSON=True) | tojson }});
+    {% endfor %}
+
+    console.log(window.Config["Products"]);
+</script>
 
 <body>
     <h1 style="text-align: center;">{{CoreInfo["Meta"]["Display Name"]}}</h1>
@@ -86,7 +94,7 @@ window.Config["Products"] = {{Products}};
 
                     <br>
 
-                    <form class="text-center" action="/UpdateBasket">
+                    <form id="UpdateBasketForm" class="text-center" action="/UpdateBasket">
                         <input type="submit" class="btn btn-secondary" value="Update"/>
                     </form>
                 </div>
