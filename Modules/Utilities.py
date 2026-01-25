@@ -15,12 +15,18 @@ from datetime import datetime, timezone
 # CORE
 
 class Utilities:
-    # Get Milliseconds since EPOC (1970 ish)
+    @staticmethod
+    def MinutesToSeconds(Minutes):
+        # Functions
+        # INIT
+        return Minutes * 60
+
+    # Get seconds since EPOC (1970 ish)
     @staticmethod
     def GetTick():
         # Functions
         # INIT
-        return datetime.now(timezone.utc).timestamp() * 1000
+        return datetime.now(timezone.utc).timestamp()
 
     # Format 10,000 -> 10K
     @staticmethod

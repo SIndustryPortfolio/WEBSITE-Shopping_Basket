@@ -10,15 +10,36 @@
 # MODULES
 # INT
 from .Basket import Basket
+from .Utilities import Utilities
 
 # EXT
 
 # CORE
 Baskets = {}
+
 CurrentApp = None
 
 # Functions
 # MECHANICS
+def DestroyCache(Key):
+    # Functions
+    # INIT
+    Baskets[Key] = None
+
+def Heartbeat(RenderMeta):
+    # CORE
+    TimeNow = RenderMeta["TimeNow"]
+
+    # Functions
+    # INIT
+    for Key, Cache in Baskets.items():
+        LastInteractionTime = Cache["Time"]
+        TimeSpan = TimeNow - LastInteractionTime
+
+        if TimeSpan > Utilities.MinutesToSeconds(30):
+            DestroyCache(Key)
+
+
 def Initialise(App):
     # CORE
     global CurrentApp
@@ -31,20 +52,33 @@ def Initialise(App):
 
 class BasketHandler():
     @staticmethod
-    def New(IP):
-        # Functions
-        # INIT
-        Baskets[IP] = Basket()
+    def FormatKey(Key):
+        return str(Key)
 
-        return IP # Return KEY
+    @staticmethod
+    def New(Key):
+        # CORE
+        Key = BasketHandler.FormatKey(Key)
+        TimeNow = Utilities.GetTick()
+
+        # Functions
+        # INIT        
+        Baskets[Key] = {
+            "Object" : Basket(),
+            "Time" : TimeNow
+        }
+
+        return Key # Return KEY (IP)
     
     @staticmethod
     def GetBasket(Key):
         # CORE
         global Baskets
+
+        Key = BasketHandler.FormatKey(Key)
         
         # Functions
         # INIT
-        return Baskets.get(Key, None)
+        return Baskets.get(Key, {}).get("Object", None)
 
         

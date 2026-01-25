@@ -46,7 +46,7 @@ class Shortcuts:
         # Functions
         # INIT
         Host = CurrentApp.config.get("HOST", "127.0.0.1")
-        Port = CurrentApp.config.get("PORT", 5000)
+        Port = CurrentApp.config.get("PORT", 5000) # DEFAULT port -> 5000 purely for localhost
         Scheme = "http"
 
         return f"{Scheme}://{Host}:{Port}"

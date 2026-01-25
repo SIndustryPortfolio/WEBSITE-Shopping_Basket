@@ -1,6 +1,7 @@
 ### READ
 #
 # - Product / "ORM" entity
+# - Standalone Item from catalogue
 #
 ###
 

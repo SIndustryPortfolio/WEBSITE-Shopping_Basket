@@ -13,7 +13,9 @@ App = Flask(__name__)
 Host = "0.0.0.0"
 Port = os.environ.get("PORT", 5000)
 Debug = True
+Alive = True
 
+StartTime = None
 MainThread = None
 
 App.config["SECRET_KEY"] = "MySecretKey"
@@ -36,28 +38,46 @@ RequiredModules = {} # Imported Registry
 # MECHANICS
 def Heartbeat():
     # CORE
-    global MainThread
+    global MainThread, StartTime
+
+    Busy = False
 
     ##
-    LastBeatTime = 0
+    StartTime = Utilities.GetTick()
+    LastBeatTime = StartTime
 
     # Functions
     # MECHANICS
-    def Render():
-        # CORE
-        TimeNow = 0
-        DeltaTime = TimeNow - LastBeatTime
-
-        RenderMeta = {
-            "DeltaTime" : 0,
-            "AccumulatedTime": 0 
-        }
-
+    def Cycle(*Args):
         # Functions
         # INIT
         for Required in RequiredModules.values():
             if hasattr(Required, "Heartbeat"):
-                Utilities.TryFor(1, Required.Heartbeat, RenderMeta)
+                Utilities.TryFor(1, Required.Heartbeat, *Args)
+
+    def Render():
+        # Functions
+        # INIT
+        while Alive:
+            if Busy:
+                return None
+            
+            Busy = True
+
+            # CORE
+            TimeNow = Utilities.GetTick()
+            TotalTimeSpan = TimeNow - StartTime
+            DeltaTime = TimeNow - LastBeatTime
+
+            RenderMeta = { # Packaged
+                "DeltaTime" : DeltaTime,
+                "AccumulatedTime": TotalTimeSpan,
+                "TimeNow" : TimeNow
+            }
+
+            Cycle(RenderMeta)
+
+            Busy = False
 
 
     # INIT
@@ -86,6 +106,8 @@ def Initialise():
 def End():
     # Functions
     # INIT
+    Alive = False
+
     for Required in RequiredModules.values():
         if hasattr(Required, "End"):
             Utilities.TryFor(1, Required.End)

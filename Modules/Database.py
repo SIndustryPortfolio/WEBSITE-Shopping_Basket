@@ -48,7 +48,7 @@ class Database:
     def GetDatabase():
         # Functions
         # INIT
-        return Client[CurrentApp.config["CoreInfo"]["ClusterName"]]
+        return Client[CurrentApp.config["CoreInfo"]["DB"]["ClusterName"]]
     
     @staticmethod
     def GetAndUpdateCounter(CollectionName): # FOR NUMBER BASED IDs ON RECORDS
