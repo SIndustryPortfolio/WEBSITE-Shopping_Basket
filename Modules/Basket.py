@@ -1,6 +1,14 @@
+### READ
+#
+# - The actual user basket
+# - The task doesn't ask to make this but it's purely for demonstration -> It's much better to show how baskets & offers work together
+# - No size constraint, user may have infinite items in the basket
+#
+###
+
+
 # MODULES
 # INT
-from .Utilities import Utilities
 from .Class import Class
 
 # EXT
@@ -35,6 +43,7 @@ class Basket(Class):
             
             self.Public["Items"].pop(FoundIndex)
 
+    # OVERWRITE to pure JSON, all items become serialised.
     def GetDict(self):
         # CORE
         JSONBasket = {

@@ -1,3 +1,12 @@
+### READ
+#
+# - Session holder
+# - Caches User-made baskets into a TTL cache
+# - Cache expires after 30 Minutes of Idle!
+# - As this is a demo, I map the baskets to Client IP strings
+# 
+###
+
 # MODULES
 # INT
 from .Basket import Basket

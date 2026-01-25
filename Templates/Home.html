@@ -9,7 +9,7 @@
     <div class="container text-center">
         <div class="container">
             <div class="row">
-                <div class="col" style="width: 40%;">
+                <div class="col-5" style="">
                     <h2>Your basket</h2>
                 
                     <table class="table table-striped">
@@ -28,10 +28,10 @@
                         {% endfor %}
                     </table>
                 </div>
-                <div class="col" style="width: 20%;">
+                <div class="col" style="">
                     
                 </div>
-                <div class="col" style="width: 40%;">
+                <div class="col-5" style="">
                     <h2>Catalogue</h2>
                     <table class="table table-striped">
                         <tr>
@@ -47,9 +47,23 @@
 
                         {% for Product in Products %}
                             <tr>
-                                {% for Value in Product.GetDict().values() %}
-                                    <td>{{Value}}</td>
-                                {% endfor %}
+                                <!--#{% for Value in Product.GetDict().values() %}
+                                    #<td>{{Value}}</td>
+                                #{% endfor %}-->
+
+
+                                {% set ProductInfo=Product.GetDict() %}
+
+                                <td>{{ProductInfo["Name"]}}</td>
+                                <td>{{ProductInfo["Price"]}}</td>
+                                
+                                <td>
+                                    {% if "Offer" in ProductInfo %}
+                                        <b>{{ProductInfo["Offer"]["DisplayName"]}}</b>
+                                    {% else %}
+                                        {{"X"}}
+                                    {% endif %}
+                                </td>
 
                                 <td>
                                     <div class="row">

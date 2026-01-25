@@ -1,6 +1,7 @@
 # Modules
 # INIT
 import os
+import threading
 
 from Modules.Utilities import Utilities
 
@@ -12,6 +13,8 @@ App = Flask(__name__)
 Host = "0.0.0.0"
 Port = os.environ.get("PORT", 5000)
 Debug = True
+
+MainThread = None
 
 App.config["SECRET_KEY"] = "MySecretKey"
 App.config["DBUsername"] = "admin"
@@ -31,6 +34,38 @@ RequiredModules = {} # Imported Registry
 
 # Functions
 # MECHANICS
+def Heartbeat():
+    # CORE
+    global MainThread
+
+    ##
+    LastBeatTime = 0
+
+    # Functions
+    # MECHANICS
+    def Render():
+        # CORE
+        TimeNow = 0
+        DeltaTime = TimeNow - LastBeatTime
+
+        RenderMeta = {
+            "DeltaTime" : 0,
+            "AccumulatedTime": 0 
+        }
+
+        # Functions
+        # INIT
+        for Required in RequiredModules.values():
+            if hasattr(Required, "Heartbeat"):
+                Utilities.TryFor(1, Required.Heartbeat, RenderMeta)
+
+
+    # INIT
+    MainThread = threading.Thread(target=Render)
+    MainThread.daemon = True
+    MainThread.start()
+
+    
 def Initialise():
     # Functions
     # INIT
@@ -43,6 +78,8 @@ def Initialise():
             if hasattr(Required, "BluePrint"):
                 App.register_blueprint(Required.BluePrint)
 
+
+        Heartbeat()
         App.run(host=Host, port=Port, debug=Debug)
 
 # CLEANUP vv

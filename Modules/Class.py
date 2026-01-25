@@ -2,7 +2,7 @@
 #
 # - Super class!
 # - Adds better support for subscriptable objects
-# - In theory: As the front end is in JavaScript, it's less confusing to index Python objects like JSON tables
+# - In theory: As the front end is in JavaScript, it's less confusing to index Python objects like JSON tables using ["Index"]
 #
 ###
 

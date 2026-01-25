@@ -1,6 +1,14 @@
 {
-    "Name" : "ShoppingBasketPricer",
-    "Display Name" : "Shopping Basket - Pricer",
+    "Meta": {
+        "Name" : "ShoppingBasketPricer",
+        "Display Name" : "Shopping Basket - Pricer"
+    },
 
-    "ClusterName": "CRU_Assignment"
+    "DB": {
+        "ClusterName": "CRU_Assignment"
+    },
+
+    "Currency": {
+        "Prefix": "£"
+    }
 }

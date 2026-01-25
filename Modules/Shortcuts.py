@@ -61,7 +61,8 @@ class Shortcuts:
         return {
             "CoreInfo": CurrentApp.config["CoreInfo"] or {},
             "HostURL" : request.host_url or Shortcuts.GetHostURL(),
-            "Basket": BasketHandler.GetBasket(session.get("BasketId"))
+            "Basket": BasketHandler.GetBasket(session.get("BasketId")),
+            "Utilities": Utilities
         }
         
 
