@@ -8,20 +8,29 @@ from Modules.Utilities import Utilities
 # EXT
 from flask import Flask
 
-# CORE
-App = Flask(__name__)
-Host = "0.0.0.0"
-Port = os.environ.get("PORT", 5000)
-Debug = True
-Alive = True
+# CORE / CONFIG
+## WEB SERVER
+App = Flask(
+    __name__,
+    static_folder="Static",
+    static_url_path="/Static",
+    template_folder="Templates"
+)
 
-StartTime = None
-MainThread = None
-
+AppHost = "0.0.0.0"
+AppPort = os.environ.get("PORT", 5000)
+AppDebug = True
+AppAlive = True
+## HEARTBEAT
+HeartbeatBusy = False
+HeartbeatStartTime = None
+HeartbeatMainThread = None
+## CONFIG
 App.config["SECRET_KEY"] = "MySecretKey"
 App.config["DBUsername"] = "admin"
 App.config["DBPassword"] = "admin"
 
+## CORE
 ModuleRegistry = [
     # SERVICES
     "Modules.Shortcuts",
@@ -38,13 +47,11 @@ RequiredModules = {} # Imported Registry
 # MECHANICS
 def Heartbeat():
     # CORE
-    global MainThread, StartTime
-
-    Busy = False
+    global HeartbeatStartTime
 
     ##
-    StartTime = Utilities.GetTick()
-    LastBeatTime = StartTime
+    HeartbeatStartTime = Utilities.GetTick()
+    LastBeatTime = HeartbeatStartTime
 
     # Functions
     # MECHANICS
@@ -56,17 +63,21 @@ def Heartbeat():
                 Utilities.TryFor(1, Required.Heartbeat, *Args)
 
     def Render():
+        # CORE
+        global HeartbeatBusy
+
         # Functions
         # INIT
-        while Alive:
-            if Busy:
+        while AppAlive:
+            # Skip on busy
+            if HeartbeatBusy:
                 return None
             
-            Busy = True
+            HeartbeatBusy = True
 
             # CORE
             TimeNow = Utilities.GetTick()
-            TotalTimeSpan = TimeNow - StartTime
+            TotalTimeSpan = TimeNow - HeartbeatStartTime
             DeltaTime = TimeNow - LastBeatTime
 
             RenderMeta = { # Packaged
@@ -77,13 +88,14 @@ def Heartbeat():
 
             Cycle(RenderMeta)
 
-            Busy = False
+            HeartbeatBusy = False
 
 
     # INIT
-    MainThread = threading.Thread(target=Render)
-    MainThread.daemon = True
-    MainThread.start()
+    HeartbeatMainThread = threading.Thread(target=Render)
+    HeartbeatMainThread.daemon = True
+    
+    Utilities.TryFor(1, HeartbeatMainThread.start)
 
     
 def Initialise():
@@ -100,13 +112,16 @@ def Initialise():
 
 
         Heartbeat()
-        App.run(host=Host, port=Port, debug=Debug)
+        App.run(host=AppHost, port=AppPort, debug=AppDebug)
 
 # CLEANUP vv
 def End():
+    # CORE
+    global AppAlive
+
     # Functions
     # INIT
-    Alive = False
+    AppAlive = False
 
     for Required in RequiredModules.values():
         if hasattr(Required, "End"):

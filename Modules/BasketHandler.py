@@ -35,6 +35,8 @@ def Heartbeat(RenderMeta):
     for Key, Cache in Baskets.items():
         LastInteractionTime = Cache["Time"]
         TimeSpan = TimeNow - LastInteractionTime
+    
+        print(TimeSpan)
 
         if TimeSpan > Utilities.MinutesToSeconds(30):
             DestroyCache(Key)

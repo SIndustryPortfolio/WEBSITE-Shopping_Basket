@@ -45,8 +45,8 @@ class Shortcuts:
     def GetHostURL():
         # Functions
         # INIT
-        Host = CurrentApp.config.get("HOST", "127.0.0.1")
-        Port = CurrentApp.config.get("PORT", 5000) # DEFAULT port -> 5000 purely for localhost
+        Host = CurrentApp.config["HOST"]
+        Port = CurrentApp.config["PORT"]
         Scheme = "http"
 
         return f"{Scheme}://{Host}:{Port}"

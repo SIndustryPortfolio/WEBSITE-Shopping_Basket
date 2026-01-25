@@ -4,6 +4,13 @@
         "Display Name" : "Shopping Basket - Pricer"
     },
 
+    "Basket": {
+        "Quantities": {
+            "Max": 10,
+            "Min": 0
+        }
+    },
+
     "DB": {
         "ClusterName": "CRU_Assignment"
     },

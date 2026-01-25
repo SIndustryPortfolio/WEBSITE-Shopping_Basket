@@ -38,17 +38,17 @@ def RootRouteCallback():
 
     return Response
 
-def AddRouteCallback():
+def UpdateBasketRouteCallback():
     # Functions
     # INIT
     pass
 
 # DIRECT
-@BluePrint.route("/Add", methods=["POST"])
+@BluePrint.route("/UpdateBasket", methods=["POST"])
 def HandleAddRoute():
     # Functions
     # INIT
-    return Shortcuts.RouteFired(AddRouteCallback)
+    return Shortcuts.RouteFired(UpdateBasketRouteCallback)
     
 
 @BluePrint.route("/", methods=["GET"])

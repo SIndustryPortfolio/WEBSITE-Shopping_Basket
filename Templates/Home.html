@@ -1,6 +1,9 @@
 <!-- MODULES -->
 {% include "Handlers/Topbar.html" %}
 
+<!-- CORE -->
+window.Config["Products"] = {{Products}};
+
 <body>
     <h1 style="text-align: center;">{{CoreInfo["Meta"]["Display Name"]}}</h1>
 
@@ -51,11 +54,10 @@
                                     #<td>{{Value}}</td>
                                 #{% endfor %}-->
 
-
                                 {% set ProductInfo=Product.GetDict() %}
 
                                 <td>{{ProductInfo["Name"]}}</td>
-                                <td>{{ProductInfo["Price"]}}</td>
+                                <td>{{CoreInfo["Currency"]["Prefix"] + Utilities.FormatNumber(ProductInfo["Price"])}}</td>
                                 
                                 <td>
                                     {% if "Offer" in ProductInfo %}
@@ -66,20 +68,19 @@
                                 </td>
 
                                 <td>
-                                    <div class="row">
+                                    <div class="row" id="Product{{ProductInfo['Name']}}Quantity">
                                         <div class="col">
-                                            <button class="btn btn-danger">-</button>
+                                            <button name="subtract" class="btn btn-danger">-</button>
                                         </div>
                                         <div class="col">
-                                            <p>0</p>
+                                            <p name="Quantity"></p>
                                         </div>
                                         <div class="col">
-                                            <button class="btn btn-success">+</button>
+                                            <button name="add" class="btn btn-success">+</button>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-
                         {% endfor %}
                     </table>
 

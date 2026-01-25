@@ -39,7 +39,7 @@ class Utilities:
             return "nil"
 
         if Number <= 1000:
-            return Number
+            return str(Number)
 
 
         Suffixes = ["K", "M", "B", "T", "q", "Q", "s", "S", "O", "N", "d", "U", "D"]

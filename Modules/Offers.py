@@ -36,6 +36,30 @@ class BuyXGetXFree(Offer):
         # INIT
         super().__init__(*Args)
 
+    @staticmethod
+    def GetPriceReduction(BasePrice, Options, RelevantItems):
+        # CORE
+        PriceReduction = 0
+        Count = 0
+        Skip = False
+
+        # Functions
+        # INIT
+        for Item in RelevantItems:
+            if Skip:
+                PriceReduction += BasePrice
+                Skip = False
+                continue
+
+            Count += 1
+
+            if Count % Options["Buy"] == 0:
+                Skip = True
+                continue
+
+        return PriceReduction
+            
+
     # UNIVERSAL / CLASS & SERVICE METHOD
     @classmethod
     def GetDisplayName(cls, OptionsOrSelf):
@@ -52,6 +76,18 @@ class Percentage(Offer):
         # Functions
         # INIT
         super().__init__(*Args)
+
+    @staticmethod
+    def GetPriceReduction(BasePrice, Options, RelevantItems):
+        # CORE
+        PriceReduction = 0
+        
+        # Functions
+        # INIT
+        for Item in RelevantItems:
+            PriceReduction += BasePrice * (Options["DiscountBy"] / 100)
+
+        return PriceReduction
 
     # UNIVERSAL / CLASS & SERVICE METHOD
     @classmethod
@@ -73,6 +109,12 @@ TypeMapping = {
 
 ##
 class Offers():
+    @staticmethod
+    def GetTypeMapping():
+        # Functions
+        # INIT
+        return TypeMapping
+
     @staticmethod
     def GetOffer(OfferName):
         # Functions
