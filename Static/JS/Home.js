@@ -12,13 +12,14 @@ function HandleQuantities()
 {
     // CORE
      const QuantitiesInfo = window.Config["CoreInfo"]["Basket"]["Quantities"];
-
+    
     // Functions
     // INIT
-
-    window.Config["Products"].forEach(Product => {
+    window.Config["Products"].forEach((Product) => {
         // CORE
-        QuantitiesCache[Product["Name"]] = 0
+        console.log(Product);
+
+        QuantitiesCache[Product["Name"]] = Product["ImportedQuantity"] || 0;
 
 
         // Elements
@@ -87,7 +88,7 @@ function HandleForm()
         // INIT
         event.preventDefault();
 
-        QuantitiesCache.forEach(ProductName => {
+        for (let ProductName in QuantitiesCache) {
             const Quantity = QuantitiesCache[ProductName];
 
             let ProductHiddenInput = document.createElement("input");
@@ -96,7 +97,7 @@ function HandleForm()
             ProductHiddenInput.value = Quantity;
 
             Form.appendChild(ProductHiddenInput);
-        });
+        };
 
         return Form.submit();
     });

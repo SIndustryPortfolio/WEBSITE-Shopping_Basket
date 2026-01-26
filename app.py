@@ -37,6 +37,8 @@ ModuleRegistry = [
     "Modules.Shortcuts",
     "Modules.Database",
     "Modules.BasketHandler",
+    "Modules.CatalogueHandler",
+    "Modules.OffersHandler",
 
     # CONTROLLERS
     "Controllers.HomeController"

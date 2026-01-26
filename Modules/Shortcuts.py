@@ -8,6 +8,7 @@
 # INT
 from .Utilities import Utilities
 from .BasketHandler import BasketHandler
+from .Product import Product
 
 # EXT
 from flask import session, request, render_template, make_response, redirect
@@ -17,30 +18,46 @@ CurrentApp = None
 
 # Functions
 # MECHANICS
-def Initialise(App):
-    # CORE
-    global CurrentApp
-
-    # Functions
-    # INIT
-    CurrentApp = App
-
-##
-
 class Shortcuts:
+    @staticmethod
+    def GetNumberOfProducts(Table, ItemOrItemName):
+        # CORE
+        Count = 0
+
+        # Functions
+        # INIT
+        if isinstance(ItemOrItemName, Product):
+            ItemOrItemName = ItemOrItemName["Name"]
+        
+        for Item in Table:
+            if Item["Name"] != ItemOrItemName:
+                continue
+
+            Count += 1
+
+        return Count
+
+    @staticmethod
+    def UserBasketExists(BasketId):
+        # Functions
+        # INIT
+        return (BasketId != None and BasketHandler.GetBasket(BasketId) != None)
+
     @staticmethod
     def RouteFired(RouteCallback, *Args):
         # CORE
-        UserBasket = session.get("Basket", None)
+        BasketId = session.get("BasketId", None)
         
         # Functions
         # INIT
-        if UserBasket == None:
+        if not Shortcuts.UserBasketExists(BasketId):
             return redirect("/")
         
-        return Utilities.TryFor(1, RouteCallback, *Args)
+        #Success, Response = Utilities.TryFor(1, RouteCallback, *Args)
         
-    
+        #return Response
+        return RouteCallback(*Args)
+
     @staticmethod
     def GetHostURL():
         # Functions
@@ -57,7 +74,7 @@ class Shortcuts:
         # INIT
         BasketId = session.get("BasketId", None)
 
-        if BasketId == None or BasketHandler.GetBasket(BasketId) == None:
+        if not Shortcuts.UserBasketExists(BasketId):
             BasketId = BasketHandler.New(Shortcuts.GetClientIP())
             session["BasketId"] = BasketId
 
@@ -96,3 +113,12 @@ class Shortcuts:
         Response = make_response(render_template(TemplatePath, **Packaged))
 
         return Response
+    
+##
+def Initialise(App):
+    # CORE
+    global CurrentApp
+
+    # Functions
+    # INIT
+    CurrentApp = App

@@ -28,6 +28,11 @@ class Class:
         # INIT
         return self.Public.get(Key, None)
     
+    def __setitem__(self, Key, Value):
+        # Functions
+        # INIT
+        self.Public[Key] = Value
+
     # Return subscriptable (Treat object like dict)
     def GetDict(self, JSON=False):
         # CORE

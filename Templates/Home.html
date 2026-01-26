@@ -5,15 +5,23 @@
 <script>
     window.Config["Products"] = [];
 
+    let ProductInfo, ItemsInBasket;
+
     {% for Product in Products %}
-        window.Config["Products"].push({{Product.GetDict(JSON=True) | tojson }});
+
+        ProductInfo = {{ Product.GetDict(JSON=True) | tojson }};
+        ItemsInBasket = {{Basket.GetItemsFromName(Product["Name"], JSON=True) | tojson}};
+
+        ProductInfo["ImportedQuantity"] = ItemsInBasket.length;
+
+        window.Config["Products"].push(ProductInfo);
     {% endfor %}
 
     console.log(window.Config["Products"]);
 </script>
 
 <body>
-    <h1 style="text-align: center;">{{CoreInfo["Meta"]["Display Name"]}}</h1>
+    <h1 class="text-center">{{CoreInfo["Meta"]["Display Name"]}}</h1>
 
     <br>
 
@@ -28,11 +36,12 @@
                             <th>Product Name</th>
                         </tr>
 
-                        {% for Product in Basket.Items %}
+                        {% for Product in Basket.GetDict()["Items"] %}
                             <tr>
                                 <form action="/remove" method="POST">
                                     <a href="#" type="submit">
                                         <td>{{Product["Name"]}}</td>
+                                    </a>
                                     </form>
                                 </form>
                             </tr>
@@ -46,10 +55,6 @@
                     <h2>Catalogue</h2>
                     <table class="table table-striped">
                         <tr>
-                            <!--#{% for AttributName in Products[0].GetDict().keys() %}
-                                #<th>{{AttributName}}</th>
-                            #{% endfor %}-->
-
                             <th>Name</th>
                             <th>Price</th>
                             <th>Offer</th>
@@ -58,10 +63,6 @@
 
                         {% for Product in Products %}
                             <tr>
-                                <!--#{% for Value in Product.GetDict().values() %}
-                                    #<td>{{Value}}</td>
-                                #{% endfor %}-->
-
                                 {% set ProductInfo=Product.GetDict() %}
 
                                 <td>{{ProductInfo["Name"]}}</td>
@@ -69,7 +70,7 @@
                                 
                                 <td>
                                     {% if "Offer" in ProductInfo %}
-                                        <b>{{ProductInfo["Offer"]["DisplayName"]}}</b>
+                                        <b>{{ProductInfo["Offer"]}}</b>
                                     {% else %}
                                         {{"X"}}
                                     {% endif %}
@@ -94,11 +95,27 @@
 
                     <br>
 
-                    <form id="UpdateBasketForm" class="text-center" action="/UpdateBasket">
+                    <form id="UpdateBasketForm" class="text-center" action="UpdateBasket" method="post">
                         <input type="submit" class="btn btn-secondary" value="Update"/>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <br>
+
+    <div class="container text-center">
+        <h2 class="text-center">Costs</h2>
+        <h4 class="text-center">Subtotal: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["SubTotal"]}}</h4>
+        <h4 class="text-center">Discount: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["PriceReduction"]}}</h4>
+        <h4 class="text-center">Total: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["Total"]}}</h4>
+        <br>
+    </div>
+
+    <footer class="text-lg-start bg-body-tertiary text-muted" style="position: fixed; width: 100%; bottom: 0; left: 0;">
+        <div class="text-center">
+            <p>NOTE: Total / Discount values may slightly vary to a degree due to rounding. Example: Instead of £0.95 you may get £0.94.</p>
+        </div>
+    </footer>
 </body>

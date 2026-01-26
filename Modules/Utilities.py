@@ -16,6 +16,34 @@ from datetime import datetime, timezone
 
 class Utilities:
     @staticmethod
+    def GetNumberOfObjects(Table, Class):
+        # CORE
+        Count = 0
+        
+        # Functions
+        # INIT
+        for Item in Table:
+            if not isinstance(Item, Class):
+                continue
+
+            Count += 1
+
+        return Count
+
+    @staticmethod
+    def AddToTable(Table, *Values):
+        # Functions
+        # INIT
+        for Value in Values:
+            Table.append(Value)
+
+    @staticmethod
+    def Clamp(Number, Min, Max):
+        # Functions
+        # INIT
+        return max(Min, min(Number, Max))
+
+    @staticmethod
     def MinutesToSeconds(Minutes):
         # Functions
         # INIT

@@ -10,6 +10,7 @@
 # MODULES
 # INT
 from .Class import Class
+from .Utilities import Utilities
 
 # EXT
 
@@ -27,15 +28,49 @@ class Basket(Class):
         # INIT
         self.Public["Items"] = []
 
+    def GetItemsFromName(self, ItemName, JSON=False):
+        # CORE
+        Items = []
+
+        # Functions
+        # INIT
+        for Item in self["Items"]:
+            if Item["Name"] != ItemName:
+                continue
+            
+            if JSON:
+                Items.append(Item.GetDict(JSON=True))
+                continue
+
+            Items.append(Item)
+
+        return Items
+    
+    def FindAll(self, ProductName):
+        # CORE
+        ToReturn = []
+        
+        # Functions
+        # INIT
+        for Item in self["Items"]:
+            if Item["Name"] != ProductName:
+                continue
+            
+            ToReturn.append(Item)
+
+        return ToReturn
+
     def Add(self, *Products):
         # Functions
         # INIT
-        self.Public["Items"].append(*Products)
+        Utilities.AddToTable(self["Items"], *Products)
+
+        #self.Public["Items"].append(*Products)
 
     def Remove(self, *Products):
         # Functions
         # INIT
-        for Product in Products:
+        for Product in list(Products):
             FoundIndex = self.Public["Items"].index(Product)
 
             if not FoundIndex:
@@ -43,16 +78,21 @@ class Basket(Class):
             
             self.Public["Items"].pop(FoundIndex)
 
+    def Clear(self):
+        # Functions
+        # INIT
+        self.Public["Items"] = []
+
     # OVERWRITE to pure JSON, all items become serialised.
-    def GetDict(self):
+    def GetDict(self, JSON=False):
         # CORE
-        JSONBasket = {
+        Dict = {
             "Items" : []
         }
 
         # Functions
         # INIT
         for Product in self.Public["Items"]:
-            JSONBasket["Items"].append(Product.GetDict())
+            Dict["Items"].append(Product.GetDict(JSON=JSON))
 
-        return JSONBasket
+        return Dict

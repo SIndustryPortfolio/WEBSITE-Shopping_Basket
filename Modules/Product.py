@@ -8,8 +8,8 @@
 # Modules
 # INT
 from .Class import Class
-from .Offers import Offers
-from .Utilities import Utilities
+#from .OffersHandler import Offers
+#from .Utilities import Utilities
 
 # EXT
 
@@ -27,8 +27,8 @@ class Product(Class):
         self.Public["Name"] = Options.get("Name", None)
         self.Public["Price"] = Options.get("Price", 0)
 
-        OfferInfo = Options.get("Offer", None)
+        #OfferInfo = Options.get("Offer", None)
 
-        if OfferInfo != None:
-            OfferObject = Offers.GetOffer(OfferInfo["Type"])(OfferInfo)
-            self.Public["Offer"] = OfferObject
+        #if OfferInfo != None:
+        #    OfferObject = Offers.GetOffer(OfferInfo["Type"])(OfferInfo)
+        #    self.Public["Offer"] = OfferObject

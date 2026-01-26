@@ -13,11 +13,12 @@ from .Utilities import Utilities
 # EXT
 
 # CORE
+ProductsCache = {}
+
+CurrentApp = None
 
 # Functions
-# MECHANICS
-
-##
+## MECHANICS
 class CatalogueHandler():
     # Get Product holding collection
     @staticmethod
@@ -28,23 +29,50 @@ class CatalogueHandler():
 
         return Response
 
+    @staticmethod
+    def GetProductByName(ProductName):
+        # Functions
+        # INIT
+        return ProductsCache.get(ProductName, None)
+
     # Get & Parse Products into Objects
     @staticmethod
     def GetProducts(JSON=False):
-        # CORE
-        Products = []
-
         # Functions
         # INIT
-        Success, Result = Utilities.TryFor(1, 
+        if len(ProductsCache) != 0: # BASE CASE
+            Products = [] # LIST
+
+            for ProductName, ProductObject in ProductsCache.items():
+                if JSON:
+                    Products.append(ProductObject.GetDict(JSON=True))
+                else:
+                    Products.append(ProductObject)
+
+            return Products
+
+
+        Success, Result = Utilities.TryFor(3, 
             CatalogueHandler.GetCatalogueCollection().find,
         )
 
         if Success:
             for Record in (Result  or []):
-                if JSON:
-                    Products.append(Product(Record).GetDict(JSON=JSON))
-                else:
-                    Products.append(Product(Record))
+                ProductObject = Product(Record)
 
-        return Products
+                ProductsCache[ProductObject["Name"]] = ProductObject
+
+            # RECURSION
+            return CatalogueHandler.GetProducts(JSON=JSON)
+
+
+##
+def Initialise(App):
+    # CORE
+    global CurrentApp
+    
+    # Functions
+    # INIT
+    CurrentApp = App
+
+    CatalogueHandler.GetProducts()

@@ -17,6 +17,28 @@ Client = None
 
 # Functions
 # MECHANICS
+class Database:
+    @staticmethod
+    def GetDatabase():
+        # Functions
+        # INIT
+        return Client[CurrentApp.config["CoreInfo"]["DB"]["ClusterName"]]
+    
+    @staticmethod
+    def GetAndUpdateCounter(CollectionName): # FOR NUMBER BASED IDs ON RECORDS
+        counterCollection = Database.getDatabase()["Counter"]
+
+        document = counterCollection.find_one_and_update( 
+            {"collection": CollectionName},
+            {"$inc": {"count": 1}},
+            upsert = True,
+            return_document = True
+        )
+
+        return document["count"]
+    
+##
+
 def Connect():
     # CORE
     global Client
@@ -40,25 +62,3 @@ def End():
     # INIT
     if Client != None:
         Client.close()
-
-##
-
-class Database:
-    @staticmethod
-    def GetDatabase():
-        # Functions
-        # INIT
-        return Client[CurrentApp.config["CoreInfo"]["DB"]["ClusterName"]]
-    
-    @staticmethod
-    def GetAndUpdateCounter(CollectionName): # FOR NUMBER BASED IDs ON RECORDS
-        counterCollection = Database.getDatabase()["Counter"]
-
-        document = counterCollection.find_one_and_update( 
-            {"collection": CollectionName},
-            {"$inc": {"count": 1}},
-            upsert = True,
-            return_document = True
-        )
-
-        return document["count"]

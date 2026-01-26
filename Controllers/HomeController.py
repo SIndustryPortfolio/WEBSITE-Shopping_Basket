@@ -3,9 +3,12 @@
 from Modules.Utilities import Utilities
 from Modules.Shortcuts import Shortcuts
 from Modules.CatalogueHandler import CatalogueHandler
+from Modules.BasketHandler import BasketHandler
+from Modules.BasketPricer import BasketPricer
 
 # EXTERNAL
-from flask import Blueprint, session, redirect, url_for, request
+from flask import Blueprint, session, redirect, request
+import copy
 
 # CORE
 BluePrint = Blueprint("Home", __name__)
@@ -25,28 +28,40 @@ def Initialise(App):
 
 # ROUTE CALLBACKS
 def RootRouteCallback():
+    # CORE
+    Costs = session.get("Costs", {})
+
     # Functions
     # INIT
     print("Rendering page")
     Response = Shortcuts.RenderPage(
         "Home.html",
         "Home",
-        Products = CatalogueHandler.GetProducts()
+        Products = CatalogueHandler.GetProducts(),
+        Costs = Costs
     )
-
-    print("Responded")
 
     return Response
 
 def UpdateBasketRouteCallback():
     # CORE
-    Data = request.get_json()
+    Data = request.form
     
     # Functions
     # INIT
-    print(Data)
+    BasketId = session.get("BasketId", None)
+    UserBasket = BasketHandler.GetBasket(BasketId)
 
-    return RootRouteCallback()
+    UserBasket.Clear()
+
+    for ProductName, Quantity in Data.items():
+        for x in range(0, int(Quantity)):
+            UserBasket.Add(copy.copy(CatalogueHandler.GetProductByName(ProductName)))
+
+    session["Costs"] = BasketPricer.CalculateCosts(UserBasket)
+
+    return redirect("/")
+
 
 # DIRECT
 @BluePrint.route("/UpdateBasket", methods=["POST"])

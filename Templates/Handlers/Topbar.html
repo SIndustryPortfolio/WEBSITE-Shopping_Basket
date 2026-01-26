@@ -5,7 +5,7 @@
 <script>
     window.Config = {
         "CoreInfo" : {{ CoreInfo | tojson }},
-        "Basket" : {{ Basket.GetDict() | tojson }},
+        "Basket" : {{ Basket.GetDict(JSON=True) | tojson }},
         "HostURL" : "{{HostURL}}",
         //
         "StaticPath" : "{{url_for('static', filename='')}}"
