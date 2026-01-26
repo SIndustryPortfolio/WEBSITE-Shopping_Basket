@@ -8,10 +8,43 @@ let QuantitiesCache = {};
 
 // Functions
 // MECHANICS
+function HandleUserBasketTable() 
+{
+    // Elements
+    // DIVS
+    let UserBasketTable = document.getElementById("UserBasketTable");
+    let TableBody = UserBasketTable.children[0];
+
+    // Functions
+    // INIT
+    for (let ProductName in QuantitiesCache) 
+    {
+        const Quantity = QuantitiesCache[ProductName];
+
+        if (Quantity == 0) 
+        {
+            continue;
+        }
+
+        let TableRow = document.createElement("tr");
+        
+        let TableProductNameDefinition = document.createElement("td");
+        let TableProductQuantityDefinition = document.createElement("td");
+
+        TableProductQuantityDefinition.innerHTML = Quantity;
+        TableProductNameDefinition.innerHTML = ProductName;
+
+        TableRow.appendChild(TableProductNameDefinition);
+        TableRow.appendChild(TableProductQuantityDefinition);
+
+        TableBody.appendChild(TableRow);
+    }
+}
+
 function HandleQuantities() 
 {
     // CORE
-     const QuantitiesInfo = window.Config["CoreInfo"]["Basket"]["Quantities"];
+    const QuantitiesInfo = window.Config["CoreInfo"]["Basket"]["Quantities"];
     
     // Functions
     // INIT
@@ -111,6 +144,7 @@ function Initialise()
     // INIT
     HandleQuantities();
     HandleForm();
+    HandleUserBasketTable();
 }
 
 function End() 
