@@ -14,7 +14,6 @@ function HandleUserBasketTable()
     // DIVS
     let UserBasketTable = document.getElementById("UserBasketTable");
     let TableBody = UserBasketTable.children[1];
-    let ScrollableDiv = TableBody.children[1];
 
     // Functions
     // INIT
@@ -38,7 +37,7 @@ function HandleUserBasketTable()
         TableRow.appendChild(TableProductNameDefinition);
         TableRow.appendChild(TableProductQuantityDefinition);
 
-        ScrollableDiv.appendChild(TableRow);
+        TableBody.appendChild(TableRow);
     }
 }
 

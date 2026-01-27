@@ -32,14 +32,14 @@
                             </div>
 
                             <div class="card-body">
-                                <table id="UserBasketTable" class="table table-striped">
+                                <table id="UserBasketTable" class="table table-striped" style="height: 75%;">
                                     <thead>
                                         <tr>
                                             <th>Product Name</th>
                                             <th>Quantity</th>
                                         </tr>
                                     </thead>
-                                    <tbody style="height: 70%; overflow-y: scroll;">
+                                    <tbody style="overflow-y: scroll;">
 
                                     </tbody>
                                 </table>
@@ -55,7 +55,7 @@
                                 <h2>🛍️ Catalogue</h2>
                             </div>
                             <div class="card-body">
-                                <table class="table table-striped">
+                                <table class="table table-striped" style="height: 75%;">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -64,7 +64,7 @@
                                             <th>Quantity</th>
                                         </tr>
                                     </thead>
-                                    <tbody style="height: 70%; overflow-y: scroll;">
+                                    <tbody style="overflow-y: scroll;">
                                         {% for Product in Products %}
                                             <tr>
                                                 {% set ProductInfo=Product.GetDict() %}
