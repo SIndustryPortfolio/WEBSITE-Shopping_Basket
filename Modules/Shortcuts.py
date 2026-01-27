@@ -76,6 +76,11 @@ class Shortcuts:
         BasketId = session.get("BasketId", None)
 
         if not Shortcuts.UserBasketExists(BasketId):
+
+            # Reset Costs
+            if session.get("Costs", None) != None:
+                session.pop("Costs")
+
             BasketId = BasketHandler.New(Shortcuts.GetClientIP())
             session["BasketId"] = BasketId
 
