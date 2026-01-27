@@ -106,7 +106,7 @@ def Heartbeat():
 def Initialise():
     # Functions
     # INIT
-    App.config["CoreInfo"] = Utilities.LoadJson("static/JSON/Core.json")
+    App.config["CoreInfo"] = Utilities.LoadJson("Static/JSON/Core.json")
 
     with App.app_context():
         Utilities.LoadModules(ModuleRegistry, RequiredModules, App)
