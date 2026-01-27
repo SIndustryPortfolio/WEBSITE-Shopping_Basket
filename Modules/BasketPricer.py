@@ -51,7 +51,7 @@ class BasketPricer():
             #SubTotal += _SubTotal
         
         for Product in UserBasket["Items"]:
-            SubTotal += Product["BasketPrice"]
+            SubTotal += Product["Price"]
             PriceReduction += Utilities.Clamp(Product["Price"] - Product["BasketPrice"], 0, math.inf)
 
 
