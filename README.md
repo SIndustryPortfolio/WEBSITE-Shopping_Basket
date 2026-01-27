@@ -58,7 +58,7 @@ This application is deployed via **Salesforce Heroku**, so no local installation
 
 NOTE: Outputs maybe off by a slight degree due to rounding!
 
-**TEST 1**
+**TEST 1** ✔️
 <br />
 Expected
 <br />
@@ -68,7 +68,7 @@ RESULT
 <br />
 <img width="488" height="288" alt="image" src="https://github.com/user-attachments/assets/59770e02-2710-4d68-a450-37ec1b6fd2de" />
 
-**TEST 2**
+**TEST 2** ✔️
 <br />
 EXPECTED
 <br />
@@ -78,7 +78,7 @@ RESULT
 <br />
 <img width="488" height="288" alt="image" src="https://github.com/user-attachments/assets/74077b10-c4cb-4c9c-9854-159f179bbe25" />
 
-**TEST 3**
+**TEST 3** ✔️
 <br />
 EXPECTED
 <br />
@@ -89,7 +89,7 @@ RESULT
 <img width="488" height="288" alt="image" src="https://github.com/user-attachments/assets/52a5a46f-f178-46f3-8b16-a861ce779065" />
 
 
-**All Test cases passed! (3 / 3)**
+**All Test cases passed! ✅ (3 / 3)**
 
 ---
 
