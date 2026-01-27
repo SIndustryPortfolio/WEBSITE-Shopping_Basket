@@ -286,12 +286,14 @@ class OffersHandler():
         return TypeMapping[OfferName]
 
     # DEPRECATED, Names now stored in DB for better offer grouping
+    """"
     @staticmethod
     def GetDisplayName(OfferName, *Args):
         # Functions
         # INIT
         return OffersHandler.GetOffer(OfferName).GetDisplayName(*Args)
-    
+    """
+        
     # Get relevant "products" in user basket along with how many
     @staticmethod
     def GetRelevantItemsMeta(OfferName, UserBasket):
@@ -312,7 +314,7 @@ class OffersHandler():
             # INIT
             RelevantItemsMeta["Counters"][ProductName] = {
                 "Count" : len(AllProductsOfName),
-                "Products" : list(AllProductsOfName)
+                "Products" : AllProductsOfName
             }
 
             Utilities.AddToTable(RelevantItemsMeta["Raw"], *AllProductsOfName)
@@ -359,7 +361,7 @@ def LoadRecords(Records):
         OfferTargets = Record["Targets"]
 
         OffersCache[OfferName] = {
-            "Object": TypeMapping[OfferType],
+            "Class": TypeMapping[OfferType],
             "Options": OfferOptions,
             "Targets": OfferTargets
         }

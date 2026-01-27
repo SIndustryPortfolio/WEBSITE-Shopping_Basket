@@ -41,7 +41,7 @@ class BasketPricer():
             if len(RelevantItemsMeta["Raw"]) == 0:
                 continue
 
-            Cache["Object"].HandlePriceReduction(OfferName, RelevantItemsMeta)
+            Cache["Class"].HandlePriceReduction(OfferName, RelevantItemsMeta)
 
             #_PriceReduction, _SubTotal = Cache["Object"].GetPriceReduction(OfferName, RelevantItemsMeta)
 
