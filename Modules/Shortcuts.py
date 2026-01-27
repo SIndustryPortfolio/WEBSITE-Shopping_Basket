@@ -53,8 +53,6 @@ class Shortcuts:
         if not Shortcuts.UserBasketExists(BasketId):
             return redirect("/")
 
-        #return RouteCallback(*Args)
-
         Success, Response = Utilities.TryFor(1, RouteCallback, *Args)
         
         return Response
@@ -77,12 +75,11 @@ class Shortcuts:
         Costs = session.get("Costs", None)
 
         if not Shortcuts.UserBasketExists(BasketId):
-
             # Reset Costs
             if Costs != None:
                 session.pop("Costs")
-                Costs = {}
-
+            
+            Costs = {}
             BasketId = BasketHandler.New(Shortcuts.GetClientIP())
             session["BasketId"] = BasketId
 

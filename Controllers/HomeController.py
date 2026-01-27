@@ -28,17 +28,12 @@ def Initialise(App):
 
 # ROUTE CALLBACKS
 def RootRouteCallback():
-    # CORE
-    #Costs = session.get("Costs", {})
-
     # Functions
     # INIT
-    print("Rendering page")
     Response = Shortcuts.RenderPage(
         "Home.html",
         "Home",
-        Products = CatalogueHandler.GetProducts(),
-        #Costs = Costs
+        Products = CatalogueHandler.GetProducts()
     )
 
     return Response
@@ -77,5 +72,4 @@ def HandleAddRoute():
 def HandleRootRoute():
     # Functions
     # INIT
-    print("ROUTE FIRED")
     return RootRouteCallback()
