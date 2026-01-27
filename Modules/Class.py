@@ -60,6 +60,8 @@ class Class:
         # Functions
         # INIT
         NewObj = copy.copy(self)
+
+        # CLONE TABLES
         NewObj.Public = {**NewObj.Public}
         NewObj.Private = {**NewObj.Private}
 
