@@ -63,21 +63,21 @@ Expected
 <img width="268" height="161" alt="image" src="https://github.com/user-attachments/assets/e78f440b-fb2c-4b74-89ef-d7bace5b2a42" />
 
 RESULT
-<img width="977" height="576" alt="image" src="https://github.com/user-attachments/assets/59770e02-2710-4d68-a450-37ec1b6fd2de" />
+<img width="488" height="288" alt="image" src="https://github.com/user-attachments/assets/59770e02-2710-4d68-a450-37ec1b6fd2de" />
 
 TEST 2
 EXPECTED
 <img width="230" height="102" alt="image" src="https://github.com/user-attachments/assets/901dca46-b34c-465e-9fec-dbb149330de0" />
 
 RESULT
-<img width="988" height="569" alt="image" src="https://github.com/user-attachments/assets/74077b10-c4cb-4c9c-9854-159f179bbe25" />
+<img width="488" height="288" alt="image" src="https://github.com/user-attachments/assets/74077b10-c4cb-4c9c-9854-159f179bbe25" />
 
 TEST 3
 EXPECTED
 <img width="176" height="145" alt="image" src="https://github.com/user-attachments/assets/48004ae9-6153-42fe-9a68-9f3315c93c22" />
 
 RESULT
-<img width="998" height="572" alt="image" src="https://github.com/user-attachments/assets/52a5a46f-f178-46f3-8b16-a861ce779065" />
+<img width="488" height="288" alt="image" src="https://github.com/user-attachments/assets/52a5a46f-f178-46f3-8b16-a861ce779065" />
 
 
 All Test cases passed! (3 / 3)
