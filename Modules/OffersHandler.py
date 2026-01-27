@@ -15,7 +15,6 @@ from .Database import Database
 from .CatalogueHandler import CatalogueHandler
 
 # EXT
-import math
 
 # CORE
 OffersCache = {}
@@ -89,8 +88,10 @@ class BuyXGetXFree(): #(Offer):
 
                         Count += 1
 
-                        if Count % Buy == 0:
+                        if Count == Buy:
+                            Count = 0
                             Skip = Free
+                            
 
                 continue
 
@@ -109,7 +110,8 @@ class BuyXGetXFree(): #(Offer):
 
                 Count += 1
 
-                if Count % Buy == 0:
+                if Count == Buy:
+                    Count = 0
                     Skip = Free
 
 
