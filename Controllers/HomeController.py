@@ -48,6 +48,17 @@ def RootRouteCallback():
 
     return Response
 
+def ResetBasketRouteCallback():
+    # Functions
+    # INIT
+    BasketId = session.get("BasketId", None)
+
+    if BasketId != None:
+        UserBasket = BasketHandler.GetBasket(BasketId)
+        UserBasket.Clear()
+
+    return redirect("/")
+
 def UpdateBasketRouteCallback():
     # CORE
     Data = request.form
@@ -69,6 +80,12 @@ def UpdateBasketRouteCallback():
 
 
 # DIRECT
+@BluePrint.route("/ResetBasket", methods=["POST"])
+def HandleResetRoute():
+    # Functions
+    # INIT
+    return Shortcuts.RouteFired(ResetBasketRouteCallback)
+
 @BluePrint.route("/UpdateBasket", methods=["POST"])
 def HandleAddRoute():
     # Functions
