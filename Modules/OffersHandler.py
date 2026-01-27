@@ -60,6 +60,9 @@ class BuyXGetXFree(): #(Offer):
         Cache = OffersCache[OfferName]
         Targets = Cache["Targets"]
 
+        Buy = int(Cache["Options"]["Buy"])
+        Free = int(Cache["Options"]["Free"])
+
         Skip = 0
 
         # Functions
@@ -86,8 +89,8 @@ class BuyXGetXFree(): #(Offer):
 
                         Count += 1
 
-                        if Count % Cache["Options"]["Buy"] == 0:
-                            Skip = Cache["Options"]["Free"]
+                        if Count % Buy == 0:
+                            Skip = Free
 
                 continue
 
@@ -106,8 +109,8 @@ class BuyXGetXFree(): #(Offer):
 
                 Count += 1
 
-                if Count % Cache["Options"]["Buy"] == 0:
-                    Skip = Cache["Options"]["Free"]
+                if Count % Buy == 0:
+                    Skip = Free
 
 
 
