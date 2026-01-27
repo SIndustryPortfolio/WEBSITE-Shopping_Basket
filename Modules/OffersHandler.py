@@ -62,11 +62,11 @@ class BuyXGetXFree(): #(Offer):
         Buy = int(Cache["Options"]["Buy"])
         Free = int(Cache["Options"]["Free"])
 
-        Skip = 0
-
         # Functions
         # INIT
         for ProductNameOrFamily in Targets:
+            Skip = 0
+
             ###################
             # DISCOUNT FAMILY #
             ###################
