@@ -67,8 +67,6 @@ class BuyXGetXFree(): #(Offer):
         # Functions
         # INIT
         for ProductNameOrFamily in Targets:
-            Skip = False
-
             ###################
             # DISCOUNT FAMILY #
             ###################
