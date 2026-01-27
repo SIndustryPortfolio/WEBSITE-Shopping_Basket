@@ -99,7 +99,7 @@ class BuyXGetXFree(): #(Offer):
             # SINGLE  PRODUCT #
             ###################
             ProductName = ProductNameOrFamily
-            CountersMeta = RelevantItemsMeta["Counters"][ProductName]
+            CountersMeta = RelevantItemsMeta["Counters"][ProductName]           
 
             for Item in CountersMeta["Products"]:
                 if Skip > 0:
@@ -211,11 +211,13 @@ class Percentage(): #(Offer):
         
         # Functions
         # INIT
+        DiscountMultiplier = int(Cache["Options"]["DiscountBy"]) / 100
+
         for ProductName in Cache["Targets"]:
             CountersMeta = RelevantItemsMeta["Counters"][ProductName]
 
             for Item in CountersMeta["Products"]:
-                Item["BasketPrice"] -= (Item["Price"] * (Cache["Options"]["DiscountBy"] / 100))
+                Item["BasketPrice"] -= (Item["Price"] * DiscountMultiplier)
 
     """"
     @staticmethod
