@@ -13,7 +13,7 @@ function HandleUserBasketTable()
     // Elements
     // DIVS
     let UserBasketTable = document.getElementById("UserBasketTable");
-    let TableBody = UserBasketTable.children[0];
+    let TableBody = UserBasketTable.children[1];
     let ScrollableDiv = TableBody.children[1];
 
     // Functions

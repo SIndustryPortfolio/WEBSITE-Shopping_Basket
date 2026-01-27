@@ -39,18 +39,8 @@
                                             <th>Quantity</th>
                                         </tr>
                                     </thead>
-                                    <tbody style="height: 70%; overflow-y: scroll;>
+                                    <tbody style="height: 70%; overflow-y: scroll;">
 
-                                        {#
-                                            {% for Product in Basket.GetDict()["Items"] %}
-                                                {% if not Product["Name"] in AlreadyChecked %}
-                                                    <tr>
-                                                        <td>{{Product["Name"]}}</td>
-                                                        <td>{{Product["ImportedQuantity"]}}</td>
-                                                    </tr>
-                                                {% endif %}
-                                            {% endfor %}
-                                        #}
                                     </tbody>
                                 </table>
                             </div>
