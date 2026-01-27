@@ -248,7 +248,11 @@ def LoadRecords(Records):
     def HandleOne(OfferName, ProductName):
         # Functions
         # INIT
-        CatalogueProduct =  CatalogueHandler.GetProductByName(ProductName)["Offer"]
+        CatalogueProduct =  CatalogueHandler.GetProductByName(ProductName)
+
+        # Product doesn't exist
+        if not CatalogueProduct:
+            return None
 
         if CatalogueProduct["Offers"] == None:
             CatalogueProduct["Offers"] = []
