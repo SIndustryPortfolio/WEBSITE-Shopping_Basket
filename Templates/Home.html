@@ -85,15 +85,15 @@
                                             </td>
 
                                             <td>
-                                                <div class="row" id="Product{{ProductInfo['Name']}}Quantity">
+                                                <div class="row text-center align-items-center" id="Product{{ProductInfo['Name']}}Quantity">
                                                     <div class="col" style="width: 30%; padding: 3%">
-                                                        <button name="subtract" class="btn btn-danger text-center" style="width: 100%; height: 100%;">-</button>
+                                                        <button name="subtract" class="btn btn-danger" style="width: 100%; height: 100%;">-</button>
                                                     </div>
                                                     <div class="col" style="width: 30%; padding: 3%;">
                                                         <p name="Quantity"></p>
                                                     </div>
                                                     <div class="col" style="width: 30%; padding: 3%">
-                                                        <button name="add" class="btn btn-success text-center" style="width: 100%; height: 100%;">+</button>
+                                                        <button name="add" class="btn btn-success" style="width: 100%; height: 100%;">+</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -102,9 +102,7 @@
                                 </table>
                             </div>
 
-                            <br>
-
-                            <form id="UpdateBasketForm" class="text-center" action="UpdateBasket" method="post" style="padding: 10px;">
+                            <form id="UpdateBasketForm" class="text-center" action="UpdateBasket" method="post" style="padding-bottom: 10px;">
                                 <input type="submit" class="btn btn-secondary" value="Update"/>
                             </form>
                         </div>
