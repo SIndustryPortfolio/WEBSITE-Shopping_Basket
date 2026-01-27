@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-5" style="">
-                        <div class="card shadow-md" style="width: 100%; margin: 0 auto; overflow: scroll; height: 45%;">
+                        <div class="card shadow-md" style="width: 100%; margin: 0 auto; height: 100%;">
                             <div class="card-header">
                                 <h2>🧺 Your basket</h2>
                             </div>
@@ -37,6 +37,10 @@
                                         <th>Product Name</th>
                                         <th>Quantity</th>
                                     </tr>
+
+                                    <div id="Scrollable" style="height: 70%; overflow-y: scroll;">
+
+                                    </div>
 
                                     {#
                                         {% for Product in Basket.GetDict()["Items"] %}
@@ -56,7 +60,7 @@
                         
                     </div>
                     <div class="col-5" style="">
-                        <div class="card shadow-md" style="width: 100%; margin: 0 auto; overflow: scroll; height: 45%;">
+                        <div class="card shadow-md" style="width: 100%; margin: 0 auto; height: 100%;">
                             <div class="card-header">
                                 <h2>🛍️ Catalogue</h2>
                             </div>
@@ -69,40 +73,42 @@
                                         <th>Quantity</th>
                                     </tr>
 
-                                    {% for Product in Products %}
-                                        <tr>
-                                            {% set ProductInfo=Product.GetDict() %}
+                                    <div id="Scrollable" style="height: 70%; overflow-y: scroll;">
+                                        {% for Product in Products %}
+                                            <tr>
+                                                {% set ProductInfo=Product.GetDict() %}
 
-                                            <td>{{ProductInfo["Name"]}}</td>
-                                            <td>{{CoreInfo["Currency"]["Prefix"] + Utilities.FormatNumber(ProductInfo["Price"])}}</td>
-                                            
-                                            <td>
-                                                {% if "Offers" in ProductInfo %}
-                                                    <ul>
-                                                        {% for OfferName in ProductInfo["Offers"] %}
-                                                            <li><b>{{OfferName}}</b></li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                {% else %}
-                                                    {{"X"}}
-                                                {% endif %}
-                                            </td>
+                                                <td>{{ProductInfo["Name"]}}</td>
+                                                <td>{{CoreInfo["Currency"]["Prefix"] + Utilities.FormatNumber(ProductInfo["Price"])}}</td>
+                                                
+                                                <td>
+                                                    {% if "Offers" in ProductInfo %}
+                                                        <ul>
+                                                            {% for OfferName in ProductInfo["Offers"] %}
+                                                                <li><b>{{OfferName}}</b></li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% else %}
+                                                        {{"X"}}
+                                                    {% endif %}
+                                                </td>
 
-                                            <td>
-                                                <div class="row text-center align-items-center" id="Product{{ProductInfo['Name']}}Quantity">
-                                                    <div class="col" style="width: 30%; padding: 3%">
-                                                        <button name="subtract" class="btn btn-danger" style="width: 100%; height: 100%; padding: 0;">-</button>
+                                                <td>
+                                                    <div class="row text-center align-items-center" id="Product{{ProductInfo['Name']}}Quantity">
+                                                        <div class="col" style="width: 30%; padding: 3%">
+                                                            <button name="subtract" class="btn btn-danger" style="width: 100%; height: 100%; padding: 0;">-</button>
+                                                        </div>
+                                                        <div class="col" style="width: 30%; padding: 3%;">
+                                                            <p name="Quantity"></p>
+                                                        </div>
+                                                        <div class="col" style="width: 30%; padding: 3%">
+                                                            <button name="add" class="btn btn-success" style="width: 100%; height: 100%; padding: 0;">+</button>
+                                                        </div>
                                                     </div>
-                                                    <div class="col" style="width: 30%; padding: 3%;">
-                                                        <p name="Quantity"></p>
-                                                    </div>
-                                                    <div class="col" style="width: 30%; padding: 3%">
-                                                        <button name="add" class="btn btn-success" style="width: 100%; height: 100%; padding: 0;">+</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </div>
                                 </table>
                             </div>
 
