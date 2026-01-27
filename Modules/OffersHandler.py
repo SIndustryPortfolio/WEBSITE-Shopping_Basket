@@ -55,7 +55,7 @@ class BuyXGetXFree(): #(Offer):
 
 
     @staticmethod
-    def GetPriceReduction(OfferName, RelevantItemsMeta):
+    def HandlePriceReduction(OfferName, RelevantItemsMeta):
         # CORE
         Cache = OffersCache[OfferName]
         Targets = Cache["Targets"]
