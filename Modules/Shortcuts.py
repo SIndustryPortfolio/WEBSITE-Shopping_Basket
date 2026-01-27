@@ -69,20 +69,12 @@ class Shortcuts:
 
     @staticmethod
     def GetPageEssentials():
+        # CORE
+        BasketId = session.get("BasketId", None)
+        Costs = session.get("Costs", {})
+
         # Functions
         # INIT
-        BasketId = session.get("BasketId", None)
-        Costs = session.get("Costs", None)
-
-        if not Shortcuts.UserBasketExists(BasketId):
-            # Reset Costs
-            if Costs != None:
-                session.pop("Costs")
-            
-            Costs = {}
-            BasketId = BasketHandler.New(Shortcuts.GetClientIP())
-            session["BasketId"] = BasketId
-
         return {
             "CoreInfo": CurrentApp.config["CoreInfo"] or {},
             "HostURL" : request.host_url or Shortcuts.GetHostURL(),

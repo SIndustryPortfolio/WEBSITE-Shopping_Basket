@@ -30,6 +30,16 @@ def Initialise(App):
 def RootRouteCallback():
     # Functions
     # INIT
+    BasketId = session.get("BasketId", None)
+
+    # CREATE NEW BASKET
+    if not Shortcuts.UserBasketExists(BasketId):
+        BasketId = BasketHandler.New(Shortcuts.GetClientIP())
+        session["BasketId"] = BasketId
+
+    UserBasket = BasketHandler.GetBasket(BasketId)
+    session["Costs"] = BasketPricer.CalculateCosts(UserBasket)
+
     Response = Shortcuts.RenderPage(
         "Home.html",
         "Home",
@@ -54,8 +64,6 @@ def UpdateBasketRouteCallback():
         for ProductName, Quantity in Data.items():
             for x in range(0, int(Quantity)):
                 UserBasket.Add(copy.copy(CatalogueHandler.GetProductByName(ProductName)))
-
-        session["Costs"] = BasketPricer.CalculateCosts(UserBasket)
 
     return redirect("/")
 
