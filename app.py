@@ -27,9 +27,9 @@ HeartbeatBusy = False
 HeartbeatStartTime = None
 HeartbeatMainThread = None
 ## CONFIG
-App.config["SECRET_KEY"] = "MySecretKey"
-App.config["DBUsername"] = "admin"
-App.config["DBPassword"] = "admin"
+App.config["SECRET_KEY"] = os.environ.get("SecretKey", None)
+App.config["DBUsername"] = os.environ.get("DBUsername", None)
+App.config["DBPassword"] = os.environ.get("DBPassword", None)
 
 ## CORE
 ModuleRegistry = [
