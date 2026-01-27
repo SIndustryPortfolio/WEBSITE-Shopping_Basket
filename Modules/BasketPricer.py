@@ -26,7 +26,7 @@ class BasketPricer():
         SubTotal = 0 # Undiscounted Cost
         Total = 0 # Final Cost
         
-        AlreadyChecked = []
+        #AlreadyChecked = []
 
         # Functions
         # INIT
@@ -45,7 +45,7 @@ class BasketPricer():
 
             #_PriceReduction, _SubTotal = Cache["Object"].GetPriceReduction(OfferName, RelevantItemsMeta)
 
-            Utilities.AddToTable(AlreadyChecked, *RelevantItemsMeta["Raw"])
+            #Utilities.AddToTable(AlreadyChecked, *RelevantItemsMeta["Raw"])
             
             #PriceReduction += _PriceReduction
             #SubTotal += _SubTotal

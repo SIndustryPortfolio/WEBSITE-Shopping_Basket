@@ -178,6 +178,7 @@ class BuyXGetXFree(): #(Offer):
             
 
     # DEPRECATED, builds actual offer name based off options
+    """
     @staticmethod
     def GetDisplayName(OfferName):
         # CORE
@@ -187,7 +188,7 @@ class BuyXGetXFree(): #(Offer):
         # Functions
         # INIT
         return f"Buy {Options["Buy"]} Get {Options["Free"]} Free"
-
+    """
 
 ## OFFER TYPE
 class Percentage(): #(Offer):
@@ -235,6 +236,7 @@ class Percentage(): #(Offer):
     """
 
     # DEPRECATED, builds actual offer name based off options
+    """"
     @staticmethod
     def GetDisplayName(OfferName):
           # CORE
@@ -244,6 +246,7 @@ class Percentage(): #(Offer):
         # Functions
         # INIT
         return f"{Options["DiscountBy"]}% Off"
+    """
             
 
 ##
