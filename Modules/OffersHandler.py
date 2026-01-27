@@ -80,6 +80,7 @@ class BuyXGetXFree(): #(Offer):
 
                     for Item in CountersMeta["Products"]:
                         if Skip > 0:
+                            print("Skipping " + Item["Name"])
                             Item["BasketPrice"] = 0
                             Skip -= 1
                             continue
@@ -92,6 +93,7 @@ class BuyXGetXFree(): #(Offer):
                             
 
                 continue
+
 
             ###################
             # SINGLE  PRODUCT #
