@@ -242,23 +242,21 @@ class OffersHandler():
     
 
 ##
-def LoadRecords(Records):
+def Initialise(App):
     # CORE
+    global CurrentApp
 
     # Functions
-    # MECHANICS
-    def HandleOne(OfferName, ProductName):
-        # CORE
-        CatalogueProduct = CatalogueHandler.GetProductByName(ProductName)
-
-        # Functions
-        # INIT
-        if not CatalogueProduct["Offers"]:
-            CatalogueProduct["Offers"] = []
-            
-        CatalogueProduct["Offers"].append(OfferName)
-
     # INIT
+    CurrentApp = App
+
+    OffersCollection = Database.GetDatabase()["Offers"]
+
+    Success, Records = Utilities.TryFor(3, OffersCollection.find)
+
+    if not Success:
+        return
+    
     # Load DB Offers into cache
     for Record in Records:
         OfferName = Record["Name"]
@@ -275,27 +273,8 @@ def LoadRecords(Records):
         for ProductNameOrFamily in OfferTargets:
             if isinstance(ProductNameOrFamily, list):
                 for ProductName in ProductNameOrFamily:
-                    HandleOne(OfferName, ProductName)
+                    CatalogueHandler.GetProductByName(ProductName)["Offer"] = OfferName
                 
                 continue
             
-            HandleOne(OfferName, ProductName)
-
-    HandleOne = None #CleanUp
-
-def Initialise(App):
-    # CORE
-    global CurrentApp
-
-    # Functions
-    # INIT
-    CurrentApp = App
-
-    OffersCollection = Database.GetDatabase()["Offers"]
-
-    Success, Records = Utilities.TryFor(3, OffersCollection.find)
-
-    if not Success:
-        return
-    
-    return LoadRecords(Records)
+            CatalogueHandler.GetProductByName(ProductNameOrFamily)["Offer"] = OfferName
