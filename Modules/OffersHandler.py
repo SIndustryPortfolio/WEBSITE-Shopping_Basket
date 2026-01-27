@@ -216,6 +216,8 @@ class Percentage(): #(Offer):
         for ProductName in Cache["Targets"]:
             CountersMeta = RelevantItemsMeta["Counters"][ProductName]
 
+            print(CountersMeta["Products"])
+
             for Item in CountersMeta["Products"]:
                 Item["BasketPrice"] -= (Item["Price"] * DiscountMultiplier)
 
