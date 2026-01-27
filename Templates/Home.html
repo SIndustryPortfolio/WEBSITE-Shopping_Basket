@@ -77,8 +77,12 @@
                                             <td>{{CoreInfo["Currency"]["Prefix"] + Utilities.FormatNumber(ProductInfo["Price"])}}</td>
                                             
                                             <td>
-                                                {% if "Offer" in ProductInfo %}
-                                                    <b>{{ProductInfo["Offer"]}}</b>
+                                                {% if "Offers" in ProductInfo %}
+                                                    <ul>
+                                                        {% for OfferName in ProductInfo["Offers"] %}
+                                                            <li><b>{{OfferName}}</b></li>
+                                                        {% endfor %}
+                                                    </ul>
                                                 {% else %}
                                                     {{"X"}}
                                                 {% endif %}
