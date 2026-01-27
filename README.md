@@ -2,6 +2,12 @@
 
 A supermarket basket-pricing web application that allows users to add and remove products, apply offers, and calculate **subtotals, discounts, and totals** in real time.
 
+<img width="959" height="488" alt="image" src="https://github.com/user-attachments/assets/2567a8f6-304b-4d09-bada-9a259fa90e13" />
+<img width="959" height="488" alt="image" src="https://github.com/user-attachments/assets/b688e7df-8a44-4737-a9ae-b88f2b7bc356" />
+
+
+**TRY FOR YOURSELF:** https://shopping-basket-87c673649f49.herokuapp.com/
+
 ---
 
 ## ✨ Features
@@ -48,10 +54,33 @@ I chose to implement this solution as a **full web application** rather than a C
 
 This application is deployed via **Salesforce Heroku**, so no local installation or setup is required.
 
-👉 **Live app:**  
-https://shopping-basket-87c673649f49.herokuapp.com/
+## 🗒️ TEST CASES
 
-Simply open the link in a browser to explore the functionality.
+NOTE: Outputs maybe off by a slight degree due to rounding!
+
+TEST 1
+Expected
+<img width="268" height="161" alt="image" src="https://github.com/user-attachments/assets/e78f440b-fb2c-4b74-89ef-d7bace5b2a42" />
+
+RESULT
+<img width="977" height="576" alt="image" src="https://github.com/user-attachments/assets/59770e02-2710-4d68-a450-37ec1b6fd2de" />
+
+TEST 2
+EXPECTED
+<img width="230" height="102" alt="image" src="https://github.com/user-attachments/assets/901dca46-b34c-465e-9fec-dbb149330de0" />
+
+RESULT
+<img width="988" height="569" alt="image" src="https://github.com/user-attachments/assets/74077b10-c4cb-4c9c-9854-159f179bbe25" />
+
+TEST 3
+EXPECTED
+<img width="176" height="145" alt="image" src="https://github.com/user-attachments/assets/48004ae9-6153-42fe-9a68-9f3315c93c22" />
+
+RESULT
+<img width="998" height="572" alt="image" src="https://github.com/user-attachments/assets/52a5a46f-f178-46f3-8b16-a861ce779065" />
+
+
+All Test cases passed! (3 / 3)
 
 ---
 
