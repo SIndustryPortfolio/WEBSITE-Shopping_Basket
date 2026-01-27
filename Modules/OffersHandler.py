@@ -7,9 +7,9 @@
 
 # Modules
 # INT
-from .Class import Class
+#from .Class import Class
 from .Utilities import Utilities
-from .Shortcuts import Shortcuts
+#from .Shortcuts import Shortcuts
 from .Database import Database
 
 from .CatalogueHandler import CatalogueHandler
@@ -24,6 +24,10 @@ CurrentApp = None
 
 # Functions
 # CLASSES
+
+## DEPRECATED, Pre discount-family system: Better for "stand-alone" discounts ##
+################################################################################
+""""
 class Offer(Class):
     def __init__(self, Meta):
         # CORE
@@ -35,10 +39,15 @@ class Offer(Class):
         #self.Public["Options"] = Meta["Options"]
 
         self.Public["DisplayName"] = self.GetDisplayName(self)
-
+"""
 ##
 
+# OFFER TYPE
 class BuyXGetXFree(): #(Offer):
+    
+    ## DEPRECATED, NO LONGER A CLASS -> CHANGED TO "BEHAVIOUR" & Singleton ##
+    #########################################################################
+
     #def __init__(self, *Args):
     #    # Functions
     #    # INIT
@@ -105,27 +114,10 @@ class BuyXGetXFree(): #(Offer):
                 if Count % Cache["Options"]["Buy"] == 0:
                     Skip = Cache["Options"]["Free"]
 
-
-        """
-        for Item in RelevantItems:
-            SubTotal += BasePrice
-
-            if Skip:
-                PriceReduction += BasePrice
-                Skip = False
-                continue
-
-            Count += 1
-
-            if Count % Options["Buy"] == 0:
-                Skip = True
-                continue
-        """
-
         return round(PriceReduction, 2), SubTotal
             
 
-    # UNIVERSAL / CLASS & SERVICE METHOD
+    # DEPRECATED, builds actual offer name based off options
     @staticmethod
     def GetDisplayName(OfferName):
         # CORE
@@ -136,7 +128,12 @@ class BuyXGetXFree(): #(Offer):
         # INIT
         return f"Buy {Options["Buy"]} Get {Options["Free"]} Free"
 
+
+## OFFER TYPE
 class Percentage(): #(Offer):
+
+    ## DEPRECATED, NO LONGER A CLASS -> CHANGED TO "BEHAVIOUR" & Singleton ##
+    #########################################################################
     #def __init__(self, *Args):
     #    # Functions
     #    # INIT
@@ -158,13 +155,9 @@ class Percentage(): #(Offer):
             SubTotal = Quantity * BasePrice
             PriceReduction += Utilities.Clamp((Quantity * (Cache["Options"]["DiscountBy"] / 100)), 0, math.inf) * BasePrice
 
-        #for Item in RelevantItems:
-        #    SubTotal += BasePrice
-        #    PriceReduction += Utilities.Clamp(BasePrice * (Options["DiscountBy"] / 100), 0, math.inf)
-
         return round(PriceReduction, 2), SubTotal
 
-    # UNIVERSAL / CLASS & SERVICE METHOD
+    # DEPRECATED, builds actual offer name based off options
     @staticmethod
     def GetDisplayName(OfferName):
           # CORE
@@ -185,30 +178,35 @@ TypeMapping = {
 
 ##
 class OffersHandler():
+    # Get DB-parsed offer data
     @staticmethod
     def GetOffersCache():
         # Functions
         # INIT
         return OffersCache
 
+    # Get all offer behaviours / services
     @staticmethod
     def GetTypeMapping():
         # Functions
         # INIT
         return TypeMapping
 
+    # Factory method to get "behaviours", return "Offer" singleton service
     @staticmethod
     def GetOffer(OfferName):
         # Functions
         # INIT
         return TypeMapping[OfferName]
 
+    # DEPRECATED, Names now stored in DB for better offer grouping
     @staticmethod
     def GetDisplayName(OfferName, *Args):
         # Functions
         # INIT
         return OffersHandler.GetOffer(OfferName).GetDisplayName(*Args)
     
+    # Get relevant "products" in user basket along with how many
     @staticmethod
     def GetRelevantItemsMeta(OfferName, UserBasket):
         # CORE
@@ -259,6 +257,7 @@ def Initialise(App):
     if not Success:
         return
     
+    # Load DB Offers into cache
     for Record in Records:
         OfferName = Record["Name"]
         OfferType = Record["Type"]

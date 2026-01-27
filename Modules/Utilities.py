@@ -6,6 +6,8 @@
 
 # Module
 # INT
+
+# EXT
 import json
 import importlib
 import time
@@ -15,6 +17,7 @@ from datetime import datetime, timezone
 # CORE
 
 class Utilities:
+    # Get Number of class objects in list / array
     @staticmethod
     def GetNumberOfObjects(Table, Class):
         # CORE
@@ -30,6 +33,7 @@ class Utilities:
 
         return Count
 
+    # Add many unpacked values to list
     @staticmethod
     def AddToTable(Table, *Values):
         # Functions
@@ -37,12 +41,14 @@ class Utilities:
         for Value in Values:
             Table.append(Value)
 
+    # Double clamp numbers, a range that cannot be exceeded
     @staticmethod
     def Clamp(Number, Min, Max):
         # Functions
         # INIT
         return max(Min, min(Number, Max))
 
+    # Convert Minutes to Seconds. E.G: 2 Mins -> 120 Seconds
     @staticmethod
     def MinutesToSeconds(Minutes):
         # Functions
@@ -56,7 +62,7 @@ class Utilities:
         # INIT
         return round(datetime.now(timezone.utc).timestamp(), 3)
 
-    # Format 10,000 -> 10K
+    # Format large numbers. E.G: 10,000 -> 10K
     @staticmethod
     def FormatNumber(Number):
         # Functions

@@ -29,6 +29,7 @@ class CatalogueHandler():
 
         return Response
 
+    # Get cached product object via string name
     @staticmethod
     def GetProductByName(ProductName):
         # Functions

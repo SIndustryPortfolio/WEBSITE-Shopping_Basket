@@ -27,6 +27,10 @@ class Product(Class):
         self.Public["Name"] = Options.get("Name", None)
         self.Public["Price"] = Options.get("Price", 0)
 
+
+        ## DEPRECATED, Superseded by Offershandler ## 
+        #############################################
+        
         #OfferInfo = Options.get("Offer", None)
 
         #if OfferInfo != None:

@@ -18,6 +18,7 @@ import math
 
 ##
 class BasketPricer():
+    # Calculate all the final costs of a User Basket, returns a dictionary.
     @staticmethod
     def CalculateCosts(UserBasket):
         # CORE
@@ -35,18 +36,9 @@ class BasketPricer():
             if len(RelevantItemsMeta["Raw"]) == 0:
                 continue
 
-            
-            
-            #Product = OfferItems[0]
-
-            #if Product == None:
-            #    continue
-
             _PriceReduction, _SubTotal = Cache["Object"].GetPriceReduction(OfferName, RelevantItemsMeta)
 
             Utilities.AddToTable(AlreadyChecked, *RelevantItemsMeta["Raw"])
-
-            #AlreadyChecked.append(*OfferItems)
             
             PriceReduction += _PriceReduction
             SubTotal += _SubTotal
@@ -57,7 +49,7 @@ class BasketPricer():
 
             SubTotal += Product["Price"]
 
-
+        # Total cannot dive below 0
         Total = Utilities.Clamp(SubTotal - PriceReduction, 0, math.inf)
 
         return {

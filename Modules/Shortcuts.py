@@ -52,11 +52,12 @@ class Shortcuts:
         # INIT
         if not Shortcuts.UserBasketExists(BasketId):
             return redirect("/")
+
+        #return RouteCallback(*Args)
+
+        Success, Response = Utilities.TryFor(1, RouteCallback, *Args)
         
-        #Success, Response = Utilities.TryFor(1, RouteCallback, *Args)
-        
-        #return Response
-        return RouteCallback(*Args)
+        return Response
 
     @staticmethod
     def GetHostURL():

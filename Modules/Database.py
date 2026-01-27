@@ -18,12 +18,14 @@ Client = None
 # Functions
 # MECHANICS
 class Database:
+    # Gets the DB Cluster
     @staticmethod
     def GetDatabase():
         # Functions
         # INIT
         return Client[CurrentApp.config["CoreInfo"]["DB"]["ClusterName"]]
     
+    # Manual ID system / SQL "Auto-Increment" functionality
     @staticmethod
     def GetAndUpdateCounter(CollectionName): # FOR NUMBER BASED IDs ON RECORDS
         counterCollection = Database.getDatabase()["Counter"]
@@ -60,5 +62,9 @@ def Initialise(App):
 def End():
     # Functions
     # INIT
+
+    # Close & clean DB connection
     if Client != None:
         Client.close()
+
+    Client = None

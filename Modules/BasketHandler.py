@@ -22,10 +22,12 @@ CurrentApp = None
 # Functions
 # MECHANICS
 class BasketHandler():
+    # Cast key to string (Forced)
     @staticmethod
     def FormatKey(Key):
         return str(Key)
 
+    # Factory, create 
     @staticmethod
     def New(Key):
         # CORE
