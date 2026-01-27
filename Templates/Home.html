@@ -21,117 +21,107 @@
 </script>
 
 <body>
-    <h1 class="text-center">{{CoreInfo["Meta"]["Display Name"]}}</h1>
-
-    <br>
-    <hr class="rounded">
-    <br>
-
-    <div class="container text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-5" style="">
-                    <h2>🧺 Your basket</h2>
-                
-                    <table id="UserBasketTable" class="table table-striped">
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                        </tr>
-
-                        {#
-                            {% for Product in Basket.GetDict()["Items"] %}
-                                {% if not Product["Name"] in AlreadyChecked %}
-                                    <tr>
-                                        <td>{{Product["Name"]}}</td>
-                                        <td>{{Product["ImportedQuantity"]}}</td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        #}
-                    </table>
-                </div>
-                <div class="col" style="">
+    <div class="Content">
+        <div class="container text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-5" style="">
+                        <h2>🧺 Your basket</h2>
                     
-                </div>
-                <div class="col-5" style="">
-                    <h2>🛍️ Catalogue</h2>
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Offer</th>
-                            <th>Quantity</th>
-                        </tr>
-
-                        {% for Product in Products %}
+                        <table id="UserBasketTable" class="table table-striped">
                             <tr>
-                                {% set ProductInfo=Product.GetDict() %}
-
-                                <td>{{ProductInfo["Name"]}}</td>
-                                <td>{{CoreInfo["Currency"]["Prefix"] + Utilities.FormatNumber(ProductInfo["Price"])}}</td>
-                                
-                                <td>
-                                    {% if "Offer" in ProductInfo %}
-                                        <b>{{ProductInfo["Offer"]}}</b>
-                                    {% else %}
-                                        {{"X"}}
-                                    {% endif %}
-                                </td>
-
-                                <td>
-                                    <div class="row" id="Product{{ProductInfo['Name']}}Quantity">
-                                        <div class="col">
-                                            <button name="subtract" class="btn btn-danger">-</button>
-                                        </div>
-                                        <div class="col">
-                                            <p name="Quantity"></p>
-                                        </div>
-                                        <div class="col">
-                                            <button name="add" class="btn btn-success">+</button>
-                                        </div>
-                                    </div>
-                                </td>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
                             </tr>
-                        {% endfor %}
-                    </table>
 
-                    <br>
+                            {#
+                                {% for Product in Basket.GetDict()["Items"] %}
+                                    {% if not Product["Name"] in AlreadyChecked %}
+                                        <tr>
+                                            <td>{{Product["Name"]}}</td>
+                                            <td>{{Product["ImportedQuantity"]}}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            #}
+                        </table>
+                    </div>
+                    <div class="col" style="">
+                        
+                    </div>
+                    <div class="col-5" style="">
+                        <h2>🛍️ Catalogue</h2>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Offer</th>
+                                <th>Quantity</th>
+                            </tr>
 
-                    <form id="UpdateBasketForm" class="text-center" action="UpdateBasket" method="post">
-                        <input type="submit" class="btn btn-secondary" value="Update"/>
-                    </form>
+                            {% for Product in Products %}
+                                <tr>
+                                    {% set ProductInfo=Product.GetDict() %}
+
+                                    <td>{{ProductInfo["Name"]}}</td>
+                                    <td>{{CoreInfo["Currency"]["Prefix"] + Utilities.FormatNumber(ProductInfo["Price"])}}</td>
+                                    
+                                    <td>
+                                        {% if "Offer" in ProductInfo %}
+                                            <b>{{ProductInfo["Offer"]}}</b>
+                                        {% else %}
+                                            {{"X"}}
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        <div class="row" id="Product{{ProductInfo['Name']}}Quantity">
+                                            <div class="col">
+                                                <button name="subtract" class="btn btn-danger">-</button>
+                                            </div>
+                                            <div class="col">
+                                                <p name="Quantity"></p>
+                                            </div>
+                                            <div class="col">
+                                                <button name="add" class="btn btn-success">+</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+
+                        <br>
+
+                        <form id="UpdateBasketForm" class="text-center" action="UpdateBasket" method="post">
+                            <input type="submit" class="btn btn-secondary" value="Update"/>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <br>
-
-    
-    <div class="card shadow-sm" style="width: 18rem; margin: 0 auto;">
-        <div class="card-header">
-            <h2 class="card-title text-center">💰 Costs</h2>
-        </div>
-        <div class="card-body">
-            <h4 class="card-text">Subtotal: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["SubTotal"]}}</h4>
-            <h4 class="card-text">Discount: {{CoreInfo["Currency"]["Prefix"]}} -{{Costs["PriceReduction"]}}</h4>
-            <hr class="rounded">
-            <h4 class="card-text">Total: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["Total"]}}</h4>
-        </div>
-    </div>
-
-    <!--<div class="container text-center">
-        <h2 class="text-center">💰 Costs</h2>
-        <h4 class="text-center">Subtotal: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["SubTotal"]}}</h4>
-        <h4 class="text-center">Discount: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["PriceReduction"]}}</h4>
-        <h4 class="text-center">Total: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["Total"]}}</h4>
         <br>
-    </div>-->
 
-    <footer class="text-lg-start bg-body-tertiary text-muted" style="position: fixed; width: 100%; bottom: 0; left: 0;">
-        <div class="text-center">
-            <p><b>NOTE: Total / Discount values may slightly vary to a degree due to rounding. Example: Instead of £0.95 you may get £0.94.</b></p>
+        
+        <div class="card shadow-sm" style="width: 18rem; margin: 0 auto;">
+            <div class="card-header">
+                <h2 class="card-title text-center">💰 Costs</h2>
+            </div>
+            <div class="card-body">
+                <h4 class="card-text">Subtotal: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["SubTotal"]}}</h4>
+                <h4 class="card-text">Discount: {{CoreInfo["Currency"]["Prefix"]}} -{{Costs["PriceReduction"]}}</h4>
+                <hr class="rounded">
+                <h4 class="card-text">Total: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["Total"]}}</h4>
+            </div>
         </div>
-    </footer>
+
+        <!--<div class="container text-center">
+            <h2 class="text-center">💰 Costs</h2>
+            <h4 class="text-center">Subtotal: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["SubTotal"]}}</h4>
+            <h4 class="text-center">Discount: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["PriceReduction"]}}</h4>
+            <h4 class="text-center">Total: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["Total"]}}</h4>
+            <br>
+        </div>-->
+    </div>
 </body>

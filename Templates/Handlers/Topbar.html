@@ -14,10 +14,28 @@
 
 
 <head>
+    <link rel="stylesheet" href="{{url_for('static', filename='CSS/Main.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <title>{{CoreInfo["Meta"]["Display Name"]}} | {{PageName}}</title>
 </head>
 
 <body>
+    <div class="ScrollingBackground"></div>
+
+    <div class="Content" style="">
+        <div class="bg-body-tertiary" style="width: 100%; padding-bottom: 10px;">
+            <h1 class="text-center">{{PageName}}</h1>
+        </div>
+
+        <footer class="text-lg-start bg-body-tertiary text-muted" style="position: fixed; width: 100%; bottom: 0; left: 0;">
+            <div class="text-center">
+                <p><b>NOTE: Total / Discount values may slightly vary to a degree due to rounding. Example: Instead of £0.95 you may get £0.94.</b></p>
+            </div>
+        </footer>
+
+        <br>
+    </div>
 </body>
 
 <script type="module">

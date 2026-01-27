@@ -1,7 +1,7 @@
 {
     "Meta": {
         "Name" : "ShoppingBasketPricer",
-        "Display Name" : "Shopping Basket - Pricer"
+        "Display Name" : "Shopping Basket"
     },
 
     "Basket": {
