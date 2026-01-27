@@ -312,7 +312,7 @@ class OffersHandler():
             # INIT
             RelevantItemsMeta["Counters"][ProductName] = {
                 "Count" : len(AllProductsOfName),
-                "Products" : AllProductsOfName
+                "Products" : list(AllProductsOfName)
             }
 
             Utilities.AddToTable(RelevantItemsMeta["Raw"], *AllProductsOfName)
@@ -322,6 +322,7 @@ class OffersHandler():
             if isinstance(ProductNameOrFamily, list):
                 for ProductName in ProductNameOrFamily:
                     HandleOne(ProductName)
+
                 continue
 
             HandleOne(ProductNameOrFamily)
