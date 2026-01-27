@@ -60,8 +60,8 @@ class Class:
         # Functions
         # INIT
         NewObj = copy.copy(self)
-        NewObj["Public"] = dict(NewObj.Public)
-        NewObj["Private"] = dict(NewObj.Private)
+        NewObj.Public = {**NewObj.Public}
+        NewObj.Private = {**NewObj.Private}
 
         return NewObj
     
