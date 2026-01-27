@@ -30,24 +30,32 @@ class BasketPricer():
 
         # Functions
         # INIT
+
+        ## RESET ALL BASKET PRICES TO BASE PRICE
+        for Product in UserBasket["Items"]:
+            Product["BasketPrice"] = Product["Price"]
+
         for OfferName, Cache in OffersHandler.GetOffersCache().items(): #Offers.GetTypeMapping().items():
             RelevantItemsMeta = OffersHandler.GetRelevantItemsMeta(OfferName, UserBasket)
 
             if len(RelevantItemsMeta["Raw"]) == 0:
                 continue
 
-            _PriceReduction, _SubTotal = Cache["Object"].GetPriceReduction(OfferName, RelevantItemsMeta)
+            Cache["Object"].HandlePriceReduction(OfferName, RelevantItemsMeta)
+
+            #_PriceReduction, _SubTotal = Cache["Object"].GetPriceReduction(OfferName, RelevantItemsMeta)
 
             Utilities.AddToTable(AlreadyChecked, *RelevantItemsMeta["Raw"])
             
-            PriceReduction += _PriceReduction
-            SubTotal += _SubTotal
+            #PriceReduction += _PriceReduction
+            #SubTotal += _SubTotal
         
         for Product in UserBasket["Items"]:
-            if Product in AlreadyChecked:
-                continue
+            SubTotal += Product["BasketPrice"]
+            PriceReduction += Utilities.Clamp(Product["Price"] - Product["BasketPrice"], 0, math.inf)
 
-            SubTotal += Product["Price"]
+
+        # CALCULATE COSTS
 
         # Total cannot dive below 0
         Total = Utilities.Clamp(SubTotal - PriceReduction, 0, math.inf)

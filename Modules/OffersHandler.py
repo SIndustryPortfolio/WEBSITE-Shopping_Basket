@@ -53,6 +53,65 @@ class BuyXGetXFree(): #(Offer):
     #    # INIT
     #    super().__init__(*Args)
 
+
+    @staticmethod
+    def GetPriceReduction(OfferName, RelevantItemsMeta):
+        # CORE
+        Cache = OffersCache[OfferName]
+        Targets = Cache["Targets"]
+
+        Skip = 0
+
+        # Functions
+        # INIT
+        for ProductNameOrFamily in Targets:
+            Skip = False
+
+            ###################
+            # DISCOUNT FAMILY #
+            ###################
+            if isinstance(ProductNameOrFamily, list):
+                FamilySize = len(ProductNameOrFamily)
+                
+                Count = 0
+                for x in range(FamilySize - 1, -1, -1):
+                    ProductName = ProductNameOrFamily[x]
+                    CountersMeta = RelevantItemsMeta["Counters"][ProductName]
+
+                    for Item in CountersMeta["Products"]:
+                        if Skip > 0:
+                            Item["BasketPrice"] = 0
+                            Skip -= 1
+                            continue
+
+                        Count += 1
+
+                        if Count % Cache["Options"]["Buy"] == 0:
+                            Skip = Cache["Options"]["Free"]
+
+                continue
+
+            ###################
+            # SINGLE  PRODUCT #
+            ###################
+            ProductName = ProductNameOrFamily
+            CountersMeta = RelevantItemsMeta["Counters"][ProductName]
+            Count = 0
+
+            for Item in CountersMeta["Products"]:
+                if Skip > 0:
+                    Item["BasketPrice"] = 0
+                    Skip -= 1
+                    continue
+
+                Count += 1
+
+                if Count % Cache["Options"]["Buy"] == 0:
+                    Skip = Cache["Options"]["Free"]
+
+
+
+    """"
     @staticmethod
     def GetPriceReduction(OfferName, RelevantItemsMeta):
         # CORE
@@ -115,6 +174,7 @@ class BuyXGetXFree(): #(Offer):
                     Skip = Cache["Options"]["Free"]
 
         return round(PriceReduction, 2), SubTotal
+    """
             
 
     # DEPRECATED, builds actual offer name based off options
@@ -140,6 +200,20 @@ class Percentage(): #(Offer):
     #    super().__init__(*Args)
 
     @staticmethod
+    def HandlePriceReduction(OfferName, RelevantItemsMeta):
+        # CORE
+        Cache = OffersCache[OfferName]
+        
+        # Functions
+        # INIT
+        for ProductName in Cache["Targets"]:
+            CountersMeta = RelevantItemsMeta["Counters"][ProductName]
+
+            for Item in CountersMeta["Products"]:
+                Item["BasketPrice"] -= (Item["Price"] * (Cache["Options"]["DiscountBy"] / 100))
+
+    """"
+    @staticmethod
     def GetPriceReduction(OfferName, RelevantItemsMeta):
         # CORE
         Cache = OffersCache[OfferName]
@@ -150,12 +224,15 @@ class Percentage(): #(Offer):
         # Functions
         # INIT
         for ProductName in Cache["Targets"]:
+            CountersMeta = RelevantItemsMeta["Counters"][ProductName]
+
             BasePrice = CatalogueHandler.GetProductByName(ProductName)["Price"]
-            Quantity = RelevantItemsMeta["Counters"][ProductName]
+            Quantity = CountersMeta["Count"]
             SubTotal = Quantity * BasePrice
             PriceReduction += Utilities.Clamp((Quantity * (Cache["Options"]["DiscountBy"] / 100)), 0, math.inf) * BasePrice
 
         return round(PriceReduction, 2), SubTotal
+    """
 
     # DEPRECATED, builds actual offer name based off options
     @staticmethod
@@ -224,7 +301,11 @@ class OffersHandler():
 
             # Functions
             # INIT
-            RelevantItemsMeta["Counters"][ProductName] = len(AllProductsOfName)
+            RelevantItemsMeta["Counters"][ProductName] = {
+                "Count" : len(AllProductsOfName),
+                "Products" : AllProductsOfName
+            }
+
             Utilities.AddToTable(RelevantItemsMeta["Raw"], *AllProductsOfName)
 
         # INIT
