@@ -33,25 +33,25 @@
 
                             <div class="card-body">
                                 <table id="UserBasketTable" class="table table-striped">
-                                    <tr>
-                                        <th>Product Name</th>
-                                        <th>Quantity</th>
-                                    </tr>
+                                    <thead>
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="height: 70%; overflow-y: scroll;>
 
-                                    <div id="Scrollable" style="height: 70%; overflow-y: scroll;">
-
-                                    </div>
-
-                                    {#
-                                        {% for Product in Basket.GetDict()["Items"] %}
-                                            {% if not Product["Name"] in AlreadyChecked %}
-                                                <tr>
-                                                    <td>{{Product["Name"]}}</td>
-                                                    <td>{{Product["ImportedQuantity"]}}</td>
-                                                </tr>
-                                            {% endif %}
-                                        {% endfor %}
-                                    #}
+                                        {#
+                                            {% for Product in Basket.GetDict()["Items"] %}
+                                                {% if not Product["Name"] in AlreadyChecked %}
+                                                    <tr>
+                                                        <td>{{Product["Name"]}}</td>
+                                                        <td>{{Product["ImportedQuantity"]}}</td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        #}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -66,14 +66,15 @@
                             </div>
                             <div class="card-body">
                                 <table class="table table-striped">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Offers</th>
-                                        <th>Quantity</th>
-                                    </tr>
-
-                                    <div id="Scrollable" style="height: 70%; overflow-y: scroll;">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Offers</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="height: 70%; overflow-y: scroll;">
                                         {% for Product in Products %}
                                             <tr>
                                                 {% set ProductInfo=Product.GetDict() %}
@@ -108,7 +109,7 @@
                                                 </td>
                                             </tr>
                                         {% endfor %}
-                                    </div>
+                                    </tbody>
                                 </table>
                             </div>
 
