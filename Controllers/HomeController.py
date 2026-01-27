@@ -29,7 +29,7 @@ def Initialise(App):
 # ROUTE CALLBACKS
 def RootRouteCallback():
     # CORE
-    Costs = session.get("Costs", {})
+    #Costs = session.get("Costs", {})
 
     # Functions
     # INIT
@@ -38,7 +38,7 @@ def RootRouteCallback():
         "Home.html",
         "Home",
         Products = CatalogueHandler.GetProducts(),
-        Costs = Costs
+        #Costs = Costs
     )
 
     return Response
@@ -50,15 +50,17 @@ def UpdateBasketRouteCallback():
     # Functions
     # INIT
     BasketId = session.get("BasketId", None)
-    UserBasket = BasketHandler.GetBasket(BasketId)
 
-    UserBasket.Clear()
+    if BasketId != None:
+        UserBasket = BasketHandler.GetBasket(BasketId)
 
-    for ProductName, Quantity in Data.items():
-        for x in range(0, int(Quantity)):
-            UserBasket.Add(copy.copy(CatalogueHandler.GetProductByName(ProductName)))
+        UserBasket.Clear()
 
-    session["Costs"] = BasketPricer.CalculateCosts(UserBasket)
+        for ProductName, Quantity in Data.items():
+            for x in range(0, int(Quantity)):
+                UserBasket.Add(copy.copy(CatalogueHandler.GetProductByName(ProductName)))
+
+        session["Costs"] = BasketPricer.CalculateCosts(UserBasket)
 
     return redirect("/")
 

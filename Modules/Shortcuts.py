@@ -74,12 +74,14 @@ class Shortcuts:
         # Functions
         # INIT
         BasketId = session.get("BasketId", None)
+        Costs = session.get("Costs", None)
 
         if not Shortcuts.UserBasketExists(BasketId):
 
             # Reset Costs
-            if session.get("Costs", None) != None:
+            if Costs != None:
                 session.pop("Costs")
+                Costs = {}
 
             BasketId = BasketHandler.New(Shortcuts.GetClientIP())
             session["BasketId"] = BasketId
@@ -88,7 +90,8 @@ class Shortcuts:
             "CoreInfo": CurrentApp.config["CoreInfo"] or {},
             "HostURL" : request.host_url or Shortcuts.GetHostURL(),
             "Basket": BasketHandler.GetBasket(BasketId),
-            "Utilities": Utilities
+            "Utilities": Utilities,
+            "Costs": Costs
         }
         
 
