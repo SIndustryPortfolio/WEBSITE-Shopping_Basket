@@ -66,6 +66,7 @@ class BuyXGetXFree(): #(Offer):
         # INIT
         for ProductNameOrFamily in Targets:
             Skip = 0
+            Count = 0
 
             ###################
             # DISCOUNT FAMILY #
@@ -73,7 +74,6 @@ class BuyXGetXFree(): #(Offer):
             if isinstance(ProductNameOrFamily, list):
                 FamilySize = len(ProductNameOrFamily)
                 
-                Count = 0
                 for x in range(FamilySize - 1, -1, -1):
                     ProductName = ProductNameOrFamily[x]
                     CountersMeta = RelevantItemsMeta["Counters"][ProductName]
@@ -98,7 +98,6 @@ class BuyXGetXFree(): #(Offer):
             ###################
             ProductName = ProductNameOrFamily
             CountersMeta = RelevantItemsMeta["Counters"][ProductName]
-            Count = 0
 
             for Item in CountersMeta["Products"]:
                 if Skip > 0:
