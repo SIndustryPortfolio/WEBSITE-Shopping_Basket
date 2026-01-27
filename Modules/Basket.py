@@ -65,8 +65,6 @@ class Basket(Class):
         # INIT
         Utilities.AddToTable(self["Items"], *Products)
 
-        #self.Public["Items"].append(*Products)
-
     def Remove(self, *Products):
         # Functions
         # INIT
