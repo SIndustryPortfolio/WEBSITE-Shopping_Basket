@@ -219,7 +219,14 @@ class Percentage(): #(Offer):
             print(CountersMeta["Products"])
 
             for Item in CountersMeta["Products"]:
+
+                print("Item Price: " + str(Item["Price"]))
+                print("Item Basket Price: " + str(Item["BasketPrice"]))
+                print("Discount Multiplier: " + str(DiscountMultiplier))
+                print("New Basket Price: " + str(Item["BasketPrice"] - (Item["Price"] * DiscountMultiplier)))
+
                 Item["BasketPrice"] -= (Item["Price"] * DiscountMultiplier)
+
 
     """"
     @staticmethod
