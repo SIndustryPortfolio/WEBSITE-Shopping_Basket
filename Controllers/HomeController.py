@@ -74,7 +74,7 @@ def UpdateBasketRouteCallback():
 
         for ProductName, Quantity in Data.items():
             for x in range(0, int(Quantity)):
-                UserBasket.Add(copy.copy(CatalogueHandler.GetProductByName(ProductName)))
+                UserBasket.Add(CatalogueHandler.GetProductByName(ProductName).Clone())
 
     return redirect("/")
 

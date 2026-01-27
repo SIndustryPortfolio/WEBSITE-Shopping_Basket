@@ -10,6 +10,10 @@
 # INT
 
 # EXT
+import copy
+
+
+##
 
 class Class:
     def __init__(self):
@@ -50,5 +54,16 @@ class Class:
                 ToReturn[Key] = Value
 
         return ToReturn
+    
+
+    def Clone(self):
+        # Functions
+        # INIT
+        NewObj = copy.copy(self)
+        NewObj["Public"] = dict(NewObj.Public)
+        NewObj["Private"] = dict(NewObj.Private)
+
+        return NewObj
+    
 
         
