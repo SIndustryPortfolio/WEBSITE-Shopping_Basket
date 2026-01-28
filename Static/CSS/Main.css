@@ -25,6 +25,19 @@ body {
     z-index: 1;
 }
 
+.TableWrapper {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.TableWrapper thead th 
+{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: white;
+}
+
 @keyframes ScrollingBackground {
   from {
     background-position: 0 0;
