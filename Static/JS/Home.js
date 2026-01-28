@@ -50,8 +50,6 @@ function HandleQuantities()
     // INIT
     window.Config["Products"].forEach((Product) => {
         // CORE
-        console.log(Product);
-
         QuantitiesCache[Product["Name"]] = Product["ImportedQuantity"] || 0;
 
 
