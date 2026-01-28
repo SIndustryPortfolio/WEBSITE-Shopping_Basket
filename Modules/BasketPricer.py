@@ -51,19 +51,19 @@ class BasketPricer():
             #SubTotal += _SubTotal
         
         for Product in UserBasket["Items"]:
-            SubTotal += Product["Price"]
-            PriceReduction += Utilities.Clamp(Product["Price"] - Product["BasketPrice"], 0, math.inf)
+            SubTotal = round(SubTotal + Product["Price"], 2)
+            PriceReduction = round(PriceReduction + Utilities.Clamp(Product["Price"] - Product["BasketPrice"], 0, math.inf), 2)
 
 
         # CALCULATE COSTS
 
         # Total cannot dive below 0
-        Total = Utilities.Clamp(SubTotal - PriceReduction, 0, math.inf)
+        Total = round(Utilities.Clamp(SubTotal - PriceReduction, 0, math.inf), 2)
 
         return {
-            "PriceReduction": round(PriceReduction, 2),
-            "SubTotal": round(SubTotal, 2),
-            "Total": round(Total, 2)
+            "PriceReduction": PriceReduction,
+            "SubTotal": SubTotal,
+            "Total": Total
         }
         
 
