@@ -26,7 +26,7 @@ body {
 }
 
 .TableWrapper {
-  max-height: 30vh;
+  max-height: 22.5vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
