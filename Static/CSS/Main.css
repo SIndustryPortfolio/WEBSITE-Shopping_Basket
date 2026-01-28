@@ -26,8 +26,9 @@ body {
 }
 
 .TableWrapper {
-  max-height: 300px;
+  max-height: 400px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .TableWrapper thead th 
