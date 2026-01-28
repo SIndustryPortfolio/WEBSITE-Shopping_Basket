@@ -20,121 +20,93 @@
     console.log(window.Config["Products"]);
 </script>
 
+
 <body>
-    <div class="Content">
-        <div class="text-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-5" style="">
-                        <div class="card shadow-md" style="width: 100%; margin: 0 auto; height: 100%;">
-                            <div class="card-header">
-                                <h2>🧺 Your basket</h2>
-                            </div>
+    <div class="Checkout" id="UserBasketContainer" style="height: 100%; width: 30%; position: fixed; right: 0; display: block; background-color: white;">
+        <h2 class="text-center" style="flex-shrink: 0;">🧺 Your basket</h2>
+        <hr>
 
-                            <div class="card-body">
-                                <div class="TableWrapper">
-                                    <table id="UserBasketTable" class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Product Name</th>
-                                                <th>Quantity</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style="overflow-y: scroll;">
+        <section class="TableWrapper" >
+            <table id="UserBasketTable" class="table table-striped" style="width: 90%; margin: auto;">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody style="overflow-y: scroll;">
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                </tbody>
+            </table>
+        </section>
+
+
+        <footer class="text-center" style="width: 100%; background-color: white; flex-shrink: 0; padding: 24px;">
+            <hr>
+            <h2 class="text-center">💰 Costs</h2>
+            <h4 class="">Subtotal: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["SubTotal"]}}</h4>
+            <h4 class="">Discount: {{CoreInfo["Currency"]["Prefix"]}} -{{Costs["PriceReduction"]}}</h4>
+            <br>    
+            <h4 class="">Total: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["Total"]}}</h4>
+
+            <hr>
+
+            <div>
+                <form id="ResetBasketForm" class="text-center" action="ResetBasket" method="post" style="padding: 10px; display: inline-block;">
+                    <input type="submit" class="btn btn-danger btn-lg" value="Reset"/>
+                </form>
+            
+                <form id="UpdateBasketForm" class="text-center" action="UpdateBasket" method="post" style="padding: 10px; display: inline-block;">
+                    <input type="submit" class="btn btn-secondary btn-lg" value="Update"/>
+                </form>
+            </div>
+        </footer>
+    </div>
+    <div id="ShopContainter" style="height: 100%; width: 70%; position: fixed; left: 0; overflow-y: scroll; padding-bottom: 10%;">
+        <div class="row">
+            {% for Product in Products %}
+
+                {% set ProductInfo = Product.GetDict() %}
+
+                {% if loop.index0 is divisibleby(4) and not loop.first %}
+                    </div>
+                    <div class="row">
+                {% endif %}
+
+                <div class="col-2" style="margin: 1vh auto 1vh;">
+                    <div class="card shadow-md">
+                        <div class="card-header text-center">
+                            <h4>{{ ProductInfo["Name"] }}</h4>
                         </div>
-                    </div>
-                    <div class="col" style="">
-                        
-                    </div>
-                    <div class="col-5" style="">
-                        <div class="card shadow-md" style="width: 100%; margin: 0 auto; height: 100%;">
-                            <div class="card-header">
-                                <h2>🛍️ Catalogue</h2>
-                            </div>
-                            <div class="card-body">
-                                <div class="TableWrapper">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Price</th>
-                                                <th>Offers</th>
-                                                <th>Quantity</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style="overflow-y: scroll;">
-                                            {% for Product in Products %}
-                                                <tr>
-                                                    {% set ProductInfo=Product.GetDict() %}
-
-                                                    <td>{{ProductInfo["Name"]}}</td>
-                                                    <td>{{CoreInfo["Currency"]["Prefix"] + Utilities.FormatNumber(ProductInfo["Price"])}}</td>
-                                                    
-                                                    <td>
-                                                        {% if "Offers" in ProductInfo %}
-                                                            <ul>
-                                                                {% for OfferName in ProductInfo["Offers"] %}
-                                                                    <li><b>{{OfferName}}</b></li>
-                                                                {% endfor %}
-                                                            </ul>
-                                                        {% else %}
-                                                            {{"X"}}
-                                                        {% endif %}
-                                                    </td>
-
-                                                    <td>
-                                                        <div class="row text-center align-items-center" id="Product{{ProductInfo['Name']}}Quantity">
-                                                            <div class="col" style="width: 30%; padding: 3%">
-                                                                <button name="subtract" class="btn btn-danger" style="width: 100%; height: 100%; padding: 0;">-</button>
-                                                            </div>
-                                                            <div class="col" style="width: 30%; padding: 3%;">
-                                                                <p name="Quantity"></p>
-                                                            </div>
-                                                            <div class="col" style="width: 30%; padding: 3%">
-                                                                <button name="add" class="btn btn-success" style="width: 100%; height: 100%; padding: 0;">+</button>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div>
-                                <form id="ResetBasketForm" class="text-center" action="ResetBasket" method="post" style="padding: 10px; display: inline-block;">
-                                    <input type="submit" class="btn btn-danger" value="Reset"/>
-                                </form>
+                        <img class="card-img-top" src="{{url_for('static', filename='Images/Products/' + ProductInfo['Name'] + '.jpg')}}" alt="Card image cap" style="padding: 10%; aspect-ratio: 1 / 1; height: 20vh; object-fit: contain;">
+                        <div class="card-body">
+                            <h5>Price</h5>
+                            <h5 class="text-center">{{CoreInfo["Currency"]["Prefix"]}} {{ProductInfo["Price"]}}</h5>
                             
-                                <form id="UpdateBasketForm" class="text-center" action="UpdateBasket" method="post" style="padding: 10px; display: inline-block;">
-                                    <input type="submit" class="btn btn-secondary" value="Update"/>
-                                </form>
+                            {% if ProductInfo.get("Offers", None) != None %}
+                                <div class="row" style="width: 90%; margin: auto;">
+                                    {% for OfferName in ProductInfo["Offers"] %}
+                                        <div class="col text-center" style="padding: 0;"><span class="badge bg-primary"><b>{{OfferName}}</b></span></div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <hr>
+                            <div class="row text-center align-items-center" id="Product{{ProductInfo['Name']}}Quantity">
+                                <div class="col" style="width: 30%; padding: 3%">
+                                    <button name="subtract" class="btn btn-danger" style="width: 100%; height: 100%; padding: 0;">-</button>
+                                </div>
+                                <div class="col" style="width: 30%; padding: 3%;">
+                                    <b name="Quantity"></b>
+                                </div>
+                                <div class="col" style="width: 30%; padding: 3%">
+                                    <button name="add" class="btn btn-success" style="width: 100%; height: 100%; padding: 0;">+</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <br>
-
-        
-        <div class="card shadow-sm" style="width: 18rem; margin: 0 auto;">
-            <div class="card-header">
-                <h2 class="card-title text-center">💰 Costs</h2>
-            </div>
-            <div class="card-body">
-                <h4 class="card-text">Subtotal: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["SubTotal"]}}</h4>
-                <h4 class="card-text">Discount: {{CoreInfo["Currency"]["Prefix"]}} -{{Costs["PriceReduction"]}}</h4>
-                <hr class="rounded">
-                <h4 class="card-text">Total: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["Total"]}}</h4>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </body>
