@@ -20,47 +20,51 @@
 
 
 <body>
-    <div class="Checkout" id="UserBasketContainer" style="height: 100%; width: 30%; position: fixed; right: 0; display: block; background-color: white;">
-        <h2 class="text-center" style="flex-shrink: 0;">🧺 Your basket</h2>
-        <hr>
+    <div class="Checkout" id="UserBasketContainer" style="height: 100%; position: fixed; right: 0; z-index: 3;">
+        <button id="CheckoutToggle" class="btn btn-primary btn-large" style="height: 5vh; aspect-ratio: 1 / 1; transform: translateX(-100%); z-index: 3;">></button>
 
-        <section class="TableWrapper" >
-            <table id="UserBasketTable" class="table table-striped" style="width: 90%; margin: auto;">
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                    </tr>
-                </thead>
-                <tbody style="overflow-y: scroll;">
-
-                </tbody>
-            </table>
-        </section>
-
-
-        <footer class="text-center" style="width: 100%; background-color: white; flex-shrink: 0; padding: 24px;">
-            <hr>
-            <h2 class="text-center">💰 Costs</h2>
-            <h4 class="">Subtotal: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["SubTotal"]}}</h4>
-            <h4 class="">Discount: {{CoreInfo["Currency"]["Prefix"]}} -{{Costs["PriceReduction"]}}</h4>
-            <br>    
-            <h4 class="">Total: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["Total"]}}</h4>
-
+        <div id="CheckoutContent" class="CheckoutContent" style="position: absolute; top: 0; display: block; background-color: white; float: right;">
+            <h2 class="text-center" style="flex-shrink: 0;">🧺 Your basket</h2>
             <hr>
 
-            <div>
-                <form id="ResetBasketForm" class="text-center" action="ResetBasket" method="post" style="padding: 10px; display: inline-block;">
-                    <input type="submit" class="btn btn-danger btn-lg" value="Reset"/>
-                </form>
-            
-                <form id="UpdateBasketForm" class="text-center" action="UpdateBasket" method="post" style="padding: 10px; display: inline-block;">
-                    <input type="submit" class="btn btn-secondary btn-lg" value="Update"/>
-                </form>
-            </div>
-        </footer>
+            <section class="TableWrapper" >
+                <table id="UserBasketTable" class="table table-striped" style="width: 90%; margin: auto;">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody style="overflow-y: scroll;">
+
+                    </tbody>
+                </table>
+            </section>
+
+
+            <footer class="text-center" style="width: 100%; background-color: white; flex-shrink: 0; padding: 24px;">
+                <hr>
+                <h2 class="text-center">💰 Costs</h2>
+                <h4 class="">Subtotal: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["SubTotal"]}}</h4>
+                <h4 class="">Discount: {{CoreInfo["Currency"]["Prefix"]}} -{{Costs["PriceReduction"]}}</h4>
+                <br>    
+                <h4 class="">Total: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["Total"]}}</h4>
+
+                <hr>
+
+                <div>
+                    <form id="ResetBasketForm" class="text-center" action="ResetBasket" method="post" style="padding: 10px; display: inline-block;">
+                        <input type="submit" class="btn btn-danger btn-lg" value="Reset"/>
+                    </form>
+                
+                    <form id="UpdateBasketForm" class="text-center" action="UpdateBasket" method="post" style="padding: 10px; display: inline-block;">
+                        <input type="submit" class="btn btn-secondary btn-lg" value="Update"/>
+                    </form>
+                </div>
+            </footer>
+        </div>
     </div>
-    <div id="ShopContainter" style="height: 100%; width: 70%; position: fixed; left: 0; overflow-y: scroll; padding-bottom: 10%;">
+    <div class="ShopContainer" id="ShopContainer" style="height: 100%; position: fixed; left: 0; overflow-y: scroll; padding-bottom: 10%;">
         <div class="row">
             {% for Product in Products %}
 

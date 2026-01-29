@@ -30,6 +30,7 @@ body {
     border: 3px, solid, black !important;
     transition: transform 1s ease;
     font-weight: bold !important;
+    font-size: 125% !important;
 }
 
 .btn:hover 

@@ -26,10 +26,10 @@ AppAlive = True
 HeartbeatBusy = False
 HeartbeatStartTime = None
 HeartbeatMainThread = None
-## CONFIG
-App.config["SECRET_KEY"] = os.environ.get("SecretKey", None)
-App.config["DBUsername"] = os.environ.get("DBUsername", None)
-App.config["DBPassword"] = os.environ.get("DBPassword", None)
+## CONFIG / Default to LoacalHost args
+App.config["SECRET_KEY"] = os.environ.get("SecretKey", "MySecretKey")
+App.config["DBUsername"] = os.environ.get("DBUsername", "admin")
+App.config["DBPassword"] = os.environ.get("DBPassword", "admin")
 
 ## CORE
 ModuleRegistry = [

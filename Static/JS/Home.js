@@ -8,6 +8,43 @@ let QuantitiesCache = {};
 
 // Functions
 // MECHANICS
+function HandleCheckout() 
+{
+    // Elements
+    // DIVS 
+    let ShopContainerDiv = document.getElementById("ShopContainer");
+
+    let UserBasketContainerDiv = document.getElementById("UserBasketContainer")
+    let CheckoutToggleButton = document.getElementById("CheckoutToggle");
+
+    // Functions
+    // MECHANICS
+    function Toggle() 
+    {
+        // CORE
+        let ClassList = UserBasketContainerDiv.classList;
+
+        // Functions
+        // INIT
+
+        if (ClassList.contains("CloseCheckout"))
+        {
+            CheckoutToggleButton.innerHTML = ">";
+            ClassList.remove("CloseCheckout");
+            ShopContainerDiv.classList.remove("OpenShopContainer");
+        }
+        else  
+        {
+            CheckoutToggleButton.innerHTML = "<";
+            ClassList.add("CloseCheckout");
+            ShopContainerDiv.classList.add("OpenShopContainer");
+        }
+    }
+
+    // INIT
+    CheckoutToggleButton.onclick = Toggle
+}
+
 function HandleUserBasketTable() 
 {
     // Elements
@@ -143,6 +180,7 @@ function Initialise()
     HandleQuantities();
     HandleForm();
     HandleUserBasketTable();
+    HandleCheckout();
 }
 
 function End() 

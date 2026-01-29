@@ -1,10 +1,38 @@
+.ShopContainer 
+{
+  width: 70%;
+  transition: width 1s;
+}
+
+.OpenShopContainer 
+{
+  width: 100%;
+  transform-origin: 0% 0%;
+}
+
 .Checkout 
+{
+  width: 30%;
+  max-width: 30%;
+  transition: transform 1s ease;
+  transform-origin: 100% 0%;
+  transition: width 1s;
+}
+
+.CheckoutContent
 {
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  width: 100%;
 }
 
+.CloseCheckout 
+{
+  width: 0;
+  transform-origin: 100% 0%;
+}
 
 .TableWrapper {
   flex: 1;
@@ -21,3 +49,5 @@
   z-index: 2;
   background: white;
 }
+
+
