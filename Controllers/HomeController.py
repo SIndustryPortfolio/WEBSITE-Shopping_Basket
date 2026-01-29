@@ -8,7 +8,6 @@ from Modules.BasketPricer import BasketPricer
 
 # EXTERNAL
 from flask import Blueprint, session, redirect, request
-import copy
 
 # CORE
 BluePrint = Blueprint("Home", __name__)

@@ -19,33 +19,36 @@ body {
     z-index: 0;
 }
 
-.Checkout 
-{
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 .Content 
 {
     position: relative;
     z-index: 1;
 }
 
-.TableWrapper {
-  flex: 1;
-  max-height: 35%;
-  overflow-y: auto;
-  overflow-x: hidden;
+.card 
+{
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.TableWrapper thead th 
-{
-  flex-shrink: 0;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: white;
+
+.HoverCollapse {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .75s ease, opacity 0.3s ease;
+}
+
+.card:hover .HoverCollapse {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 @keyframes ScrollingBackground {

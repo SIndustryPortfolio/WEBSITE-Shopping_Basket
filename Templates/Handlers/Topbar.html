@@ -14,9 +14,16 @@
 
 
 <head>
-    <link rel="stylesheet" href="{{url_for('static', filename='CSS/Main.css')}}">
+    <!--INT-->    
+    <!--STYLE SHEETS-->
+    <link rel="stylesheet" href="{{url_for('static', filename='CSS/Shared.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='CSS/' + PageName + '.css')}}">
+
+    <!--EXT-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
+
+    <!--MISC-->
     <link rel="icon" href="{{url_for('static', filename='Images/Icon.png')}}">
     <title>{{CoreInfo["Meta"]["Display Name"]}} | {{PageName}}</title>
 </head>
