@@ -53,29 +53,87 @@ function HandleUserBasketTable()
     let TableBody = UserBasketTable.children[1];
 
     // Functions
-    // INIT
-    for (let ProductName in QuantitiesCache) 
+    // MECHANICS
+    function GetCostOfProduct(ProductInfo) 
     {
-        const Quantity = QuantitiesCache[ProductName];
+        // CORE
+        let Price = 0;
+        let BasketPrice = 0;
+
+        // Functions
+        // INIT
+        for (let index in ProductInfo["Items"]) 
+        {
+            console.log(index);
+
+            const Item = ProductInfo["Items"][index];
+
+            console.log(Item);
+
+            Price += Item["Price"];
+            BasketPrice += Item["BasketPrice"];
+        }
+
+        return {
+            "Price": UtilitiesModule.Round(Price, 2), 
+            "BasketPrice": UtilitiesModule.Round(BasketPrice, 2)
+        }
+    }
+
+    // INIT
+    window.Config["Products"].forEach((ProductInfo) =>
+    {
+        const Quantity = ProductInfo["ImportedQuantity"] || 0;
+        const CurrencyInfo = window.Config["CoreInfo"]["Currency"];
+        const ProductName = ProductInfo["Name"];
+
+        const PriceMeta = GetCostOfProduct(ProductInfo);
+        const Price = PriceMeta["Price"];
+        const BasketPrice = PriceMeta["BasketPrice"];
 
         if (Quantity == 0) 
         {
-            continue;
+            return;
         }
 
         let TableRow = document.createElement("tr");
         
         let TableProductNameDefinition = document.createElement("td");
+
+
         let TableProductQuantityDefinition = document.createElement("td");
+        TableProductQuantityDefinition.classList.add("text-center");
+
+        let TablePriceDefinition = document.createElement("td");
+        TablePriceDefinition.classList.add("text-center");
+
+
+        if (Price != BasketPrice) 
+        {
+            let UndiscountedText = document.createElement("p");
+            UndiscountedText.innerHTML = CurrencyInfo["Prefix"] + Price;
+            UndiscountedText.style.textDecoration = "line-through";
+            UndiscountedText.style.display = "inline-block";
+            UndiscountedText.style.padding = "5px";
+
+            TablePriceDefinition.appendChild(UndiscountedText);
+        }
+
+        let FinalPriceText = document.createElement("p");
+        FinalPriceText.innerHTML = CurrencyInfo["Prefix"] + BasketPrice;
+        FinalPriceText.style.display = "inline-block";
+        FinalPriceText.style.padding = "5px";
+        TablePriceDefinition.appendChild(FinalPriceText);
 
         TableProductQuantityDefinition.innerHTML = Quantity;
         TableProductNameDefinition.innerHTML = ProductName;
 
         TableRow.appendChild(TableProductNameDefinition);
         TableRow.appendChild(TableProductQuantityDefinition);
+        TableRow.appendChild(TablePriceDefinition);
 
         TableBody.appendChild(TableRow);
-    }
+    });
 }
 
 function HandleQuantities() 

@@ -13,6 +13,7 @@
         ItemsInBasket = {{Basket.GetItemsFromName(Product["Name"], JSON=True) | tojson}};
 
         ProductInfo["ImportedQuantity"] = ItemsInBasket.length;
+        ProductInfo["Items"] = ItemsInBasket;
 
         window.Config["Products"].push(ProductInfo);
     {% endfor %}
@@ -31,8 +32,9 @@
                 <table id="UserBasketTable" class="table table-striped" style="width: 90%; margin: auto;">
                     <thead>
                         <tr>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
+                            <th>Product Name</th> <!-- All names aligned left -->
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Price</th>
                         </tr>
                     </thead>
                     <tbody style="overflow-y: scroll;">
@@ -64,56 +66,52 @@
             </footer>
         </div>
     </div>
-    <div class="ShopContainer" id="ShopContainer" style="height: 100%; position: fixed; left: 0; overflow-y: scroll; padding-bottom: 10%;">
-        <div class="row">
-            {% for Product in Products %}
+    <div class="ShopContainer" id="ShopContainer" style="height: 100%; position: fixed; left: 0; overflow-y: scroll; padding-bottom: 10%; padding-top: 1.5%;">
+        <div class="ShopGrid text-center" style="margin: auto; justify-content: center;">
+                {% for Product in Products %}
 
-                {% set ProductInfo = Product.GetDict() %}
+                    {% set ProductInfo = Product.GetDict() %}
 
-                {% if loop.index0 is divisibleby(4) and not loop.first %}
-                    </div>
-                    <div class="row">
-                {% endif %}
-
-                <div class="col-2" style="margin: 1vh auto 1vh;">
-                    <div class="card shadow-md">
-                        <!--<div class="card-header text-center">
-                            <h4>{# {{ ProductInfo["Name"] }} #}</h4>
-                        </div>-->
-
-                        <img class="card-img-top" src="{{url_for('static', filename='Images/Products/' + ProductInfo['Name'] + '.png')}}" alt="Card image cap" style="padding: 10%; aspect-ratio: 1 / 1; height: 20vh; object-fit: contain;">
-                        <div class="card-body">
-                            <h4 class="text-center">{{ProductInfo["Name"]}}</h4>
-
-                            <h4 class="text-center" style="display: block; border-radius: 8px; background-color: lightgrey; min-width: 25%; max-width: 55%; margin: auto;">{{CoreInfo["Currency"]["Prefix"]}} {{ProductInfo["Price"]}}</h4>
-                            
+                    <div class="" style="width: 100%; height: 100%;"> <!-- Parent frame to prevent all row from expanding & shrinking -->
+                        <div class="card shadow-md">
                             {% if ProductInfo.get("Offers", None) != None %}
-                                <br>
-                                <div class="row" style="width: 90%; margin: auto;">
-                                    {% for OfferName in ProductInfo["Offers"] %}
-                                        <div class="col text-center" style="padding: 0;"><span class="badge bg-primary"><b>{{OfferName}}</b></span></div>
-                                    {% endfor %}
-                                </div>
+                                <div class="text-center" style="top: 0; z-index: 2; transform: translate(-50%, -50%) scale(150%);"><span class="badge bg-danger">SALE</span></div>
                             {% endif %}
+                            
+                            <img class="card-img-top" src="{{url_for('static', filename='Images/Products/' + ProductInfo['Name'] + '.png')}}" alt="Card image cap" style="padding: 10%; aspect-ratio: 1 / 1; height: 20vh; object-fit: contain;">
+                            <div class="card-body">
+                                <h4 class="text-center">{{ProductInfo["Name"]}}</h4>
 
-                            <div class="HoverCollapse">
-                                <hr>
-                                <div class="row text-center align-items-center" id="Product{{ProductInfo['Name']}}Quantity" style="width: 90%; margin: auto;">
-                                    <div class="col" style="width: 30%; padding: 3%">
-                                        <button name="subtract" class="btn btn-danger" style="width: 100%; height: 100%; padding: 0;">-</button>
+                                <h4 class="text-center" style="display: block; border-radius: 8px; background-color: lightgrey; min-width: 25%; max-width: 55%; margin: auto;">{{CoreInfo["Currency"]["Prefix"]}} {{ProductInfo["Price"]}}</h4>
+                                
+                                {% if ProductInfo.get("Offers", None) != None %}
+                                    <br>
+                                    <div class="row" style="width: 90%; margin: auto;">
+                                        {% for OfferName in ProductInfo["Offers"] %}
+                                            <div class="col text-center" style="padding: 0;"><span class="badge bg-primary"><b>{{OfferName}}</b></span></div>
+                                        {% endfor %}
                                     </div>
-                                    <div class="col" style="width: 30%; padding: 3%;">
-                                        <b name="Quantity"></b>
-                                    </div>
-                                    <div class="col" style="width: 30%; padding: 3%">
-                                        <button name="add" class="btn btn-success" style="width: 100%; height: 100%; padding: 0;">+</button>
+                                {% endif %}
+
+                                <div class="HoverCollapse">
+                                    <hr>
+                                    <div class="row text-center align-items-center" id="Product{{ProductInfo['Name']}}Quantity" style="width: 90%; margin: auto;">
+                                        <div class="col" style="width: 30%; padding: 3%">
+                                            <button name="subtract" class="btn btn-danger" style="width: 100%; height: 100%; padding: 0;">-</button>
+                                        </div>
+                                        <div class="col" style="width: 30%; padding: 3%;">
+                                            <b name="Quantity"></b>
+                                        </div>
+                                        <div class="col" style="width: 30%; padding: 3%">
+                                            <button name="add" class="btn btn-success" style="width: 100%; height: 100%; padding: 0;">+</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 </body>

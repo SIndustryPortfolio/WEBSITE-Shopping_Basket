@@ -19,6 +19,13 @@
   transition: width 1s;
 }
 
+.ShopGrid 
+{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 265px));
+  gap: 16px;
+}
+
 .CheckoutContent
 {
   height: 100%;
