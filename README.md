@@ -2,9 +2,7 @@
 
 A supermarket basket-pricing web application that allows users to add and remove products, apply offers, and calculate **subtotals, discounts, and totals** in real time.
 
-<img width="478" height="244" alt="image" src="https://github.com/user-attachments/assets/2567a8f6-304b-4d09-bada-9a259fa90e13" />
-<img width="478" height="244" alt="image" src="https://github.com/user-attachments/assets/b688e7df-8a44-4737-a9ae-b88f2b7bc356" />
-
+<img width="478" height="244" alt="image" src="https://github.com/user-attachments/assets/5387853e-6105-4945-be35-1a492654fab4" />
 
 **TRY FOR YOURSELF:** https://shopping-basket-87c673649f49.herokuapp.com/
 
