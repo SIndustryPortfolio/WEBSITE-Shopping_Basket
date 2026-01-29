@@ -4,6 +4,8 @@ A supermarket basket-pricing web application that allows users to add and remove
 
 <img width="478" height="244" alt="image" src="https://github.com/user-attachments/assets/5387853e-6105-4945-be35-1a492654fab4" />
 
+[Note]: This is the newest version of the website, the screenshots below are from V1.
+
 **TRY FOR YOURSELF:** https://shopping-basket-87c673649f49.herokuapp.com/
 
 ---
