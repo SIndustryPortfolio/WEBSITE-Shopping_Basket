@@ -2,7 +2,8 @@
 
 A supermarket basket-pricing web application that allows users to add and remove products, apply offers, and calculate **subtotals, discounts, and totals** in real time.
 
-<img width="478" height="244" alt="image" src="https://github.com/user-attachments/assets/4181b85c-0471-4c80-8d10-6237272bfa3f" />
+<img width="478" height="244" alt="image" src="https://github.com/user-attachments/assets/5d660ce8-0f09-4d89-a6a1-5f0315b1c531" />
+
 
 [Note]: This is the newest version of the website, the screenshots below are from V1.
 
