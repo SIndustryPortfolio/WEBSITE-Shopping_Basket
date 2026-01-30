@@ -347,7 +347,7 @@ class OffersHandler():
 def LoadRecords(Records):
     # Functions
     # MECHANICS
-    def HandleOne(OfferName, ProductName):
+    def HandleOne(OfferName, ProductName, IsFamily=False):
         # Functions
         # INIT
         CatalogueProduct =  CatalogueHandler.GetProductByName(ProductName)
@@ -355,6 +355,9 @@ def LoadRecords(Records):
         # Product doesn't exist
         if not CatalogueProduct:
             return None
+
+        if IsFamily:
+            CatalogueProduct["OfferFamily"] = True
 
         if CatalogueProduct["Offers"] == None:
             CatalogueProduct["Offers"] = []
@@ -378,7 +381,7 @@ def LoadRecords(Records):
         for ProductNameOrFamily in OfferTargets:
             if isinstance(ProductNameOrFamily, list):
                 for ProductName in ProductNameOrFamily:
-                    HandleOne(OfferName, ProductName)
+                    HandleOne(OfferName, ProductName, IsFamily=True)
                 
                 continue
             

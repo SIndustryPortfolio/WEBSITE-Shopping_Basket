@@ -15,8 +15,20 @@ import math
 from datetime import datetime, timezone
 
 # CORE
+CurrentApp = None
+
+# Functions
+# MECHANICS
+
+##
 
 class Utilities:
+    @staticmethod
+    def FormatMoney(Number):
+        # Functions
+        # INIT
+        return f"{CurrentApp.config["CoreInfo"]["Currency"]["Prefix"]}{Number:.2f}"
+
     # Get Number of class objects in list / array
     @staticmethod
     def GetNumberOfObjects(Table, Class):
@@ -141,3 +153,14 @@ class Utilities:
                 Required.Initialise(*Args)
 
             RequiredModules[ModulePath] = Required
+
+
+
+##
+def Initialise(App):
+    # CORE
+    global CurrentApp
+
+    # Functions
+    # INIT
+    CurrentApp = App

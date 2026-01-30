@@ -47,10 +47,10 @@
             <footer class="text-center" style="width: 100%; background-color: white; flex-shrink: 0; padding: 24px;">
                 <hr>
                 <h2 class="text-center">💰 Costs</h2>
-                <h4 class="">Subtotal: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["SubTotal"]}}</h4>
-                <h4 class="">Discount: {{CoreInfo["Currency"]["Prefix"]}} -{{Costs["PriceReduction"]}}</h4>
+                <h4 class="">Subtotal: {{Utilities.FormatMoney(Costs["SubTotal"])}}</h4>
+                <h4 class="">Discount: -{{Utilities.FormatMoney(Costs["PriceReduction"])}}</h4>
                 <br>    
-                <h4 class="">Total: {{CoreInfo["Currency"]["Prefix"]}} {{Costs["Total"]}}</h4>
+                <h4 class="">Total: {{Utilities.FormatMoney(Costs["Total"])}}</h4>
 
                 <hr>
 
@@ -82,13 +82,18 @@
                             <div class="card-body">
                                 <h4 class="text-center">{{ProductInfo["Name"]}}</h4>
 
-                                <h4 class="text-center" style="display: block; border-radius: 8px; background-color: lightgrey; min-width: 25%; max-width: 55%; margin: auto;">{{CoreInfo["Currency"]["Prefix"]}} {{ProductInfo["Price"]}}</h4>
+                                <h4 class="text-center" style="display: block; border-radius: 8px; background-color: lightgrey; min-width: 25%; max-width: 55%; margin: auto;">{{Utilities.FormatMoney(ProductInfo["Price"])}}</h4>
                                 
                                 {% if ProductInfo.get("Offers", None) != None %}
                                     <br>
                                     <div class="row" style="width: 90%; margin: auto;">
+
+                                        {% if ProductInfo.get("OfferFamily") != None %}
+                                            <div class="col text-center" style="padding: 0;"><span class="badge text-bg-warning"><b>Mix & Match</b></span></div>
+                                        {% endif %}
+
                                         {% for OfferName in ProductInfo["Offers"] %}
-                                            <div class="col text-center" style="padding: 0;"><span class="badge bg-primary"><b>{{OfferName}}</b></span></div>
+                                            <div class="col text-center" style="padding: 0;"><span class="badge text-bg-primary"><b>{{OfferName}}</b></span></div>
                                         {% endfor %}
                                     </div>
                                 {% endif %}

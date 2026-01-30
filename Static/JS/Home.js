@@ -111,7 +111,7 @@ function HandleUserBasketTable()
         if (Price != BasketPrice) 
         {
             let UndiscountedText = document.createElement("p");
-            UndiscountedText.innerHTML = CurrencyInfo["Prefix"] + Price;
+            UndiscountedText.innerHTML = "<i>" + UtilitiesModule.FormatMoney(Price) + "</i>";
             UndiscountedText.style.textDecoration = "line-through";
             UndiscountedText.style.display = "inline-block";
             UndiscountedText.style.padding = "5px";
@@ -120,7 +120,7 @@ function HandleUserBasketTable()
         }
 
         let FinalPriceText = document.createElement("p");
-        FinalPriceText.innerHTML = CurrencyInfo["Prefix"] + BasketPrice;
+        FinalPriceText.innerHTML = UtilitiesModule.FormatMoney(BasketPrice);
         FinalPriceText.style.display = "inline-block";
         FinalPriceText.style.padding = "5px";
         TablePriceDefinition.appendChild(FinalPriceText);

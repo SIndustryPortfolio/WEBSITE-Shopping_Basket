@@ -34,6 +34,7 @@ App.config["DBPassword"] = os.environ.get("DBPassword", "admin")
 ## CORE
 ModuleRegistry = [
     # SERVICES
+    "Modules.Utilities",
     "Modules.Shortcuts",
     "Modules.Database",
     "Modules.BasketHandler",
