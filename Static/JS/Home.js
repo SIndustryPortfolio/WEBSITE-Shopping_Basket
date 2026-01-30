@@ -50,6 +50,12 @@ function HandleUserBasketTable()
     // Elements
     // DIVS
     let UserBasketTable = document.getElementById("UserBasketTable");
+
+    if (UserBasketTable == undefined) 
+    {
+        return;
+    }
+
     let TableBody = UserBasketTable.children[1];
 
     // Functions
@@ -91,6 +97,8 @@ function HandleUserBasketTable()
         const Price = PriceMeta["Price"];
         const BasketPrice = PriceMeta["BasketPrice"];
 
+        let ProductNamePostfix = "";
+
         if (Quantity == 0) 
         {
             return;
@@ -117,6 +125,8 @@ function HandleUserBasketTable()
             UndiscountedText.style.padding = "5px";
 
             TablePriceDefinition.appendChild(UndiscountedText);
+
+            ProductNamePostfix = "<b>[OFFER]</b>";
         }
 
         let FinalPriceText = document.createElement("p");
@@ -126,7 +136,7 @@ function HandleUserBasketTable()
         TablePriceDefinition.appendChild(FinalPriceText);
 
         TableProductQuantityDefinition.innerHTML = Quantity;
-        TableProductNameDefinition.innerHTML = ProductName;
+        TableProductNameDefinition.innerHTML = ProductName + " " + ProductNamePostfix;
 
         TableRow.appendChild(TableProductNameDefinition);
         TableRow.appendChild(TableProductQuantityDefinition);
