@@ -43,6 +43,17 @@ class Shortcuts:
         # INIT
         return (BasketId != None and BasketHandler.GetBasket(BasketId) != None)
 
+    # Add to total session request count
+    @staticmethod
+    def AddRequest():
+        # CORE
+        RequestCount = session.get("RequestCount", 0)
+        
+        # Functions
+        # INIT
+        session["RequestCount"] = RequestCount + 1
+
+
     @staticmethod
     def RouteFired(RouteCallback, *Args):
         # CORE
@@ -52,6 +63,8 @@ class Shortcuts:
         # INIT
         if not Shortcuts.UserBasketExists(BasketId):
             return redirect("/")
+
+        Shortcuts.AddRequest()
 
         Success, Response = Utilities.TryFor(1, RouteCallback, *Args)
         
@@ -76,6 +89,7 @@ class Shortcuts:
         # Functions
         # INIT
         return {
+            "RequestCount": session.get("RequestCount", 0),
             "CoreInfo": CurrentApp.config["CoreInfo"] or {},
             "HostURL" : request.host_url or Shortcuts.GetHostURL(),
             "Basket": BasketHandler.GetBasket(BasketId),

@@ -96,4 +96,5 @@ def HandleAddRoute():
 def HandleRootRoute():
     # Functions
     # INIT
+    Shortcuts.AddRequest()
     return RootRouteCallback()

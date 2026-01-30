@@ -8,11 +8,52 @@ body {
   z-index: 0;
 }
 
+
+.SplashScreenLoader 
+{
+    height: 100vh;
+    width: 100vw;
+
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 100;
+    display: flex;
+    background-color: rgba(64, 64, 64, 1) !important;
+    justify-content: center;
+    align-items: center;
+
+    transition: opacity 0.75s ease, visibility 0.75s ease;
+}
+
+.SplashScreenLoader::after 
+{
+    content:  "";
+    width: 25vh;
+    height: 25vh;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: 5vh solid lightgrey;
+    border-top-color: royalblue;
+
+    z-index: 2;
+    
+    animation: Loading 0.75s ease infinite;
+}
+
+.SplashScreenLoader-Hidden 
+{
+    opacity: 0;
+    visibility: hidden;
+}
+
 .ScrollingBackground {
     height: 100vh;
     background-repeat: repeat;
     background-size: cover;
-    background-image: url("../Images/Background.png");
+    background-image: url('../Images/Background.png');
+    background-blend-mode: lighten;
+    background-color: rgb(240, 240, 240);
     animation: ScrollingBackground 45s linear infinite;
     position: absolute;
     inset: 0;
@@ -75,6 +116,12 @@ body {
 .card:hover {
     transform: translateY(-6px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes Loading 
+{
+    from { transform: rotate(0turn) }
+    to {transform: rotate(1turn) }
 }
 
 @keyframes ScrollingBackground {

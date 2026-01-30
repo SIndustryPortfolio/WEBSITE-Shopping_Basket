@@ -29,6 +29,11 @@
 </head>
 
 <body>
+
+    {% if RequestCount == 1 %}
+        <div id="SplashScreenLoader" class="SplashScreenLoader"></div>
+    {% endif %}
+
     <div class="ScrollingBackground"></div>
 
     <div class="Content" style="">
@@ -50,13 +55,38 @@
     // CORE
     import PageModule from "{{url_for('static', filename='JS/' + PageName + '.js')}}";
 
+    let SplashScreenLoaderDiv = document.getElementById("SplashScreenLoader");
+
     // Functions
+    // MECHANICS
+    function RemoveSplashScreen() 
+    {
+        // Functions
+        // INIT
+        SplashScreenLoaderDiv.classList.add("SplashScreenLoader-Hidden");
+
+        SplashScreenLoaderDiv.addEventListener("transitionend", () => { // CLEAN UP
+            document.removeChild(SplashScreenLoaderDiv);
+        });
+    }
+
     // DIRECT
     document.addEventListener("DOMContentLoaded", () => {
+        // Functions
+        // INIT
+
+        if (SplashScreenLoaderDiv != undefined) 
+        {
+            setTimeout(RemoveSplashScreen, 1000);
+        }
+
         return PageModule.Initialise();
     });
 
     window.addEventListener("beforeunload", () => {
+        // Functions
+        // INIT
+
         return PageModule.End();
     });
 </script>
