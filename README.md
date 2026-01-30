@@ -56,7 +56,9 @@ This application is deployed via **Salesforce Heroku**, so no local installation
 
 ## 🗒️ TEST CASES
 
-NOTE: Outputs maybe off by a slight degree due to rounding!
+NOTE: 
+- Outputs maybe off by a slight degree due to rounding!
+- This is original site design for the first stable app version
 
 **TEST 1** ✔️
 <br />
