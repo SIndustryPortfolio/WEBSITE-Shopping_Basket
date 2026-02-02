@@ -42,7 +42,8 @@ ModuleRegistry = [
     "Modules.OffersHandler",
 
     # CONTROLLERS
-    "Controllers.HomeController"
+    "Controllers.HomeController",
+    "Controllers.CatalogueController"
 ]
 
 RequiredModules = {} # Imported Registry
@@ -108,6 +109,7 @@ def Initialise():
     # Functions
     # INIT
     App.config["CoreInfo"] = Utilities.LoadJson("Static/JSON/Core.json")
+    App.config["Pages"] = Utilities.LoadJson("Static/JSON/Pages.json")
 
     with App.app_context():
         Utilities.LoadModules(ModuleRegistry, RequiredModules, App)

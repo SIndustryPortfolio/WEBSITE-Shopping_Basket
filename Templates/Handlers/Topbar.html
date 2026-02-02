@@ -5,8 +5,13 @@
 <script>
     window.Config = {
         "CoreInfo" : {{ CoreInfo | tojson }},
-        "Basket" : {{ Basket.GetDict(JSON=True) | tojson }},
+
+        {% if Basket %}
+            "Basket" : {{ Basket.GetDict(JSON=True) | tojson }},
+        {% endif %}
+        
         "HostURL" : "{{HostURL}}",
+        "CurrentPageName": "{{CurrentPageName}}",
         //
         "StaticPath" : "{{url_for('static', filename='')}}"
     };
@@ -17,7 +22,7 @@
     <!--INT-->    
     <!--STYLE SHEETS-->
     <link rel="stylesheet" href="{{url_for('static', filename='CSS/Shared.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='CSS/' + PageName + '.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='CSS/' + CurrentPageName + '.css')}}">
 
     <!--EXT-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -25,7 +30,7 @@
 
     <!--MISC-->
     <link rel="icon" href="{{url_for('static', filename='Images/Icon.png')}}">
-    <title>{{CoreInfo["Meta"]["Display Name"]}} | {{PageName}}</title>
+    <title>{{CoreInfo["Meta"]["Display Name"]}} | {{CurrentPageName}}</title>
 </head>
 
 <body>
@@ -36,59 +41,43 @@
 
     <div class="ScrollingBackground"></div>
 
-    <div class="Content" style="z-index: 3;">
-        <div class="bg-body-tertiary" style="width: 100%; padding-bottom: 10px; box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);">
-            <h1 class="text-center">{{PageName}}</h1>
-        </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="z-index: 2; display: flex; align-items: center; justify-content: left; flex-direction: row; height: 50px; padding-bottom: 10px; box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08) !important;">
+        <a class="navbar-brand" href="/" style="padding: 0 0 0 10px; ">{{CoreInfo["Meta"]["Display Name"]}}</a> <!--TRBL-->
 
-        <!--<footer class="text-lg-start bg-body-tertiary text-muted" style="position: fixed; width: 100%; bottom: 0; left: 0;">
+        <ul class="navbar-nav text-center mr-auto" style="display: flex; flex-direction: row;">
+            {% for PageName, PageInfo in Pages.items() %}
+                <li class="nav-item active" style="padding-left: 10px;">
+                    <a class="nav-link" href="{{PageInfo['Route']}}">
+                        {% if CurrentPageName == PageName %}
+                            <b>{{PageName}}</b>
+                        {% else %}
+                            {{PageName}}
+                        {% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <!--<div class="Content" style="z-index: 3;">
+
+        <footer class="text-lg-start bg-body-tertiary text-muted" style="position: fixed; width: 100%; bottom: 0; left: 0;">
             <div class="text-center">
-                <p><b>NOTE: Total / Discount values may slightly vary to a degree due to rounding. Example: Instead of £0.95 you may get £0.94.</b></p>
+                <p><b></b></p>
             </div>
-        </footer>-->
+        </footer>
 
-        <!--<br>-->
-    </div>
+        <br>
+    </div>-->
 </body>
 
 <script type="module">
     // CORE
-    import PageModule from "{{url_for('static', filename='JS/' + PageName + '.js')}}";
-
-    let SplashScreenLoaderDiv = document.getElementById("SplashScreenLoader");
+    import PageModule from "{{url_for('static', filename='JS/Topbar.js')}}";
 
     // Functions
-    // MECHANICS
-    function RemoveSplashScreen() 
-    {
-        // Functions
-        // INIT
-        SplashScreenLoaderDiv.classList.add("SplashScreenLoader-Hidden");
-
-        SplashScreenLoaderDiv.addEventListener("transitionend", () => { // CLEAN UP
-            document.removeChild(SplashScreenLoaderDiv);
-        });
-    }
-
-    // DIRECT
-    document.addEventListener("DOMContentLoaded", () => {
-        // Functions
-        // INIT
-
-        if (SplashScreenLoaderDiv != undefined) 
-        {
-            setTimeout(RemoveSplashScreen, 1000);
-        }
-
-        return PageModule.Initialise();
-    });
-
-    window.addEventListener("beforeunload", () => {
-        // Functions
-        // INIT
-
-        return PageModule.End();
-    });
+    // INIT
+    PageModule.Initialise();
 </script>
 
 </html>

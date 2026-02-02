@@ -1,3 +1,35 @@
+/* SHOP TILE */
+.ShopTile .card-img-top {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.ShopTile:hover .card-img-top {
+  transform: rotate(15deg) !important;
+}
+
+.ShopTile:hover .ShopTileCollapse {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.ShopTile .card-body 
+{
+    overflow: hidden;
+}
+
+.ShopTile /* IS A BOOTSTRAP CARD */ 
+{
+    border-radius: 1rem;
+}
+
+.ShopTileCollapse {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .75s ease, opacity 0.3s ease;
+}
+
+/* SHOP */
 .ShopContainer 
 {
   width: 70%;
@@ -10,6 +42,14 @@
   transform-origin: 0% 0%;
 }
 
+.ShopGrid 
+{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 265px));
+  gap: 16px;
+}
+
+/* CHECKOUT */
 .Checkout 
 {
   width: 30%;
@@ -19,12 +59,6 @@
   transition: width 1s;
 }
 
-.ShopGrid 
-{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 265px));
-  gap: 16px;
-}
 
 .CheckoutContent
 {

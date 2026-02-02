@@ -1,3 +1,4 @@
+/* GENERIC */
 html, body {
   margin: 0;
   height: 100%;
@@ -8,7 +9,57 @@ body {
   z-index: 0;
 }
 
+.Content /* ABOVE BACKGROUND */
+{
+    min-height: calc(100vh - 50px); /*Top bar is 50px*/
+    position: relative;
+    z-index: 1;
+}
 
+/* CARD */
+.card 
+{
+    border: 3px solid black !important;
+    animation: CardLoadAnimation 0.3s ease;
+}
+
+@keyframes CardLoadAnimation {
+    from 
+    {
+        transform: translateY(-15%);
+    }
+    to 
+    {
+        transform: translateY(0);
+    }
+}
+
+/* PRICE TAG */
+.PriceTag 
+{
+    display: block; 
+    border-radius: 8px; 
+    background-color: lightgrey; 
+    min-width: 25%; 
+    max-width: 100px; 
+    margin: auto;
+}
+
+/* GRID TILE */
+.GridTile 
+{
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.GridTile:hover
+{
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+
+/* SPLASH SCREEN LOADER */
 .SplashScreenLoader 
 {
     height: 100vh;
@@ -38,7 +89,7 @@ body {
 
     z-index: 2;
     
-    animation: Loading 0.75s ease infinite;
+    animation: SplashScreenLoadingAnimation 0.75s ease infinite;
 }
 
 .SplashScreenLoader-Hidden 
@@ -47,6 +98,13 @@ body {
     visibility: hidden;
 }
 
+@keyframes SplashScreenLoadingAnimation 
+{
+    from { transform: rotate(0turn) }
+    to {transform: rotate(1turn) }
+}
+
+/* SCROLLING BACKGROUND */
 .ScrollingBackground {
     height: 100vh;
     background-repeat: repeat;
@@ -54,18 +112,22 @@ body {
     background-image: url('../Images/Background.png');
     background-blend-mode: lighten;
     background-color: rgb(240, 240, 240);
-    animation: ScrollingBackground 45s linear infinite;
+    animation: ScrollingBackgroundAnimation 45s linear infinite;
     position: absolute;
     inset: 0;
     z-index: 0;
 }
 
-.Content 
-{
-    position: relative;
-    z-index: 1;
+@keyframes ScrollingBackgroundAnimation {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 2000px 2000px;
+  }
 }
 
+/* BUTTONS  */
 .btn {
     border: 3px solid black !important;
     transition: transform .15s ease !important;
@@ -76,59 +138,4 @@ body {
 
 .btn:hover {
     transform: scale(1.05);
-}
-
-.card-body 
-{
-    overflow: hidden;
-}
-
-.card 
-{
-    border: 3px, solid, black !important;
-    border-radius: 1rem;
-    
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-
-.HoverCollapse {
-    max-height: 0;
-    opacity: 0;
-    transition: max-height .75s ease, opacity 0.3s ease;
-}
-
-.card-img-top {
-  transform: rotate(0deg);
-  transition: transform 0.3s ease;
-}
-
-.card:hover .card-img-top {
-  transform: rotate(15deg) !important;
-}
-
-.card:hover .HoverCollapse {
-    max-height: 500px;
-    opacity: 1;
-}
-
-.card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-@keyframes Loading 
-{
-    from { transform: rotate(0turn) }
-    to {transform: rotate(1turn) }
-}
-
-@keyframes ScrollingBackground {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 2000px 2000px;
-  }
 }

@@ -91,6 +91,7 @@ class Shortcuts:
         return {
             "RequestCount": session.get("RequestCount", 0),
             "CoreInfo": CurrentApp.config["CoreInfo"] or {},
+            "Pages": CurrentApp.config["Pages"] or {},
             "HostURL" : request.host_url or Shortcuts.GetHostURL(),
             "Basket": BasketHandler.GetBasket(BasketId),
             "Utilities": Utilities,
@@ -119,7 +120,7 @@ class Shortcuts:
         Packaged = {
             **Shortcuts.GetPageEssentials(),
             **(KWArgs or {}),
-            "PageName": PageName,
+            "CurrentPageName": PageName,
         }
        
         Response = make_response(render_template(TemplatePath, **Packaged))
