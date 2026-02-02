@@ -34,8 +34,6 @@ async function Initialise()
         {
             setTimeout(RemoveSplashScreen, 500);
         }
-
-        console.log(CurrentPageModule);
         
         return CurrentPageModule.Initialise();
     }
