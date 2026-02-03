@@ -3,18 +3,31 @@
 <html lang="en">
 
 <script>
-    window.Config = {
-        "CoreInfo" : {{ CoreInfo | tojson }},
+    window.Config = {}
+    window.Config["CoreInfo"] = {{ CoreInfo | tojson }};
+    window.Config["HostURL"] = "{{HostURL}}";
+    window.Config["CurrentPageName"] = "{{CurrentPageName}}";
+    window.Config["StaticPath"] = "{{url_for('static', filename='')}}";
 
-        {% if Basket %}
-            "Basket" : {{ Basket.GetDict(JSON=True) | tojson }},
-        {% endif %}
-        
-        "HostURL" : "{{HostURL}}",
-        "CurrentPageName": "{{CurrentPageName}}",
-        //
-        "StaticPath" : "{{url_for('static', filename='')}}"
-    };
+    {% if Basket %}
+        window.Config["Basket"] = {{ Basket.GetDict(JSON=True) | tojson }};
+    {% endif %}
+
+
+    window.Config["Products"] = [];
+
+    let ProductInfo, ItemsInBasket;
+
+    {% for Product in Products %}
+
+        ProductInfo = {{ Product.GetDict(JSON=True) | tojson }};
+        ItemsInBasket = {{Basket.GetItemsFromName(Product["Name"], JSON=True) | tojson}};
+
+        ProductInfo["ImportedQuantity"] = ItemsInBasket.length;
+        ProductInfo["Items"] = ItemsInBasket;
+
+        window.Config["Products"].push(ProductInfo);
+    {% endfor %}
 </script>
 
 
@@ -58,17 +71,6 @@
             {% endfor %}
         </ul>
     </nav>
-
-    <!--<div class="Content" style="z-index: 3;">
-
-        <footer class="text-lg-start bg-body-tertiary text-muted" style="position: fixed; width: 100%; bottom: 0; left: 0;">
-            <div class="text-center">
-                <p><b></b></p>
-            </div>
-        </footer>
-
-        <br>
-    </div>-->
 </body>
 
 <script type="module">

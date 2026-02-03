@@ -77,7 +77,7 @@
 
 .TableWrapper {
   flex: 1;
-  max-height: 35%;
+  max-height: 45%;
   overflow-y: auto;
   overflow-x: hidden;
 }
