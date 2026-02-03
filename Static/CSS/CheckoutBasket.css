@@ -1,0 +1,51 @@
+
+/* CHECKOUT */
+.Checkout 
+{
+  width: 30%;
+  max-width: 30%;
+  height: calc(100vh - 50px);
+  transition: transform 1s ease;
+  transform-origin: 100% 0%;
+  transition: width 1s;
+}
+
+
+.CheckoutContent
+{
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  width: 100%;
+}
+
+.CheckoutContent section 
+{
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.CloseCheckout 
+{
+  width: 0;
+  transform-origin: 100% 0%;
+}
+
+/* CHECKOUT TABLE */
+.TableWrapper {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.TableWrapper table thead th 
+{
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: white;  
+}

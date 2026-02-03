@@ -76,12 +76,8 @@ function HandleUserBasketTable()
         // INIT
         for (let index in ProductInfo["Items"]) 
         {
-            console.log(index);
-
             const Item = ProductInfo["Items"][index];
-
-            console.log(Item);
-
+            
             Price += Item["Price"];
             BasketPrice += Item["BasketPrice"];
         }

@@ -1,33 +1,41 @@
+<head>
+    <!--INT-->    
+    <!--STYLE SHEETS-->
+    <link rel="stylesheet" href="{{url_for('static', filename='CSS/CheckoutBasket.css')}}">
+</head>
+
 <body>
-    <div class="Checkout" id="UserBasketContainer" style="height: calc(100% - 50px); position: fixed; right: 0; z-index: 3;">
+    <div class="Checkout" id="UserBasketContainer" style="position: fixed; right: 0; z-index: 3;">
         <button id="CheckoutToggle" class="btn btn-secondary" style="height: 5vh; aspect-ratio: 1 / 1; transform: translate(-100%, 50%); z-index: 3; padding: 0;">></button>
 
-        <div id="CheckoutContent" class="CheckoutContent" style="position: absolute; top: 0; display: block; background-color: white; float: right; padding-top: 16px; display: flex; flex-direction: column;">
-            <h2 class="text-center" style="flex-shrink: 0; position: sticky;">🧺 Your basket</h2>
-            <hr>
-            
-            <section class="TableWrapper" style="padding-bottom: 16px;">
-                {% if Basket['Items']|length > 0 %}
-                    <table id="UserBasketTable" class="table table-striped" style="width: 90%; margin: auto; position: relative; z-index: 0;">
-                        <thead>
-                            <tr>
-                                <th>Product Name</th> <!-- All names aligned left -->
-                                <th class="text-center">Quantity</th>
-                                <th class="text-center">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody style="overflow-y: scroll;">
+        <div id="CheckoutContent" class="CheckoutContent" style="position: absolute; top: 0; background-color: white; padding-top: 16px;">
+            <section>
+                <h2 class="text-center" style="flex-shrink: 0; position: sticky;">🧺 Your basket</h2>
+                <hr>
 
-                        </tbody>
-                    </table>
-                {% else %}
-                    <p class="text-center"><i>You have no items in your basket!</i></p>
-                {% endif %}
+                <div class="TableWrapper" style="padding-bottom: 16px;">
+                    {% if Basket['Items']|length > 0 %}
+                        <table id="UserBasketTable" class="table table-striped" style="width: 90%; margin: auto; position: relative;">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th> <!-- All names aligned left -->
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-center">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody style="">
+
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="text-center"><i>You have no items in your basket!</i></p>
+                    {% endif %}
+                </div>
             </section>
             
 
-            <section class="text-center" style="width: 100%; display: block; background-color: white; padding: 24px; box-shadow: 0px -16px 10px rgba(0, 0, 0, 0.08); position: relative; z-index: 1;">
-                <h2 class="text-center" style="position: sticky;">💰 Costs</h2>
+            <section class="text-center" style="width: 100%; display: block; background-color: white; padding: 24px; box-shadow: 0px -16px 10px rgba(0, 0, 0, 0.08); flex-shrink: 0; bottom: 0; position: sticky;">
+                <h2 class="text-center">💰 Costs</h2>
                 <hr>
                 <div style="width: 70%; margin: auto;">
                     <div class="row">
