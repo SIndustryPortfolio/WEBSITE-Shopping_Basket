@@ -24,6 +24,28 @@ CurrentApp = None
 
 class Utilities:
     @staticmethod
+    def TableSort(Table, Function=None, Reverse=False):
+        # Functions
+        # INIT
+        if Function == None:
+            Function = lambda A, B: A < B # Default sort
+
+        Length = len(Table)
+        for x in range(1, Length):
+            A = Table[x]
+            BIndex = x - 1
+
+            while BIndex >= 0 and Function(A, Table[BIndex]):
+                Table[BIndex + 1] = Table[BIndex]
+                BIndex -= 1
+
+            Table[BIndex + 1] = A
+
+        if Reverse:
+            Table.reverse()
+            
+
+    @staticmethod
     def FormatMoney(Number):
         # Functions
         # INIT

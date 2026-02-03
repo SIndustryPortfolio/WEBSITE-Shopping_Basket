@@ -344,6 +344,16 @@ class OffersHandler():
     
 
 ##
+def FairPriceSort(Product1Name, Product2Name):
+    # CORE
+    Product1 = CatalogueHandler.GetProductByName(Product1Name)
+    Product2 = CatalogueHandler.GetProductByName(Product2Name)
+
+    # Functions
+    # INIT
+    return Product1["Price"] < Product2["Price"]
+
+
 def LoadRecords(Records):
     # Functions
     # MECHANICS
@@ -380,9 +390,11 @@ def LoadRecords(Records):
 
         for ProductNameOrFamily in OfferTargets:
             if isinstance(ProductNameOrFamily, list):
+                Utilities.TableSort(ProductNameOrFamily, FairPriceSort)
+
                 for ProductName in ProductNameOrFamily:
                     HandleOne(OfferName, ProductName, IsFamily=True)
-                
+
                 continue
             
             HandleOne(OfferName, ProductNameOrFamily)
