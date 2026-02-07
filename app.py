@@ -4,7 +4,7 @@ import os
 import threading
 import time
 
-from Modules.Utilities import Utilities
+from Backend.Modules.Utilities import Utilities
 
 # EXT
 from flask import Flask
@@ -34,16 +34,16 @@ App.config["DBPassword"] = os.environ.get("DBPassword", "admin")
 ## CORE
 ModuleRegistry = [
     # SERVICES
-    "Modules.Utilities",
-    "Modules.Shortcuts",
-    "Modules.Database",
-    "Modules.BasketHandler",
-    "Modules.CatalogueHandler",
-    "Modules.OffersHandler",
+    "Backend.Modules.Utilities",
+    "Backend.Modules.Shortcuts",
+    "Backend.Modules.Database",
+    "Backend.Modules.BasketHandler",
+    "Backend.Modules.CatalogueHandler",
+    "Backend.Modules.OffersHandler",
 
     # CONTROLLERS
-    "Controllers.HomeController",
-    "Controllers.CatalogueController"
+    "Backend.Controllers.HomeController",
+    "Backend.Controllers.CatalogueController"
 ]
 
 RequiredModules = {} # Imported Registry
