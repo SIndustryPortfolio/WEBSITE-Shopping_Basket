@@ -34,6 +34,7 @@ A supermarket basket-pricing web application that allows users to add and remove
 I chose to implement this solution as a **full web application** rather than a CLI or desktop-based app for the following reasons:
 
 - The job specification emphasised **Python and JavaScript** with ~3 years of experience, so this approach best demonstrates proficiency in the required stack.
+<br>
 [EDIT]: Migrated JS -> TS; a more production-ready superset of JavaScript.
 
 - A web-based solution better reflects **real-world usage**, such as online shopping platforms or in-store systems.
