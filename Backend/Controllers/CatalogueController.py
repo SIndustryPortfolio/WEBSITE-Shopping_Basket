@@ -1,3 +1,10 @@
+### READ
+#
+# - Catalogue page "/Catagloue"
+# - Handles Update & Reset Basket
+#
+###
+
 # MODULES
 # INTERNAL
 from ..Modules.Utilities import Utilities

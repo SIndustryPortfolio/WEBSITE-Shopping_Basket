@@ -112,73 +112,6 @@ class BuyXGetXFree(): #(Offer):
                 if Count == Buy:
                     Count = 0
                     Skip = Free
-
-
-
-    """"
-    @staticmethod
-    def GetPriceReduction(OfferName, RelevantItemsMeta):
-        # CORE
-        Cache = OffersCache[OfferName]
-        Targets = Cache["Targets"]
-
-        SubTotal = 0
-        PriceReduction = 0
-        Skip = 0
-
-        # Functions
-        # INIT
-        for ProductNameOrFamily in Targets:
-            Skip = False
-
-            ###################
-            # DISCOUNT FAMILY #
-            ###################
-            if isinstance(ProductNameOrFamily, list):
-                FamilySize = len(ProductNameOrFamily)
-                
-                Count = 0
-                for x in range(FamilySize - 1, -1, -1):
-                    ProductName = ProductNameOrFamily[x]
-                    BasePrice = CatalogueHandler.GetProductByName(ProductName)["Price"]
-                    Quantity = RelevantItemsMeta["Counters"][ProductName]
-                    SubTotal += Quantity * BasePrice
-
-                    for y in range(0, Quantity):
-                        if Skip > 0:
-                            PriceReduction += BasePrice
-                            Skip -= 1
-                            continue
-
-                        Count += 1
-
-                        if Count % Cache["Options"]["Buy"] == 0:
-                            Skip = Cache["Options"]["Free"]
-
-                continue
-
-            ###################
-            # SINGLE  PRODUCT #
-            ###################
-            ProductName = ProductNameOrFamily
-            BasePrice = CatalogueHandler.GetProductByName(ProductName)["Price"]
-            Quantity = RelevantItemsMeta["Counters"][ProductName]
-            SubTotal += Quantity * BasePrice
-            Count = 0
-
-            for y in range(0, Quantity):
-                if Skip > 0:
-                    PriceReduction += BasePrice
-                    Skip -= 1
-                    continue
-
-                Count += 1
-
-                if Count % Cache["Options"]["Buy"] == 0:
-                    Skip = Cache["Options"]["Free"]
-
-        return round(PriceReduction, 2), SubTotal
-    """
             
 
     # DEPRECATED, builds actual offer name based off options
@@ -216,39 +149,9 @@ class Percentage(): #(Offer):
         for ProductName in Cache["Targets"]:
             CountersMeta = RelevantItemsMeta["Counters"][ProductName]
 
-            print(CountersMeta["Products"])
-
             for Item in CountersMeta["Products"]:
-                print("Item Id: " + str(id(Item)))
-                print("Item Price: " + str(Item["Price"]))
-                print("Item Basket Price: " + str(Item["BasketPrice"]))
-                print("Discount Multiplier: " + str(DiscountMultiplier))
-                print("New Basket Price: " + str(Item["BasketPrice"] - (Item["Price"] * DiscountMultiplier)))
-
                 Item["BasketPrice"] -= (Item["Price"] * DiscountMultiplier)
 
-
-    """"
-    @staticmethod
-    def GetPriceReduction(OfferName, RelevantItemsMeta):
-        # CORE
-        Cache = OffersCache[OfferName]
-
-        SubTotal = 0
-        PriceReduction = 0
-        
-        # Functions
-        # INIT
-        for ProductName in Cache["Targets"]:
-            CountersMeta = RelevantItemsMeta["Counters"][ProductName]
-
-            BasePrice = CatalogueHandler.GetProductByName(ProductName)["Price"]
-            Quantity = CountersMeta["Count"]
-            SubTotal = Quantity * BasePrice
-            PriceReduction += Utilities.Clamp((Quantity * (Cache["Options"]["DiscountBy"] / 100)), 0, math.inf) * BasePrice
-
-        return round(PriceReduction, 2), SubTotal
-    """
 
     # DEPRECATED, builds actual offer name based off options
     """"

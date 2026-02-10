@@ -2,6 +2,8 @@ export {};
 
 declare global 
 {
+    type Module = {[key : string] : any}
+
     type Product = 
     {
         "Name" : string,

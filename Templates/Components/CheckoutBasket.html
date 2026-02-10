@@ -2,11 +2,15 @@
     <!--INT-->    
     <!--STYLE SHEETS-->
     <link rel="stylesheet" href="{{url_for('static', filename='CSS/CheckoutBasket.css')}}">
+    
+    <!--SCRIPTS-->
+    <link rel="script" href="{{url_for('static', filename='JS/Components/CheckoutBasket.js')}}">
 </head>
 
 <body>
     <div class="Checkout" id="UserBasketContainer" style="position: fixed; right: 0; z-index: 3;">
-        <button id="CheckoutToggle" class="btn btn-secondary" style="height: 5vh; aspect-ratio: 1 / 1; transform: translate(-100%, 50%); z-index: 3; padding: 0;">></button>
+        
+        <button id="CheckoutToggle" class="btn btn-secondary" style="height: 5vh; aspect-ratio: 1 / 1; transform: translate(-100%, 50%); z-index: 3; padding: 0; transition: border-radius .3s ease !important;">></button>
 
         <div id="CheckoutContent" class="CheckoutContent" style="position: absolute; top: 0; background-color: white; padding-top: 16px;">
             <section>
@@ -80,3 +84,12 @@
         </div>
     </div>
 </body>
+
+<script type="module">
+    // CORE
+    import ComponentModule from "{{url_for('static', filename='JS/Components/CheckoutBasket.js')}}";
+
+    // Functions
+    // INIT
+    ComponentModule.Initialise();
+</script>

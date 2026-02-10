@@ -1,4 +1,4 @@
-var PageModule: {[key : string]: any} = {}
+var ComponentModule: Module = {}
 
 // Functions
 // MECHANICS
@@ -6,7 +6,7 @@ async function Initialise() : Promise<void>
 {
     // CORE
     let CoreConfig = window.Config;
-    let {default: CurrentPageModule} = await import(CoreConfig["StaticPath"] + "JS/" + CoreConfig["CurrentPageName"] + ".js"); // Explicitly define default export
+    let {default: CurrentPageModule} = await import(CoreConfig["StaticPath"] + "JS/Pages/" + CoreConfig["CurrentPageName"] + ".js"); // Explicitly define default export
 
     // Elements
     // DIVS
@@ -60,6 +60,6 @@ async function Initialise() : Promise<void>
 }
 
 // DIRECT   
-PageModule.Initialise = Initialise;
+ComponentModule.Initialise = Initialise;
 
-export default PageModule;
+export default ComponentModule;

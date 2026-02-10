@@ -1,3 +1,10 @@
+### READ
+#
+# - Home page "/"
+# - Handles Session reset / New user join
+#
+###
+
 # MODULES
 # INTERNAL
 from ..Modules.Utilities import Utilities

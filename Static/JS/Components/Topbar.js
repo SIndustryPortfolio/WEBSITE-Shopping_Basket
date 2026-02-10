@@ -1,10 +1,10 @@
-var PageModule = {};
+var ComponentModule = {};
 // Functions
 // MECHANICS
 async function Initialise() {
     // CORE
     let CoreConfig = window.Config;
-    let { default: CurrentPageModule } = await import(CoreConfig["StaticPath"] + "JS/" + CoreConfig["CurrentPageName"] + ".js"); // Explicitly define default export
+    let { default: CurrentPageModule } = await import(CoreConfig["StaticPath"] + "JS/Pages/" + CoreConfig["CurrentPageName"] + ".js"); // Explicitly define default export
     // Elements
     // DIVS
     let SplashScreenLoaderDiv = document.getElementById("SplashScreenLoader");
@@ -43,6 +43,6 @@ async function Initialise() {
     });
 }
 // DIRECT   
-PageModule.Initialise = Initialise;
-export default PageModule;
+ComponentModule.Initialise = Initialise;
+export default ComponentModule;
 //# sourceMappingURL=Topbar.js.map

@@ -1,6 +1,6 @@
 var PageModule = {};
 // Modules
-import UtilitiesModule from "./Modules/Utilities.js";
+import UtilitiesModule from "../Modules/Utilities.js";
 // Functions
 // MECHANICS
 function Initialise() {
