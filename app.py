@@ -1,12 +1,11 @@
 # Modules
-# INIT
-import os
-import threading
-import time
-
+# INT
 from Backend.Modules.Utilities import Utilities
 
 # EXT
+import os
+import threading
+import time
 from flask import Flask
 
 # CORE / CONFIG
